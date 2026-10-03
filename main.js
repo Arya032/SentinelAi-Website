@@ -550,7 +550,8 @@ updateSpotlight();
 
   const KNOWLEDGE_BASE = {
     "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, SentinelAI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
-    "Show an alert translation example": "Instead of dumping raw hex and CVE-2024-xxxx, we send a Slack card: 'Sarah clicked a spoofed DocuSign link. Script halted in 0.18s, file quarantined, machine safe. [Notify Vendor] [Dismiss]'.",
+    "How do you handle AI phishing or deepfakes?": "SentinelAI cross-references synthetic sender patterns, suspicious URI redirects, and behavioral execution hooks in real time—instantly isolating spoofed sessions before credentials or 2FA tokens can be exposed.",
+    "Show an alert translation example": "Instead of dumping raw hex and CVE-2024-xxxx, we send a Slack card: 'Sarah opened a spoofed vendor email. Living-off-the-land script halted in 0.18s, payload quarantined, machine safe. [Notify Vendor] [Dismiss]'.",
     "Can I deploy on just 1 machine?": "Yes! We have a 1-seat minimum at $8/device/month. No 50-seat minimum extortion, no 3-month sales calls. Just run the 1-line curl command."
   };
 
@@ -598,6 +599,15 @@ updateSpotlight();
     const lower = input.toLowerCase();
     if (lower.includes('build') || lower.includes('cargo') || lower.includes('npm') || lower.includes('cpu') || lower.includes('slow')) {
       return "SentinelAI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (node, cargo, docker) and inspect asynchronously with zero build lag!";
+    }
+    if (lower.includes('ransomware') || lower.includes('ghost') || lower.includes('encrypt') || lower.includes('trojan')) {
+      return "SentinelAI detects behavioral encryption and anomalous shadow copy tampering at the kernel level, arresting ransomware execution within 0.18s before data is locked.";
+    }
+    if (lower.includes('phish') || lower.includes('deepfake') || lower.includes('spoof') || lower.includes('social engineering')) {
+      return "SentinelAI neutralizes AI-crafted phishing and credential spoofing in real time, isolating malicious payloads before session tokens or OTPs can be intercepted.";
+    }
+    if (lower.includes('supply') || lower.includes('jenkins') || lower.includes('pipeline') || lower.includes('package')) {
+      return "Our in-kernel eBPF sensors intercept suspicious build-script executions and reverse shells, stopping supply chain compromises without impacting build throughput.";
     }
     if (lower.includes('alert') || lower.includes('slack') || lower.includes('teams') || lower.includes('translate')) {
       return "We eliminate alert paralysis! Threat trees are translated into 10-second plain-English Slack or Teams cards with 1-click contextual resolution.";
@@ -966,7 +976,7 @@ updateSpotlight();
       
       const textSpan = document.getElementById('speech-text');
       if (textSpan) {
-        textSpan.innerHTML = '<span class="text-[#f59e0b] font-bold">🚨 Unauthorized PowerShell Process Injection Intercepted!</span> Inspecting via eBPF kernel ring buffer...';
+        textSpan.innerHTML = '<span class="text-[#f59e0b] font-bold">🚨 Living-off-the-land fileless script injection intercepted!</span> Inspecting via eBPF kernel ring buffer...';
       }
 
       setTimeout(() => {
@@ -975,7 +985,7 @@ updateSpotlight();
           window.setRobotExpressionState('SAFETY_CONFIRMED', 4000);
         }
         if (textSpan) {
-          textSpan.innerHTML = '<span class="text-[#10b981] font-bold">✅ Malicious Sub-Thread Suspended (0.18s)!</span> Host application and dev terminals remain 100% active with zero data loss or build lag.';
+          textSpan.innerHTML = '<span class="text-[#10b981] font-bold">✅ Malicious sub-process suspended in 0.18s!</span> Outbound C2 beacon dropped. Host terminal and active compiles remain 100% unaffected.';
         }
       }, 1600);
     });
