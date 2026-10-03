@@ -170,167 +170,212 @@ updateSpotlight();
   robotCoreLight.position.set(0, 0, 0);
   scene.add(robotCoreLight);
 
-  // Cute Materials (Smooth Pearl White Armor + Dark Screen Visor + LED Emissives)
-  const whiteArmorMat = new THREE.MeshPhongMaterial({
-    color: 0xfcfdfd,
-    specular: 0xffffff,
-    shininess: 100
+  // Cybernetic Sentinel Materials (Titanium White Armor + Deep Obsidian Chassis + Dark Gloss Visor + Energy Emissive)
+  const pearlArmorMat = new THREE.MeshPhongMaterial({
+    color: 0xf1f5f9,
+    specular: 0x38bdf8,
+    shininess: 90
   });
 
-  const darkVisorMat = new THREE.MeshPhongMaterial({
-    color: 0x0a0c16,
+  const darkArmorMat = new THREE.MeshPhongMaterial({
+    color: 0x090d16,
     specular: 0x00f2fe,
     shininess: 120
   });
 
-  const cyanEmissiveMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
-  const pinkEmissiveMat = new THREE.MeshBasicMaterial({ color: 0xff55aa });
+  const visorMat = new THREE.MeshPhongMaterial({
+    color: 0x030712,
+    specular: 0x38bdf8,
+    shininess: 140
+  });
 
-  const shieldPlateMat = new THREE.MeshBasicMaterial({
+  const cyanEmissiveMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
+  const coreGlowMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
+  const holoRingMat = new THREE.MeshBasicMaterial({
     color: 0x00f2fe,
     transparent: true,
     opacity: 0.35,
-    wireframe: true,
-    side: THREE.DoubleSide
+    wireframe: true
   });
 
   // Construct Robot Architecture
   const robotGroup = new THREE.Group();
   scene.add(robotGroup);
 
-  // 1. Proper Cute Round Pod Head Group
+  // Responsive Layout Positioning: Anchors Sentinel cleanly on the left (desktop) to ensure zero overlap with dialogue console
+  function updateRobotLayoutPosition() {
+    const isDesktop = window.innerWidth >= 768;
+    if (isDesktop) {
+      robotGroup.position.set(-1.45, 0, 0);
+      robotGroup.scale.set(1.05, 1.05, 1.05);
+    } else {
+      robotGroup.position.set(0, 0.75, 0);
+      robotGroup.scale.set(0.85, 0.85, 0.85);
+    }
+  }
+  updateRobotLayoutPosition();
+
+  // 1. Cybernetic Helmet & Head Pod
   const headGroup = new THREE.Group();
-  headGroup.position.set(0, 1.05, 0);
+  headGroup.position.set(0, 1.1, 0);
   robotGroup.add(headGroup);
 
-  // Smooth Round Head Shell (Porcelain White Sphere)
-  const headGeo = new THREE.SphereGeometry(1.0, 32, 32);
-  headGeo.scale(1.12, 0.98, 0.96);
-  const headShell = new THREE.Mesh(headGeo, whiteArmorMat);
-  headGroup.add(headShell);
+  // Outer Helm Shell: Aerodynamic, sleek pod
+  const helmGeo = new THREE.SphereGeometry(0.95, 32, 32);
+  helmGeo.scale(1.05, 0.95, 1.0);
+  const helmMesh = new THREE.Mesh(helmGeo, pearlArmorMat);
+  headGroup.add(helmMesh);
 
-  // Face Feature Group (Placed directly on smooth porcelain head surface)
-  const faceGroup = new THREE.Group();
-  headGroup.add(faceGroup);
+  // Top Aerodynamic Crest / Thermal Exhaust Fin
+  const crestGeo = new THREE.BoxGeometry(0.08, 0.22, 0.85);
+  const crestMesh = new THREE.Mesh(crestGeo, darkArmorMat);
+  crestMesh.position.set(0, 0.92, -0.05);
+  crestMesh.rotation.x = -0.15;
+  headGroup.add(crestMesh);
 
-  // Expressive LED Ring Eyes + Inner Pupil Sphere + White Catchlight Sparkle
-  const eyeRingGeo = new THREE.TorusGeometry(0.18, 0.035, 16, 32);
-  const eyePupilGeo = new THREE.SphereGeometry(0.12, 24, 24);
-  const sparkGeo = new THREE.SphereGeometry(0.045, 12, 12);
-  const sparkMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  // Curved Panoramic Obsidian Visor
+  const visorGeo = new THREE.CylinderGeometry(0.88, 0.82, 0.52, 32, 1, false, -Math.PI * 0.42, Math.PI * 0.84);
+  const visorMesh = new THREE.Mesh(visorGeo, visorMat);
+  visorMesh.position.set(0, 0.05, 0.36);
+  headGroup.add(visorMesh);
 
-  // Left Eye Assembly
-  const eyeLeft = new THREE.Mesh(eyeRingGeo, cyanEmissiveMat);
-  eyeLeft.position.set(-0.42, 0.08, 0.94);
-  faceGroup.add(eyeLeft);
+  // Dual Cyber Optic Slits (High-tech horizontal reticles)
+  const opticGeo = new THREE.BoxGeometry(0.24, 0.055, 0.04);
+  const eyeLeft = new THREE.Mesh(opticGeo, cyanEmissiveMat);
+  eyeLeft.position.set(-0.35, 0.08, 1.02);
+  headGroup.add(eyeLeft);
 
-  const pupilLeft = new THREE.Mesh(eyePupilGeo, cyanEmissiveMat);
-  pupilLeft.position.set(-0.42, 0.08, 0.93);
-  faceGroup.add(pupilLeft);
+  const eyeRight = new THREE.Mesh(opticGeo, cyanEmissiveMat);
+  eyeRight.position.set(0.35, 0.08, 1.02);
+  headGroup.add(eyeRight);
 
-  const sparkLeft = new THREE.Mesh(sparkGeo, sparkMat);
-  sparkLeft.position.set(-0.36, 0.14, 0.99);
-  faceGroup.add(sparkLeft);
+  // Active Laser Scanline Reticle across visor
+  const scanlineGeo = new THREE.BoxGeometry(0.88, 0.015, 0.03);
+  const scanlineMesh = new THREE.Mesh(scanlineGeo, cyanEmissiveMat);
+  scanlineMesh.position.set(0, 0.05, 1.03);
+  headGroup.add(scanlineMesh);
 
-  // Right Eye Assembly
-  const eyeRight = new THREE.Mesh(eyeRingGeo, cyanEmissiveMat);
-  eyeRight.position.set(0.42, 0.08, 0.94);
-  faceGroup.add(eyeRight);
-
-  const pupilRight = new THREE.Mesh(eyePupilGeo, cyanEmissiveMat);
-  pupilRight.position.set(0.42, 0.08, 0.93);
-  faceGroup.add(pupilRight);
-
-  const sparkRight = new THREE.Mesh(sparkGeo, sparkMat);
-  sparkRight.position.set(0.48, 0.14, 0.99);
-  faceGroup.add(sparkRight);
-
-  // LED Cute Smile Mouth (U-shape Torus Arc)
-  const smileGeo = new THREE.TorusGeometry(0.12, 0.028, 16, 32, Math.PI * 0.85);
-  const smileMesh = new THREE.Mesh(smileGeo, cyanEmissiveMat);
-  smileMesh.rotation.z = Math.PI * 1.07;
-  smileMesh.position.set(0, -0.08, 0.94);
-  faceGroup.add(smileMesh);
-
-  // Cute Pink Glowing Cheeks (Left & Right)
-  const cheekGeo = new THREE.CircleGeometry(0.09, 24);
-  const cheekLeft = new THREE.Mesh(cheekGeo, pinkEmissiveMat);
-  cheekLeft.position.set(-0.58, -0.14, 0.94);
-  faceGroup.add(cheekLeft);
-
-  const cheekRight = new THREE.Mesh(cheekGeo, pinkEmissiveMat);
-  cheekRight.position.set(0.58, -0.14, 0.94);
-  faceGroup.add(cheekRight);
-
-  // Side Ear Headphone Discs
-  const earDiscGeo = new THREE.CylinderGeometry(0.32, 0.32, 0.16, 32);
-  earDiscGeo.rotateZ(Math.PI / 2);
-
-  const earLeft = new THREE.Mesh(earDiscGeo, whiteArmorMat);
-  earLeft.position.set(-1.08, 0, 0);
+  // Tactical Sensor Pods (Side Ears)
+  const earGeo = new THREE.CylinderGeometry(0.26, 0.26, 0.14, 24);
+  earGeo.rotateZ(Math.PI / 2);
+  const earLeft = new THREE.Mesh(earGeo, darkArmorMat);
+  earLeft.position.set(-1.02, 0.02, 0);
   headGroup.add(earLeft);
 
-  const earRight = new THREE.Mesh(earDiscGeo, whiteArmorMat);
-  earRight.position.set(1.08, 0, 0);
+  const earCoreGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.15, 16);
+  earCoreGeo.rotateZ(Math.PI / 2);
+  const earCoreLeft = new THREE.Mesh(earCoreGeo, cyanEmissiveMat);
+  earCoreLeft.position.set(-1.03, 0.02, 0);
+  headGroup.add(earCoreLeft);
+
+  const earRight = new THREE.Mesh(earGeo, darkArmorMat);
+  earRight.position.set(1.02, 0.02, 0);
   headGroup.add(earRight);
 
-  // Top Antenna Stalk + Glowing Tip Ball
-  const antennaStalk = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.3, 16), whiteArmorMat);
-  antennaStalk.position.set(0, 1.0, 0);
-  headGroup.add(antennaStalk);
+  const earCoreRight = new THREE.Mesh(earCoreGeo, cyanEmissiveMat);
+  earCoreRight.position.set(1.03, 0.02, 0);
+  headGroup.add(earCoreRight);
 
-  const antennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), cyanEmissiveMat);
-  antennaTip.position.set(0, 1.15, 0);
-  headGroup.add(antennaTip);
+  // 2. Articulated Neck Collar & Glow Ring
+  const neckGeo = new THREE.CylinderGeometry(0.38, 0.44, 0.22, 24);
+  const neckMesh = new THREE.Mesh(neckGeo, darkArmorMat);
+  neckMesh.position.set(0, 0.22, 0);
+  robotGroup.add(neckMesh);
 
-  // 2. Neck Glow Ring
-  const neckRing = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.035, 16, 32), cyanEmissiveMat);
+  const neckRing = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.025, 16, 32), cyanEmissiveMat);
   neckRing.rotation.x = Math.PI / 2;
-  neckRing.position.set(0, 0.12, 0);
+  neckRing.position.set(0, 0.22, 0);
   robotGroup.add(neckRing);
 
-  // 3. Compact Body Pod
-  const bodyGeo = new THREE.SphereGeometry(0.78, 32, 32);
-  bodyGeo.scale(0.9, 1.1, 0.85);
-  const bodyMesh = new THREE.Mesh(bodyGeo, whiteArmorMat);
-  bodyMesh.position.set(0, -0.58, 0);
-  robotGroup.add(bodyMesh);
+  // 3. Chiseled Armored Torso Chassis & Hex Core Reactor
+  const chestGeo = new THREE.CylinderGeometry(0.72, 0.58, 0.95, 32);
+  const chestMesh = new THREE.Mesh(chestGeo, pearlArmorMat);
+  chestMesh.position.set(0, -0.38, 0);
+  robotGroup.add(chestMesh);
 
-  // Belly Cyan Seam Accent
-  const bellySeam = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.02, 16, 32), cyanEmissiveMat);
-  bellySeam.rotation.x = Math.PI / 2;
-  bellySeam.position.set(0, -0.68, 0);
-  robotGroup.add(bellySeam);
+  const sternumGeo = new THREE.BoxGeometry(0.44, 0.75, 0.25);
+  const sternumMesh = new THREE.Mesh(sternumGeo, darkArmorMat);
+  sternumMesh.position.set(0, -0.36, 0.56);
+  robotGroup.add(sternumMesh);
 
-  // 4. Arms (Waving Right Arm + Left Arm)
+  // Hexagonal Core Reactor in Center of Chest
+  const coreGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.08, 6);
+  coreGeo.rotateX(Math.PI / 2);
+  const reactorCore = new THREE.Mesh(coreGeo, coreGlowMat);
+  reactorCore.position.set(0, -0.34, 0.7);
+  robotGroup.add(reactorCore);
+
+  const coreHalo = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.02, 16, 32), cyanEmissiveMat);
+  coreHalo.position.set(0, -0.34, 0.7);
+  robotGroup.add(coreHalo);
+
+  // Floating Holographic Orbital Defense Ring
+  const ringGeo = new THREE.TorusGeometry(1.65, 0.015, 16, 64);
+  const orbitalRing = new THREE.Mesh(ringGeo, holoRingMat);
+  orbitalRing.rotation.x = Math.PI / 3;
+  orbitalRing.rotation.y = Math.PI / 6;
+  orbitalRing.position.set(0, -0.35, 0);
+  robotGroup.add(orbitalRing);
+
+  // 4. Armored Cybernetic Arms
+  const shoulderGeo = new THREE.SphereGeometry(0.24, 24, 24);
+  const armGeo = new THREE.CylinderGeometry(0.12, 0.1, 0.7, 16);
+
   const armRightGroup = new THREE.Group();
-  armRightGroup.position.set(0.75, -0.4, 0);
+  armRightGroup.position.set(0.85, -0.15, 0);
   robotGroup.add(armRightGroup);
 
-  const armRightMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.14, 0.65, 16), whiteArmorMat);
-  armRightMesh.position.set(0.25, 0.15, 0);
-  armRightMesh.rotation.z = -Math.PI / 3.5;
+  const shoulderRight = new THREE.Mesh(shoulderGeo, darkArmorMat);
+  armRightGroup.add(shoulderRight);
+
+  const armRightMesh = new THREE.Mesh(armGeo, pearlArmorMat);
+  armRightMesh.position.set(0.2, -0.35, 0.05);
+  armRightMesh.rotation.z = -0.35;
   armRightGroup.add(armRightMesh);
 
+  const gauntletRight = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.28, 0.16), darkArmorMat);
+  gauntletRight.position.set(0.32, -0.55, 0.08);
+  armRightGroup.add(gauntletRight);
+
   const armLeftGroup = new THREE.Group();
-  armLeftGroup.position.set(-0.75, -0.4, 0);
+  armLeftGroup.position.set(-0.85, -0.15, 0);
   robotGroup.add(armLeftGroup);
 
-  const armLeftMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.13, 0.65, 16), whiteArmorMat);
-  armLeftMesh.position.set(-0.25, -0.1, 0);
-  armLeftMesh.rotation.z = Math.PI / 6;
+  const shoulderLeft = new THREE.Mesh(shoulderGeo, darkArmorMat);
+  armLeftGroup.add(shoulderLeft);
+
+  const armLeftMesh = new THREE.Mesh(armGeo, pearlArmorMat);
+  armLeftMesh.position.set(-0.2, -0.35, 0.05);
+  armLeftMesh.rotation.z = 0.35;
   armLeftGroup.add(armLeftMesh);
 
-  // 5. Short Stubby Legs
-  const legLeft = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.17, 0.45, 16), whiteArmorMat);
-  legLeft.position.set(-0.32, -1.35, 0);
-  robotGroup.add(legLeft);
+  const gauntletLeft = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.28, 0.16), darkArmorMat);
+  gauntletLeft.position.set(-0.32, -0.55, 0.08);
+  armLeftGroup.add(gauntletLeft);
 
-  const legRight = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.17, 0.45, 16), whiteArmorMat);
-  legRight.position.set(0.32, -1.35, 0);
-  robotGroup.add(legRight);
+  // 5. Lower Armor Chassis & Twin Pylon Thrusters
+  const waistGeo = new THREE.CylinderGeometry(0.52, 0.42, 0.35, 24);
+  const waistMesh = new THREE.Mesh(waistGeo, darkArmorMat);
+  waistMesh.position.set(0, -0.95, 0);
+  robotGroup.add(waistMesh);
 
-  // No surrounding wireframe rings or shield plates (Clean cute robot floating in space)
+  const thrusterGeo = new THREE.CylinderGeometry(0.14, 0.18, 0.4, 20);
+  const thrusterLeft = new THREE.Mesh(thrusterGeo, pearlArmorMat);
+  thrusterLeft.position.set(-0.32, -1.25, 0);
+  robotGroup.add(thrusterLeft);
+
+  const thrusterRight = new THREE.Mesh(thrusterGeo, pearlArmorMat);
+  thrusterRight.position.set(0.32, -1.25, 0);
+  robotGroup.add(thrusterRight);
+
+  const thrusterGlowGeo = new THREE.CylinderGeometry(0.11, 0.08, 0.06, 16);
+  const thrusterGlowLeft = new THREE.Mesh(thrusterGlowGeo, cyanEmissiveMat);
+  thrusterGlowLeft.position.set(-0.32, -1.45, 0);
+  robotGroup.add(thrusterGlowLeft);
+
+  const thrusterGlowRight = new THREE.Mesh(thrusterGlowGeo, cyanEmissiveMat);
+  thrusterGlowRight.position.set(0.32, -1.45, 0);
+  robotGroup.add(thrusterGlowRight);
 
   // Scroll Trigger attached specifically to #robot-section
   const ROBOT_STATE = { scrollProgress: 0 };
@@ -363,23 +408,23 @@ updateSpotlight();
     }
 
     if (state === 'THINKING') {
-      if (statusText) statusText.innerText = 'Sentinel Companion // Answering Your Question...';
+      if (statusText) statusText.innerText = 'Autonomous Sentinel // Analyzing Telemetry...';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#f59e0b] animate-ping'; }
       if (speechBubble) speechBubble.classList.add('speech-bubble-amber');
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'Thinking...';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'Neural Kernel Processing...';
     } else if (state === 'RESPONDING') {
-      if (statusText) statusText.innerText = 'Sentinel Companion // Answering You in Plain English';
+      if (statusText) statusText.innerText = 'Autonomous Sentinel // Explaining Security Decision';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#00f2fe] animate-pulse'; }
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Companion';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Digital Teammate';
     } else if (state === 'SAFETY_CONFIRMED') {
-      if (statusText) statusText.innerText = 'Sentinel Companion // Everything Is Safe & Sound';
+      if (statusText) statusText.innerText = 'Autonomous Sentinel // 100% Fleet Quarantine Safe';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#10b981] animate-bounce'; }
       if (speechBubble) speechBubble.classList.add('speech-bubble-mint');
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'System 100% Secure';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'Fleet Protected // Zero Overhead';
     } else {
-      if (statusText) statusText.innerText = 'Sentinel Companion // Watching Over You';
+      if (statusText) statusText.innerText = 'Autonomous Sentinel // Live eBPF Guard Active';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#10b981] animate-pulse'; }
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Companion';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Digital Teammate';
     }
 
     if (autoResetMs > 0) {
@@ -401,67 +446,56 @@ updateSpotlight();
     const elapsedTime = clock.getElapsedTime();
     const prog = ROBOT_STATE.scrollProgress;
 
-    // Mouse tracking lerp — robot stays facing forward and follows mouse cursor
+    // Mouse tracking lerp — robot stays facing forward and smoothly tracks cursor
     mouse.x += (targetMouse.x - mouse.x) * 0.08;
     mouse.y += (targetMouse.y - mouse.y) * 0.08;
 
-    // 1. Mathematical 3D Vector Screen Projection Math for Speech Cloud
-    if (window.innerWidth > 640 && headGroup && speechCloudWrapper) {
-      const headPos = new THREE.Vector3();
-      headGroup.getWorldPosition(headPos);
-      headPos.y += 0.45; // Offset to top-right of head
-      headPos.x += 0.85;
-
-      const projVec = headPos.clone().project(camera);
-      const containerRect = container.getBoundingClientRect();
-
-      const screenX = (projVec.x * 0.5 + 0.5) * containerRect.width;
-      const screenY = (-(projVec.y * 0.5) + 0.5) * containerRect.height;
-
-      speechCloudWrapper.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`;
+    // Clear any inline transform so speech console follows pure responsive CSS layout with zero overlap
+    if (speechCloudWrapper && speechCloudWrapper.style.transform) {
+      speechCloudWrapper.style.transform = '';
     }
 
-    // 2. Synchronized Robot Expression Animation Loop (Steady & Stationary — No Bouncing)
-    robotGroup.position.y = 0;
+    // Active orbital defense ring & scanline reticle animations
+    orbitalRing.rotation.z += 0.006;
+    orbitalRing.rotation.x = Math.PI / 3 + Math.sin(elapsedTime * 1.5) * 0.05;
+    scanlineMesh.position.y = 0.05 + Math.sin(elapsedTime * 3.5) * 0.12;
 
+    // Synchronized Sentinel Expression & Pose Loop
     if (currentExpression === 'THINKING') {
-      headGroup.rotation.y = mouse.x * 0.3;
-      headGroup.rotation.z = Math.sin(elapsedTime * 8.0) * 0.12;
-      armRightGroup.rotation.z = 0.6 + Math.sin(elapsedTime * 4.0) * 0.1;
+      headGroup.rotation.y = mouse.x * 0.25;
+      headGroup.rotation.z = Math.sin(elapsedTime * 8.0) * 0.08;
+      armRightGroup.rotation.z = 0.4 + Math.sin(elapsedTime * 4.0) * 0.08;
 
       const pulseT = (Math.sin(elapsedTime * 10.0) + 1) / 2;
       currentColor.lerpColors(colorCyan, colorAmber, pulseT);
 
     } else if (currentExpression === 'RESPONDING') {
-      // Vocal Pulse Sync: Pulse light intensity and color rhythmically to simulate speaking
       const vocalPulse = (Math.sin(elapsedTime * 14.0) + 1) / 2;
       currentColor.lerpColors(colorCyan, colorMint, vocalPulse * 0.45);
 
-      // Head tilts slightly toward speech cloud callout
-      headGroup.rotation.z = -0.14 + Math.sin(elapsedTime * 5.0) * 0.05;
-      headGroup.rotation.x = -mouse.y * 0.2 + Math.sin(elapsedTime * 6.0) * 0.06;
-      headGroup.rotation.y = 0.15 + mouse.x * 0.2;
+      headGroup.rotation.z = -0.08 + Math.sin(elapsedTime * 5.0) * 0.03;
+      headGroup.rotation.x = -mouse.y * 0.15 + Math.sin(elapsedTime * 6.0) * 0.04;
+      headGroup.rotation.y = 0.12 + mouse.x * 0.18;
 
-      armRightGroup.rotation.z = Math.sin(elapsedTime * 3.5) * 0.2 + 0.1;
+      armRightGroup.rotation.z = Math.sin(elapsedTime * 3.5) * 0.15 + 0.1;
 
     } else if (currentExpression === 'SAFETY_CONFIRMED') {
-      // All-Clear State: Happy nod & Emerald Mint glow
-      headGroup.rotation.y = mouse.x * 0.4;
-      headGroup.rotation.x = Math.sin(elapsedTime * 6.0) * 0.08; // Happy nod
-      headGroup.rotation.z = Math.sin(elapsedTime * 4.0) * 0.04;
-      armRightGroup.rotation.z = 0.45 + Math.sin(elapsedTime * 5.0) * 0.15;
+      headGroup.rotation.y = mouse.x * 0.3;
+      headGroup.rotation.x = Math.sin(elapsedTime * 6.0) * 0.06;
+      headGroup.rotation.z = Math.sin(elapsedTime * 4.0) * 0.03;
+      armRightGroup.rotation.z = 0.35 + Math.sin(elapsedTime * 5.0) * 0.1;
 
       currentColor.copy(colorMint);
 
     } else { // IDLE
-      headGroup.rotation.y = mouse.x * 0.55;
-      headGroup.rotation.x = -mouse.y * 0.35;
-      headGroup.rotation.z = mouse.x * 0.08;
+      headGroup.rotation.y = mouse.x * 0.45;
+      headGroup.rotation.x = -mouse.y * 0.25;
+      headGroup.rotation.z = mouse.x * 0.06;
 
-      robotGroup.rotation.y = mouse.x * 0.22;
-      robotGroup.rotation.x = -mouse.y * 0.12;
+      robotGroup.rotation.y = mouse.x * 0.18;
+      robotGroup.rotation.x = -mouse.y * 0.1;
 
-      armRightGroup.rotation.z = Math.sin(elapsedTime * 3.2) * 0.18 + 0.1;
+      armRightGroup.rotation.z = Math.sin(elapsedTime * 3.2) * 0.12 + 0.05;
 
       if (prog < 0.5) {
         const t1 = prog / 0.5;
@@ -474,11 +508,15 @@ updateSpotlight();
 
     eyeLeft.material.color.copy(currentColor);
     eyeRight.material.color.copy(currentColor);
-    pupilLeft.material.color.copy(currentColor);
-    pupilRight.material.color.copy(currentColor);
-    smileMesh.material.color.copy(currentColor);
+    scanlineMesh.material.color.copy(currentColor);
+    earCoreLeft.material.color.copy(currentColor);
+    earCoreRight.material.color.copy(currentColor);
     neckRing.material.color.copy(currentColor);
-    bellySeam.material.color.copy(currentColor);
+    reactorCore.material.color.copy(currentColor);
+    coreHalo.material.color.copy(currentColor);
+    orbitalRing.material.color.copy(currentColor);
+    thrusterGlowLeft.material.color.copy(currentColor);
+    thrusterGlowRight.material.color.copy(currentColor);
     robotCoreLight.color.copy(currentColor);
 
     renderer.render(scene, camera);
@@ -493,6 +531,7 @@ updateSpotlight();
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    updateRobotLayoutPosition();
     ScrollTrigger.refresh();
   });
 })();
@@ -510,9 +549,9 @@ updateSpotlight();
   if (!speechText || !speechForm || !speechInput) return;
 
   const KNOWLEDGE_BASE = {
-    "Is my business safe right now?": "Yes, 100%! Everything is quiet, safe, and running smoothly. All your files, emails, and customer data are fully protected.",
-    "How do you keep me protected?": "I act like a friendly digital guard at your door. If anything suspicious tries to come near your business data, I quietly block it before it ever reaches you.",
-    "Do I need any tech skills?": "Not at all! SentinelAI is designed specifically for business owners. There is nothing to install, configure, or manage—just complete peace of mind."
+    "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, SentinelAI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
+    "Show an alert translation example": "Instead of dumping raw hex and CVE-2024-xxxx, we send a Slack card: 'Sarah clicked a spoofed DocuSign link. Script halted in 0.18s, file quarantined, machine safe. [Notify Vendor] [Dismiss]'.",
+    "Can I deploy on just 1 machine?": "Yes! We have a 1-seat minimum at $8/device/month. No 50-seat minimum extortion, no 3-month sales calls. Just run the 1-line curl command."
   };
 
   let isStreaming = false;
@@ -557,16 +596,19 @@ updateSpotlight();
 
   function generateSmartAnswer(input) {
     const lower = input.toLowerCase();
-    if (lower.includes('safe') || lower.includes('security') || lower.includes('status')) {
-      return "Everything is 100% safe and sound! Your business data is protected 24/7 with zero effort required from you.";
+    if (lower.includes('build') || lower.includes('cargo') || lower.includes('npm') || lower.includes('cpu') || lower.includes('slow')) {
+      return "SentinelAI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (node, cargo, docker) and inspect asynchronously with zero build lag!";
     }
-    if (lower.includes('cost') || lower.includes('price') || lower.includes('pay')) {
-      return "SentinelAI offers simple, transparent protection with no hidden fees or surprise upgrades. You get complete peace of mind at one simple price.";
+    if (lower.includes('alert') || lower.includes('slack') || lower.includes('teams') || lower.includes('translate')) {
+      return "We eliminate alert paralysis! Threat trees are translated into 10-second plain-English Slack or Teams cards with 1-click contextual resolution.";
     }
-    if (lower.includes('setup') || lower.includes('install') || lower.includes('work')) {
-      return "There's zero setup required! Once activated, SentinelAI works automatically in the background without slowing down your computer.";
+    if (lower.includes('deploy') || lower.includes('install') || lower.includes('curl') || lower.includes('command')) {
+      return "Deploy fleet-wide in under 3 minutes: run 'curl -fsSL https://get.sentinel.ai | sh' on Linux/macOS or via PowerShell on Windows. No sales calls needed.";
     }
-    return "SentinelAI is keeping your business data safe and protected. Everything is running smoothly so you can focus on your day!";
+    if (lower.includes('price') || lower.includes('cost') || lower.includes('seat')) {
+      return "Pricing is $8/device/mo with a 1-seat minimum and 14-day free pilot. No 50-seat distributor minimums and no annual lock-in!";
+    }
+    return "SentinelAI provides developer-first endpoint security with zero build lag, plain-English incident cards, and 3-minute self-serve deployment.";
   }
 
   function escapeHTML(str) {
@@ -590,16 +632,39 @@ updateSpotlight();
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   6. CRED HOVER GLOW INTERACTIVE HELPERS
+   6. INTERACTIVE CARD 3D MICRO-TILT & DYNAMIC LIGHTING
 ───────────────────────────────────────────────────────────────────────────── */
-document.querySelectorAll('.btn-mint, .glass-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    gsap.to(el, { scale: 1.03, duration: 0.25, ease: 'power2.out' });
+(function initInteractiveHoverEngine() {
+  // Smooth micro-tilt on interactive cards without breaking CSS transitions
+  const interactiveCards = document.querySelectorAll('.hover-tilt-card');
+  interactiveCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const tiltX = (y / (rect.height / 2)) * -3.5;
+      const tiltY = (x / (rect.width / 2)) * 3.5;
+      gsap.to(card, {
+        rotationX: tiltX,
+        rotationY: tiltY,
+        transformPerspective: 900,
+        duration: 0.25,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        rotationX: 0,
+        rotationY: 0,
+        duration: 0.45,
+        ease: 'power2.out',
+        clearProps: 'transform'
+      });
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    gsap.to(el, { scale: 1.0, duration: 0.35, ease: 'power2.out' });
-  });
-});
+})();
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -667,22 +732,80 @@ document.querySelectorAll('.btn-mint, .glass-card').forEach(el => {
   if (navCtaBtn) navCtaBtn.addEventListener('click', () => openModal('signup'));
   if (heroCtaBtn) heroCtaBtn.addEventListener('click', () => openModal('signup'));
 
+  document.querySelectorAll('.deploy-plan-btn, .hero-deploy-cta').forEach(btn => {
+    btn.addEventListener('click', () => openModal('signup'));
+  });
+
   const activateSelectedModulesBtn = document.getElementById('activate-selected-modules-btn');
   if (activateSelectedModulesBtn) {
     activateSelectedModulesBtn.addEventListener('click', () => {
-      const homeSys = document.getElementById('home-mod-system');
-      const homeEmail = document.getElementById('home-mod-email');
-      const homeCloud = document.getElementById('home-mod-cloud');
-
-      const signupSys = document.getElementById('signup-mod-system');
-      const signupEmail = document.getElementById('signup-mod-email');
-      const signupCloud = document.getElementById('signup-mod-cloud');
-
-      if (signupSys && homeSys) signupSys.checked = homeSys.checked;
-      if (signupEmail && homeEmail) signupEmail.checked = homeEmail.checked;
-      if (signupCloud && homeCloud) signupCloud.checked = homeCloud.checked;
-
       openModal('signup');
+    });
+  }
+
+  // 1-Line Install Command Platform Tabs & Copy Controller
+  const tabOsNix = document.getElementById('tab-os-nix');
+  const tabOsWin = document.getElementById('tab-os-win');
+  const heroInstallCmd = document.getElementById('hero-install-cmd');
+  const heroCopyCmdBtn = document.getElementById('hero-copy-cmd-btn');
+  const heroCopyText = document.getElementById('hero-copy-text');
+
+  const NIX_CMD = "curl -fsSL https://get.sentinel.ai | sh -s -- --token=tok_live_trial";
+  const WIN_CMD = "iwr -useb https://get.sentinel.ai/win | iex; Set-SentinelToken tok_live_trial";
+
+  if (tabOsNix && tabOsWin && heroInstallCmd) {
+    tabOsNix.addEventListener('click', () => {
+      tabOsNix.className = "px-2.5 py-1 rounded bg-[#10b981]/20 text-[#10b981] font-semibold transition-all cursor-pointer";
+      tabOsWin.className = "px-2.5 py-1 rounded text-[#8b90a0] hover:text-white transition-all cursor-pointer";
+      heroInstallCmd.innerText = NIX_CMD;
+    });
+
+    tabOsWin.addEventListener('click', () => {
+      tabOsWin.className = "px-2.5 py-1 rounded bg-[#10b981]/20 text-[#10b981] font-semibold transition-all cursor-pointer";
+      tabOsNix.className = "px-2.5 py-1 rounded text-[#8b90a0] hover:text-white transition-all cursor-pointer";
+      heroInstallCmd.innerText = WIN_CMD;
+    });
+  }
+
+  if (heroCopyCmdBtn && heroInstallCmd) {
+    heroCopyCmdBtn.addEventListener('click', () => {
+      const text = heroInstallCmd.innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        playAffirmationChime();
+        if (heroCopyText) heroCopyText.innerText = "Copied!";
+        heroCopyCmdBtn.classList.add('bg-[#10b981]', 'text-slate-950');
+        setTimeout(() => {
+          if (heroCopyText) heroCopyText.innerText = "Copy";
+          heroCopyCmdBtn.classList.remove('bg-[#10b981]', 'text-slate-950');
+        }, 2000);
+      }).catch(() => {
+        if (heroCopyText) heroCopyText.innerText = "Copied!";
+      });
+    });
+  }
+
+  // Interactive 1-Click Incident Card Handlers (Pillar 1)
+  const demoNotifyVendorBtn = document.getElementById('demo-notify-vendor-btn');
+  const demoDismissLogBtn = document.getElementById('demo-dismiss-log-btn');
+  const cardActionStatus = document.getElementById('card-action-status');
+
+  if (demoNotifyVendorBtn) {
+    demoNotifyVendorBtn.addEventListener('click', () => {
+      playAffirmationChime();
+      if (cardActionStatus) {
+        cardActionStatus.classList.remove('hidden');
+        cardActionStatus.innerHTML = '<span class="text-[#00f2fe] font-bold">✅ Warning email auto-drafted & queued to vendor!</span>';
+      }
+    });
+  }
+
+  if (demoDismissLogBtn) {
+    demoDismissLogBtn.addEventListener('click', () => {
+      playAffirmationChime();
+      if (cardActionStatus) {
+        cardActionStatus.classList.remove('hidden');
+        cardActionStatus.innerHTML = '<span class="text-[#10b981] font-bold">✅ Incident logged to compliance audit trail. Closed.</span>';
+      }
     });
   }
 
@@ -843,7 +966,7 @@ document.querySelectorAll('.btn-mint, .glass-card').forEach(el => {
       
       const textSpan = document.getElementById('speech-text');
       if (textSpan) {
-        textSpan.innerHTML = '<span class="text-[#f59e0b] font-bold">🚨 Phishing Link Intercepted!</span> Neutralizing threat in real time...';
+        textSpan.innerHTML = '<span class="text-[#f59e0b] font-bold">🚨 Unauthorized PowerShell Process Injection Intercepted!</span> Inspecting via eBPF kernel ring buffer...';
       }
 
       setTimeout(() => {
@@ -852,7 +975,7 @@ document.querySelectorAll('.btn-mint, .glass-card').forEach(el => {
           window.setRobotExpressionState('SAFETY_CONFIRMED', 4000);
         }
         if (textSpan) {
-          textSpan.innerHTML = '<span class="text-[#10b981] font-bold">✅ Threat Blocked & Shielded!</span> Your business files & email inbox remain 100% safe.';
+          textSpan.innerHTML = '<span class="text-[#10b981] font-bold">✅ Malicious Sub-Thread Suspended (0.18s)!</span> Host application and dev terminals remain 100% active with zero data loss or build lag.';
         }
       }, 1600);
     });
@@ -874,11 +997,11 @@ document.querySelectorAll('.btn-mint, .glass-card').forEach(el => {
     if (auditScoreNum) auditScoreNum.innerText = `${score}%`;
     if (auditScoreLabel) {
       if (score >= 90) {
-        auditScoreLabel.innerHTML = '<i class="ph ph-shield-check-bold text-[#10b981]"></i> <span class="text-[#10b981]">High Shielding</span>';
+        auditScoreLabel.innerHTML = '<i class="ph ph-shield-check-bold text-[#10b981]"></i> <span class="text-[#10b981]">Strong Shielding</span>';
       } else if (score >= 70) {
-        auditScoreLabel.innerHTML = '<i class="ph ph-warning-bold text-[#f59e0b]"></i> <span class="text-[#f59e0b]">Moderate Risk</span>';
+        auditScoreLabel.innerHTML = '<i class="ph ph-warning-bold text-[#f59e0b]"></i> <span class="text-[#f59e0b]">Moderate Exposure</span>';
       } else {
-        auditScoreLabel.innerHTML = '<i class="ph ph-warning-octagon-bold text-rose-500"></i> <span class="text-rose-500">Protection Needed</span>';
+        auditScoreLabel.innerHTML = '<i class="ph ph-warning-octagon-bold text-rose-500"></i> <span class="text-rose-500">High Risk (Supply Chain / Exclusions)</span>';
       }
     }
   }
