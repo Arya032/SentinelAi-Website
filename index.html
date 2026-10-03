@@ -45,6 +45,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <!-- Custom Styles -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-[#07080a] text-white selection:bg-[#10b981] selection:text-[#07080a]">
@@ -66,16 +67,9 @@
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         
         <!-- Brand Logo -->
-        <a href="#" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-2xl bg-[#10b981]/15 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] group-hover:scale-105 transition-transform shadow-lg shadow-[#10b981]/10">
-            <i class="ph ph-shield-check text-xl"></i>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-heading font-bold text-xl tracking-wide text-white">
-              CYENEX<span class="text-[#10b981]">.AI</span>
-            </span>
-            <span class="text-[9px] font-mono uppercase tracking-widest text-[#00f2fe] -mt-1">For Tech Teams & IT</span>
-          </div>
+        <a href="#" class="flex items-center gap-2.5 group">
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-8 h-8 sm:w-9 sm:h-9 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_12px_rgba(0,255,171,0.35)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="h-5 sm:h-5.5 w-auto object-contain" />
         </a>
 
         <!-- Navigation Links -->
@@ -92,7 +86,7 @@
             <i class="ph ph-terminal-window text-[#f59e0b]"></i>
             <span>3-Min Deploy</span>
           </a>
-          <a href="#pricing-section" class="hover:text-white transition-colors">Pricing (₹149/mo)</a>
+          <a href="#pricing-section" class="hover:text-white transition-colors">Pricing</a>
           <button id="nav-login-btn" class="hover:text-white transition-colors cursor-pointer ml-2">Login</button>
         </nav>
 
@@ -723,10 +717,8 @@
       <!-- Footer -->
       <footer class="max-w-7xl mx-auto pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#8b90a0]">
         <div class="flex items-center gap-3">
-          <div class="w-7 h-7 rounded-xl bg-[#10b981]/20 border border-[#10b981]/40 flex items-center justify-center text-[#10b981]">
-            <i class="ph ph-shield-check text-base"></i>
-          </div>
-          <span class="font-heading font-bold text-white tracking-wider">CYENEX.AI</span>
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(0,255,171,0.25)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="h-4.5 w-auto object-contain" />
           <span class="text-[11px]">© 2026 CYENEX.AI. The Developer-First Endpoint Defense.</span>
         </div>
         <div class="flex items-center gap-6 flex-wrap">
@@ -755,11 +747,9 @@
 
       <!-- Brand Logo Header -->
       <div class="text-center space-y-2 mb-6">
-        <div class="inline-flex items-center gap-2">
-          <div class="w-8 h-8 rounded-xl bg-[#10b981]/20 border border-[#10b981]/40 flex items-center justify-center text-[#10b981]">
-            <i class="ph ph-shield-check text-lg"></i>
-          </div>
-          <span class="font-heading font-bold text-lg text-white">CYENEX<span class="text-[#10b981]">.AI</span></span>
+        <div class="inline-flex items-center justify-center gap-2.5">
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(0,255,171,0.3)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="h-5 w-auto object-contain" />
         </div>
         <p id="auth-modal-subtitle" class="text-xs text-[#8b90a0]">Deploy fleet protection in 3 minutes. 14-day free pilot.</p>
       </div>
