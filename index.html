@@ -176,14 +176,20 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
                 </span>
-                <span class="text-[11px] uppercase font-mono font-bold tracking-widest text-[#00f2fe]" id="speech-header-title">SentinelAI Digital Teammate</span>
+                <span class="text-[11px] uppercase font-mono font-bold tracking-widest text-[#00f2fe]" id="speech-header-title">SentinelAI Teammate</span>
               </div>
-              <span class="text-[9px] font-mono uppercase text-[#10b981] px-2 py-0.5 rounded bg-[#10b981]/15 border border-[#10b981]/30 font-semibold">eBPF Mapped</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[9px] font-mono uppercase text-[#00f2fe] px-2 py-0.5 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/30 font-semibold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#00f2fe] animate-pulse"></span>
+                  <span>AI Copilot</span>
+                </span>
+                <span class="text-[9px] font-mono uppercase text-[#10b981] px-2 py-0.5 rounded bg-[#10b981]/15 border border-[#10b981]/30 font-semibold">eBPF</span>
+              </div>
             </div>
 
             <!-- Dynamic Streaming Dialogue Text -->
             <div id="speech-text" class="text-xs sm:text-sm font-light leading-relaxed text-gray-100 min-h-[44px] max-h-[140px] overflow-y-auto no-scrollbar font-sans">
-              Hey team! I'm <strong class="text-[#00f2fe] font-semibold">SentinelAI</strong>. I keep your fleet protected with zero build penalties and translate complex telemetry into plain-English actions. Click a question below or test a threat simulation!
+              Hey team! I'm <strong class="text-[#00f2fe] font-semibold">SentinelAI</strong>. I keep your fleet protected with zero build penalties and translate complex telemetry into plain-English actions. Click a question below or ask anything!
             </div>
 
             <!-- Embedded Input Line & Send Button -->
@@ -219,10 +225,6 @@
             <button class="quick-chip text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#f59e0b] hover:text-[#f59e0b] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95" data-prompt="Can I deploy on just 1 machine?">
               <i class="ph ph-device-laptop text-xs text-[#f59e0b]"></i>
               <span>1-seat minimum?</span>
-            </button>
-            <button id="simulate-threat-btn" class="quick-chip text-[10px] sm:text-[11px] px-3.5 py-1.5 rounded-full bg-[#10b981]/20 border border-[#10b981]/50 text-[#10b981] hover:bg-[#10b981] hover:text-slate-950 font-semibold backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95">
-              <i class="ph ph-lightning-bold text-xs"></i>
-              <span>⚡ Test Threat Interception Live</span>
             </button>
           </div>
 
@@ -1056,6 +1058,9 @@
 
     </div>
   </div>
+
+  <!-- Environment Config (Injected in GitHub Pages / Local dev) -->
+  <script src="config.js"></script>
 
   <!-- Main JavaScript -->
   <script src="main.js"></script>

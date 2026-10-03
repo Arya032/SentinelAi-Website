@@ -538,7 +538,7 @@ updateSpotlight();
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   5. 3D SPEECH CLOUD DIALOGUE & STREAMING ENGINE
+   5. 3D SPEECH CLOUD DIALOGUE & LIVE AI STREAMING ENGINE (CLIENT-SIDE)
 ───────────────────────────────────────────────────────────────────────────── */
 (function initSpeechCloudDialogueController() {
   const speechText = document.getElementById('speech-text');
@@ -548,6 +548,14 @@ updateSpotlight();
 
   if (!speechText || !speechForm || !speechInput) return;
 
+  const SYSTEM_INSTRUCTION = `You are SentinelAI, an autonomous in-kernel security copilot for developers, IT leads, and tech founders.
+You specialize in developer-first endpoint defense, explaining complex fileless threats, eBPF/ETW vs legacy EDR disk hooks, zero-lag npm/cargo/docker builds, and translating cryptic alerts into concise plain-English Slack cards.
+Guidelines:
+- Keep answers sharp, concise (2-4 sentences or 2-3 clean bullet points).
+- Developer-friendly, technical yet approachable tone.
+- Use markdown backticks \`code\` for commands, filenames, or processes.
+- Be helpful and confident about SentinelAI's < 3.8% CPU guarantee and 1-seat $8/mo self-serve pricing.`;
+
   const KNOWLEDGE_BASE = {
     "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, SentinelAI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
     "How do you handle AI phishing or deepfakes?": "SentinelAI cross-references synthetic sender patterns, suspicious URI redirects, and behavioral execution hooks in real time—instantly isolating spoofed sessions before credentials or 2FA tokens can be exposed.",
@@ -555,9 +563,157 @@ updateSpotlight();
     "Can I deploy on just 1 machine?": "Yes! We have a 1-seat minimum at $8/device/month. No 50-seat minimum extortion, no 3-month sales calls. Just run the 1-line curl command."
   };
 
+  // Conversational Multi-turn History (in-memory)
+  const chatHistory = [];
   let isStreaming = false;
 
-  function streamSpeechText(fullText) {
+  // ─── Environment API Key Resolver ──────────────────────────────────────────
+  function getEnvironmentKey() {
+    // 1. Injected in GitHub Pages via GitHub Actions secrets, or locally via config.js
+    if (typeof window !== 'undefined' && window.SENTINEL_CONFIG && window.SENTINEL_CONFIG.API_KEY) {
+      return String(window.SENTINEL_CONFIG.API_KEY).trim();
+    }
+    // 2. Fallback for optional local dev localStorage override
+    try {
+      return localStorage.getItem('sentinel_api_key')?.trim() || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  // ─── Markdown Formatter ───────────────────────────────────────────────────
+  function formatMarkdown(text) {
+    if (!text) return '';
+    // Escape standard HTML first
+    let escaped = text.replace(/[&<>'"]/g,
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+
+    // Format backtick code snippets
+    escaped = escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // Format bold **text**
+    escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // Format italic *text*
+    escaped = escaped.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+    // Format bullet points lines
+    const lines = escaped.split('\n');
+    let inList = false;
+    const formattedLines = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line.startsWith('- ') || line.startsWith('* ')) {
+        if (!inList) {
+          formattedLines.push('<ul>');
+          inList = true;
+        }
+        formattedLines.push(`<li>${line.slice(2)}</li>`);
+      } else {
+        if (inList) {
+          formattedLines.push('</ul>');
+          inList = false;
+        }
+        formattedLines.push(line);
+      }
+    }
+    if (inList) formattedLines.push('</ul>');
+
+    return formattedLines.join('<br>').replace(/<br><\/ul>/g, '</ul>').replace(/<ul><br>/g, '<ul>');
+  }
+
+  // ─── Live Autonomous AI Streaming Engine ─────────────────────────────────
+  async function streamLiveContent(queryText, apiKey) {
+    isStreaming = true;
+    speechText.innerHTML = '<span class="text-[#00f2fe]">Analyzing telemetry &amp; query...</span><span class="inline-block w-1.5 h-3 bg-[#00f2fe] ml-1 animate-pulse"></span>';
+
+    // Append user message to multi-turn history (keep last 10 messages)
+    chatHistory.push({ role: 'user', parts: [{ text: queryText }] });
+    const trimmedHistory = chatHistory.slice(-10);
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${encodeURIComponent(apiKey)}`;
+
+    const requestBody = {
+      contents: trimmedHistory,
+      systemInstruction: {
+        parts: [{ text: SYSTEM_INSTRUCTION }]
+      },
+      generationConfig: {
+        temperature: 0.65,
+        maxOutputTokens: 500
+      }
+    };
+
+    let accumulatedText = '';
+    let hasStartedResponding = false;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+          if (trimmedLine.startsWith('data: ')) {
+            const dataStr = trimmedLine.slice(6).trim();
+            if (!dataStr || dataStr === '[DONE]') continue;
+
+            try {
+              const parsed = JSON.parse(dataStr);
+              const partText = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (partText) {
+                accumulatedText += partText;
+                if (!hasStartedResponding) {
+                  hasStartedResponding = true;
+                  if (window.setRobotExpressionState) window.setRobotExpressionState('RESPONDING');
+                }
+                speechText.innerHTML = formatMarkdown(accumulatedText) + '<span class="inline-block w-1.5 h-3 bg-[#00f2fe] ml-1 animate-pulse"></span>';
+                speechText.scrollTop = speechText.scrollHeight;
+              }
+            } catch (jsonErr) {}
+          }
+        }
+      }
+
+      // Finish response
+      chatHistory.push({ role: 'model', parts: [{ text: accumulatedText }] });
+      speechText.innerHTML = formatMarkdown(accumulatedText);
+      isStreaming = false;
+
+      if (window.setRobotExpressionState) {
+        window.setRobotExpressionState('SAFETY_CONFIRMED', 3800);
+      }
+    } catch (err) {
+      // Fallback seamlessly to local autonomous knowledge base without error popups
+      const fallbackAns = generateSmartAnswer(queryText);
+      streamLocalAnswer(fallbackAns);
+    }
+  }
+
+  // ─── Local Knowledge Base Fallback Streamer ──────────────────────────────
+  function streamLocalAnswer(fullText) {
     isStreaming = true;
     if (window.setRobotExpressionState) window.setRobotExpressionState('RESPONDING');
 
@@ -565,19 +721,19 @@ updateSpotlight();
     let charIdx = 0;
 
     const interval = setInterval(() => {
-      speechText.innerHTML = escapeHTML(fullText.substring(0, charIdx + 1)) + '<span class="inline-block w-1.5 h-3 bg-[#00f2fe] ml-1 animate-pulse"></span>';
+      speechText.innerHTML = formatMarkdown(fullText.substring(0, charIdx + 1)) + '<span class="inline-block w-1.5 h-3 bg-[#00f2fe] ml-1 animate-pulse"></span>';
       speechText.scrollTop = speechText.scrollHeight;
       charIdx++;
 
       if (charIdx >= fullText.length) {
         clearInterval(interval);
-        speechText.innerHTML = escapeHTML(fullText);
+        speechText.innerHTML = formatMarkdown(fullText);
         isStreaming = false;
         if (window.setRobotExpressionState) {
           window.setRobotExpressionState('SAFETY_CONFIRMED', 3800);
         }
       }
-    }, 22);
+    }, 18);
   }
 
   function handleQuery(queryText) {
@@ -586,19 +742,25 @@ updateSpotlight();
     speechInput.value = '';
     if (window.setRobotExpressionState) window.setRobotExpressionState('THINKING');
 
-    setTimeout(() => {
-      let answer = KNOWLEDGE_BASE[queryText];
-      if (!answer) {
-        answer = generateSmartAnswer(queryText);
-      }
-      streamSpeechText(answer);
-    }, 600);
+    const apiKey = getEnvironmentKey();
+
+    if (apiKey) {
+      streamLiveContent(queryText, apiKey);
+    } else {
+      setTimeout(() => {
+        let answer = KNOWLEDGE_BASE[queryText];
+        if (!answer) {
+          answer = generateSmartAnswer(queryText);
+        }
+        streamLocalAnswer(answer);
+      }, 400);
+    }
   }
 
   function generateSmartAnswer(input) {
     const lower = input.toLowerCase();
     if (lower.includes('build') || lower.includes('cargo') || lower.includes('npm') || lower.includes('cpu') || lower.includes('slow')) {
-      return "SentinelAI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (node, cargo, docker) and inspect asynchronously with zero build lag!";
+      return "SentinelAI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (`node`, `cargo`, `docker`) and inspect asynchronously with zero build lag!";
     }
     if (lower.includes('ransomware') || lower.includes('ghost') || lower.includes('encrypt') || lower.includes('trojan')) {
       return "SentinelAI detects behavioral encryption and anomalous shadow copy tampering at the kernel level, arresting ransomware execution within 0.18s before data is locked.";
@@ -613,18 +775,12 @@ updateSpotlight();
       return "We eliminate alert paralysis! Threat trees are translated into 10-second plain-English Slack or Teams cards with 1-click contextual resolution.";
     }
     if (lower.includes('deploy') || lower.includes('install') || lower.includes('curl') || lower.includes('command')) {
-      return "Deploy fleet-wide in under 3 minutes: run 'curl -fsSL https://get.sentinel.ai | sh' on Linux/macOS or via PowerShell on Windows. No sales calls needed.";
+      return "Deploy fleet-wide in under 3 minutes: run `curl -fsSL https://get.sentinel.ai | sh` on Linux/macOS or via PowerShell on Windows. No sales calls needed.";
     }
     if (lower.includes('price') || lower.includes('cost') || lower.includes('seat')) {
       return "Pricing is $8/device/mo with a 1-seat minimum and 14-day free pilot. No 50-seat distributor minimums and no annual lock-in!";
     }
     return "SentinelAI provides developer-first endpoint security with zero build lag, plain-English incident cards, and 3-minute self-serve deployment.";
-  }
-
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g,
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
   }
 
   speechForm.addEventListener('submit', (e) => {
@@ -964,32 +1120,6 @@ updateSpotlight();
     } catch (e) {}
   }
   window.playAffirmationChime = playAffirmationChime;
-
-  // ─── Threat Defense Simulator Controller ────────────────────────────────────
-  const simulateThreatBtn = document.getElementById('simulate-threat-btn');
-  if (simulateThreatBtn) {
-    simulateThreatBtn.addEventListener('click', () => {
-      playAffirmationChime();
-      if (window.setRobotExpressionState) {
-        window.setRobotExpressionState('THINKING');
-      }
-      
-      const textSpan = document.getElementById('speech-text');
-      if (textSpan) {
-        textSpan.innerHTML = '<span class="text-[#f59e0b] font-bold">🚨 Living-off-the-land fileless script injection intercepted!</span> Inspecting via eBPF kernel ring buffer...';
-      }
-
-      setTimeout(() => {
-        playAffirmationChime();
-        if (window.setRobotExpressionState) {
-          window.setRobotExpressionState('SAFETY_CONFIRMED', 4000);
-        }
-        if (textSpan) {
-          textSpan.innerHTML = '<span class="text-[#10b981] font-bold">✅ Malicious sub-process suspended in 0.18s!</span> Outbound C2 beacon dropped. Host terminal and active compiles remain 100% unaffected.';
-        }
-      }, 1600);
-    });
-  }
 
   // ─── Security Audit Scorecard Controller ──────────────────────────────────
   const auditChecks = document.querySelectorAll('.audit-check');
