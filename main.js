@@ -548,19 +548,20 @@ updateSpotlight();
 
   if (!speechText || !speechForm || !speechInput) return;
 
-  const SYSTEM_INSTRUCTION = `You are CYENEX.AI, an autonomous in-kernel security copilot for developers, IT leads, and tech founders.
-You specialize in developer-first endpoint defense, explaining complex fileless threats, eBPF/ETW vs legacy EDR disk hooks, zero-lag npm/cargo/docker builds, and translating cryptic alerts into concise plain-English Slack cards.
+  const SYSTEM_INSTRUCTION = `You are CYENEX.AI, a friendly and reassuring AI cybersecurity assistant built for everyday business owners, office teams, and professionals.
+You specialize in protecting laptops, mobile phones, and servers from viruses, ransomware, phishing emails, and online fraud.
 Guidelines:
-- Keep answers sharp, concise (2-4 sentences or 2-3 clean bullet points).
-- Developer-friendly, technical yet approachable tone.
-- Use markdown backticks \`code\` for commands, filenames, or processes.
-- Be helpful and confident about CYENEX.AI's < 3.8% CPU guarantee and 1-seat $8/mo self-serve pricing.`;
+- Explain things in clear, plain English without confusing technical jargon.
+- Keep answers warm, reassuring, and concise (2-3 short sentences or simple bullet points).
+- Emphasize that CYENEX works quietly in the background on all platforms (Windows, macOS, Linux, Android, iOS, and Servers).
+- Emphasize that it never slows down computers (guaranteed under 4% CPU load) and has zero setup hassle starting at just ₹149/user/month with a 14-day free trial.`;
 
   const KNOWLEDGE_BASE = {
-    "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, CYENEX.AI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
-    "How do you handle AI phishing or deepfakes?": "CYENEX.AI cross-references synthetic sender patterns, suspicious URI redirects, and behavioral execution hooks in real time—instantly isolating spoofed sessions before credentials or 2FA tokens can be exposed.",
-    "Show an alert translation example": "Instead of dumping raw hex and CVE-2024-xxxx, we send a Slack card: 'Sarah opened a spoofed vendor email. Living-off-the-land script halted in 0.18s, payload quarantined, machine safe. [Notify Vendor] [Dismiss]'.",
-    "Can I deploy on just 1 machine?": "Yes! We have a 1-seat minimum at $8/device/month. No 50-seat minimum extortion, no 3-month sales calls. Just run the 1-line curl command."
+    "Does it work on Android, iOS & Servers?": "Yes! CYENEX protects all your devices—Windows PCs, MacBooks, Linux workstations, Android phones, iPhones/iPads, and cloud/office servers—all visible from one simple centralized dashboard.",
+    "Will it slow down my computer?": "Never. Traditional antivirus freezes your screen and slows your computer down. CYENEX uses less than 4% of your computer's power, so your apps, video calls, and daily tasks run at full speed without interruptions.",
+    "How do you handle fake emails and scams?": "CYENEX automatically checks suspicious links, fake invoice attachments, and impersonation attempts in real time. It blocks malicious files before they can open, keeping your passwords and bank details completely safe.",
+    "Show an alert translation example": "Instead of scary error codes like 'Trojan.Win32 0x8007', you get a simple 10-second alert: 'Someone clicked a suspicious link in a fake invoice email. CYENEX stopped the threat instantly in 0.18s. Your computer and bank logins are 100% safe.'",
+    "Can I protect just 1 or 2 computers?": "Absolutely! There are no minimum device requirements. You can start protecting a single computer or phone for just ₹149/user/month, with a 14-day free trial and no credit card required."
   };
 
   // Conversational Multi-turn History (in-memory)
@@ -1171,30 +1172,30 @@ Guidelines:
         btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
         
         if (priceBase) priceBase.innerText = "₹124";
-        if (periodBase) periodBase.innerText = "/ month";
+        if (periodBase) periodBase.innerText = "/user/month";
         if (billingSubtextBase) billingSubtextBase.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded-full border border-[#10b981]/25">Billed ₹1,490/yr • 2 Months Free</span>`;
 
         if (priceAdv) priceAdv.innerText = "₹207";
-        if (periodAdv) periodAdv.innerText = "/ month";
+        if (periodAdv) periodAdv.innerText = "/user/month";
         if (billingSubtextAdv) billingSubtextAdv.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00f2fe] bg-[#00f2fe]/10 px-2 py-0.5 rounded-full border border-[#00f2fe]/25">Billed ₹2,490/yr • 2 Months Free</span>`;
 
         if (pricePro) pricePro.innerText = "₹465";
-        if (periodPro) periodPro.innerText = "/ month";
+        if (periodPro) periodPro.innerText = "/user/month";
         if (billingSubtextPro) billingSubtextPro.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f59e0b] bg-[#f59e0b]/10 px-2 py-0.5 rounded-full border border-[#f59e0b]/25">Billed ₹5,590/yr • 2 Months Free</span>`;
       } else {
         btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
         btnYearly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
 
         if (priceBase) priceBase.innerText = "₹149";
-        if (periodBase) periodBase.innerText = "/ month";
+        if (periodBase) periodBase.innerText = "/user/month";
         if (billingSubtextBase) billingSubtextBase.innerHTML = "";
 
         if (priceAdv) priceAdv.innerText = "₹249";
-        if (periodAdv) periodAdv.innerText = "/ month";
+        if (periodAdv) periodAdv.innerText = "/user/month";
         if (billingSubtextAdv) billingSubtextAdv.innerHTML = "";
 
         if (pricePro) pricePro.innerText = "₹559";
-        if (periodPro) periodPro.innerText = "/ month";
+        if (periodPro) periodPro.innerText = "/user/month";
         if (billingSubtextPro) billingSubtextPro.innerHTML = "";
       }
     }
