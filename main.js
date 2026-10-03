@@ -408,23 +408,23 @@ updateSpotlight();
     }
 
     if (state === 'THINKING') {
-      if (statusText) statusText.innerText = 'Autonomous Sentinel // Analyzing Telemetry...';
+      if (statusText) statusText.innerText = 'Autonomous CYENEX // Analyzing Telemetry...';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#f59e0b] animate-ping'; }
       if (speechBubble) speechBubble.classList.add('speech-bubble-amber');
       if (speechHeaderTitle) speechHeaderTitle.innerText = 'Neural Kernel Processing...';
     } else if (state === 'RESPONDING') {
-      if (statusText) statusText.innerText = 'Autonomous Sentinel // Explaining Security Decision';
+      if (statusText) statusText.innerText = 'Autonomous CYENEX // Explaining Security Decision';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#00f2fe] animate-pulse'; }
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Digital Teammate';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'CYENEX.AI Digital Teammate';
     } else if (state === 'SAFETY_CONFIRMED') {
-      if (statusText) statusText.innerText = 'Autonomous Sentinel // 100% Fleet Quarantine Safe';
+      if (statusText) statusText.innerText = 'Autonomous CYENEX // 100% Fleet Quarantine Safe';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#10b981] animate-bounce'; }
       if (speechBubble) speechBubble.classList.add('speech-bubble-mint');
       if (speechHeaderTitle) speechHeaderTitle.innerText = 'Fleet Protected // Zero Overhead';
     } else {
-      if (statusText) statusText.innerText = 'Autonomous Sentinel // Live eBPF Guard Active';
+      if (statusText) statusText.innerText = 'Autonomous CYENEX // Live eBPF Guard Active';
       if (statusDot) { statusDot.className = 'w-2 h-2 rounded-full bg-[#10b981] animate-pulse'; }
-      if (speechHeaderTitle) speechHeaderTitle.innerText = 'SentinelAI Digital Teammate';
+      if (speechHeaderTitle) speechHeaderTitle.innerText = 'CYENEX.AI Digital Teammate';
     }
 
     if (autoResetMs > 0) {
@@ -548,17 +548,17 @@ updateSpotlight();
 
   if (!speechText || !speechForm || !speechInput) return;
 
-  const SYSTEM_INSTRUCTION = `You are SentinelAI, an autonomous in-kernel security copilot for developers, IT leads, and tech founders.
+  const SYSTEM_INSTRUCTION = `You are CYENEX.AI, an autonomous in-kernel security copilot for developers, IT leads, and tech founders.
 You specialize in developer-first endpoint defense, explaining complex fileless threats, eBPF/ETW vs legacy EDR disk hooks, zero-lag npm/cargo/docker builds, and translating cryptic alerts into concise plain-English Slack cards.
 Guidelines:
 - Keep answers sharp, concise (2-4 sentences or 2-3 clean bullet points).
 - Developer-friendly, technical yet approachable tone.
 - Use markdown backticks \`code\` for commands, filenames, or processes.
-- Be helpful and confident about SentinelAI's < 3.8% CPU guarantee and 1-seat $8/mo self-serve pricing.`;
+- Be helpful and confident about CYENEX.AI's < 3.8% CPU guarantee and 1-seat $8/mo self-serve pricing.`;
 
   const KNOWLEDGE_BASE = {
-    "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, SentinelAI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
-    "How do you handle AI phishing or deepfakes?": "SentinelAI cross-references synthetic sender patterns, suspicious URI redirects, and behavioral execution hooks in real time—instantly isolating spoofed sessions before credentials or 2FA tokens can be exposed.",
+    "Does it slow down npm or cargo builds?": "Never. Unlike legacy EDR that synchronously scans every temporary file, CYENEX.AI uses asynchronous in-kernel eBPF/ETW ring buffers with toolchain awareness to stay strictly under 3.8% CPU.",
+    "How do you handle AI phishing or deepfakes?": "CYENEX.AI cross-references synthetic sender patterns, suspicious URI redirects, and behavioral execution hooks in real time—instantly isolating spoofed sessions before credentials or 2FA tokens can be exposed.",
     "Show an alert translation example": "Instead of dumping raw hex and CVE-2024-xxxx, we send a Slack card: 'Sarah opened a spoofed vendor email. Living-off-the-land script halted in 0.18s, payload quarantined, machine safe. [Notify Vendor] [Dismiss]'.",
     "Can I deploy on just 1 machine?": "Yes! We have a 1-seat minimum at $8/device/month. No 50-seat minimum extortion, no 3-month sales calls. Just run the 1-line curl command."
   };
@@ -760,13 +760,13 @@ Guidelines:
   function generateSmartAnswer(input) {
     const lower = input.toLowerCase();
     if (lower.includes('build') || lower.includes('cargo') || lower.includes('npm') || lower.includes('cpu') || lower.includes('slow')) {
-      return "SentinelAI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (`node`, `cargo`, `docker`) and inspect asynchronously with zero build lag!";
+      return "CYENEX.AI guarantees < 3.8% CPU overhead. In-kernel eBPF/ETW ring buffers recognize dev toolchains (`node`, `cargo`, `docker`) and inspect asynchronously with zero build lag!";
     }
     if (lower.includes('ransomware') || lower.includes('ghost') || lower.includes('encrypt') || lower.includes('trojan')) {
-      return "SentinelAI detects behavioral encryption and anomalous shadow copy tampering at the kernel level, arresting ransomware execution within 0.18s before data is locked.";
+      return "CYENEX.AI detects behavioral encryption and anomalous shadow copy tampering at the kernel level, arresting ransomware execution within 0.18s before data is locked.";
     }
     if (lower.includes('phish') || lower.includes('deepfake') || lower.includes('spoof') || lower.includes('social engineering')) {
-      return "SentinelAI neutralizes AI-crafted phishing and credential spoofing in real time, isolating malicious payloads before session tokens or OTPs can be intercepted.";
+      return "CYENEX.AI neutralizes AI-crafted phishing and credential spoofing in real time, isolating malicious payloads before session tokens or OTPs can be intercepted.";
     }
     if (lower.includes('supply') || lower.includes('jenkins') || lower.includes('pipeline') || lower.includes('package')) {
       return "Our in-kernel eBPF sensors intercept suspicious build-script executions and reverse shells, stopping supply chain compromises without impacting build throughput.";
@@ -780,7 +780,7 @@ Guidelines:
     if (lower.includes('price') || lower.includes('cost') || lower.includes('seat')) {
       return "Pricing is $8/device/mo with a 1-seat minimum and 14-day free pilot. No 50-seat distributor minimums and no annual lock-in!";
     }
-    return "SentinelAI provides developer-first endpoint security with zero build lag, plain-English incident cards, and 3-minute self-serve deployment.";
+    return "CYENEX.AI provides developer-first endpoint security with zero build lag, plain-English incident cards, and 3-minute self-serve deployment.";
   }
 
   speechForm.addEventListener('submit', (e) => {
@@ -1150,4 +1150,56 @@ Guidelines:
     playAffirmationChime();
     calculateAuditScore();
   }));
+
+  // ─── Billing Cycle Toggle Controller (Monthly / Yearly) ───────────────────
+  const btnMonthly = document.getElementById('billing-monthly-btn');
+  const btnYearly = document.getElementById('billing-yearly-btn');
+  const priceBase = document.getElementById('price-base');
+  const priceAdv = document.getElementById('price-advanced');
+  const pricePro = document.getElementById('price-pro');
+  const periodBase = document.getElementById('period-base');
+  const periodAdv = document.getElementById('period-advanced');
+  const periodPro = document.getElementById('period-pro');
+  const billingSubtextBase = document.getElementById('billing-subtext-base');
+  const billingSubtextAdv = document.getElementById('billing-subtext-advanced');
+  const billingSubtextPro = document.getElementById('billing-subtext-pro');
+
+  if (btnMonthly && btnYearly) {
+    function setBillingCycle(cycle) {
+      if (cycle === 'yearly') {
+        btnYearly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
+        btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
+        
+        if (priceBase) priceBase.innerText = "₹124";
+        if (periodBase) periodBase.innerText = "/ month";
+        if (billingSubtextBase) billingSubtextBase.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded-full border border-[#10b981]/25">Billed ₹1,490/yr • 2 Months Free</span>`;
+
+        if (priceAdv) priceAdv.innerText = "₹207";
+        if (periodAdv) periodAdv.innerText = "/ month";
+        if (billingSubtextAdv) billingSubtextAdv.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00f2fe] bg-[#00f2fe]/10 px-2 py-0.5 rounded-full border border-[#00f2fe]/25">Billed ₹2,490/yr • 2 Months Free</span>`;
+
+        if (pricePro) pricePro.innerText = "₹465";
+        if (periodPro) periodPro.innerText = "/ month";
+        if (billingSubtextPro) billingSubtextPro.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f59e0b] bg-[#f59e0b]/10 px-2 py-0.5 rounded-full border border-[#f59e0b]/25">Billed ₹5,590/yr • 2 Months Free</span>`;
+      } else {
+        btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
+        btnYearly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
+
+        if (priceBase) priceBase.innerText = "₹149";
+        if (periodBase) periodBase.innerText = "/ month";
+        if (billingSubtextBase) billingSubtextBase.innerHTML = "";
+
+        if (priceAdv) priceAdv.innerText = "₹249";
+        if (periodAdv) periodAdv.innerText = "/ month";
+        if (billingSubtextAdv) billingSubtextAdv.innerHTML = "";
+
+        if (pricePro) pricePro.innerText = "₹559";
+        if (periodPro) periodPro.innerText = "/ month";
+        if (billingSubtextPro) billingSubtextPro.innerHTML = "";
+      }
+    }
+
+    btnMonthly.addEventListener('click', () => setBillingCycle('monthly'));
+    btnYearly.addEventListener('click', () => setBillingCycle('yearly'));
+  }
 })();

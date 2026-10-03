@@ -45,6 +45,11 @@ html, body {
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 0px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 0px !important;
+  display: none !important;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-obsidian);
@@ -55,6 +60,14 @@ html, body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cyan-electric);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* 2px Top Scroll Progress Bar */
