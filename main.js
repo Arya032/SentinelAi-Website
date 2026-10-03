@@ -94,11 +94,12 @@ updateSpotlight();
   }
   particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
 
+  const isMobileScreen = window.innerWidth < 640;
   const particleMat = new THREE.PointsMaterial({
     color: 0x00f2fe,
-    size: 0.045,
+    size: isMobileScreen ? 0.022 : 0.036,
     transparent: true,
-    opacity: 0.35,
+    opacity: 0.28,
     blending: THREE.AdditiveBlending
   });
   const particles = new THREE.Points(particleGeo, particleMat);
@@ -202,15 +203,25 @@ updateSpotlight();
   const robotGroup = new THREE.Group();
   scene.add(robotGroup);
 
-  // Responsive Layout Positioning: Anchors Sentinel cleanly on the left (desktop) to ensure zero overlap with dialogue console
+  // Responsive Layout Positioning across Screen Sizes:
+  // - Desktop (1024px+): Anchored cleanly on the left (-1.45) with scale 1.05
+  // - Tablet (768px - 1023px): Offset left (-1.15) with scale 0.92
+  // - Standard Mobile (381px - 767px): Centered at (0, 0.80, 0) with scale 0.82
+  // - Small / Ultra-Small Mobile (<= 380px): Centered higher at (0, 1.22, 0) with scale 0.60
   function updateRobotLayoutPosition() {
-    const isDesktop = window.innerWidth >= 768;
-    if (isDesktop) {
+    const width = window.innerWidth;
+    if (width >= 1024) {
       robotGroup.position.set(-1.45, 0, 0);
       robotGroup.scale.set(1.05, 1.05, 1.05);
+    } else if (width >= 768) {
+      robotGroup.position.set(-1.15, 0, 0);
+      robotGroup.scale.set(0.92, 0.92, 0.92);
+    } else if (width <= 380) {
+      robotGroup.position.set(0, 1.22, 0);
+      robotGroup.scale.set(0.60, 0.60, 0.60);
     } else {
-      robotGroup.position.set(0, 0.75, 0);
-      robotGroup.scale.set(0.85, 0.85, 0.85);
+      robotGroup.position.set(0, 1.16, 0);
+      robotGroup.scale.set(0.66, 0.66, 0.66);
     }
   }
   updateRobotLayoutPosition();
@@ -377,6 +388,18 @@ updateSpotlight();
   thrusterGlowRight.position.set(0.32, -1.45, 0);
   robotGroup.add(thrusterGlowRight);
 
+  // Aerodynamic Ion Hover Thruster Plumes
+  const thrusterFlameGeo = new THREE.ConeGeometry(0.10, 0.28, 16);
+  thrusterFlameGeo.rotateX(Math.PI);
+  const thrusterFlameMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, transparent: true, opacity: 0.85 });
+  const flameLeft = new THREE.Mesh(thrusterFlameGeo, thrusterFlameMat);
+  flameLeft.position.set(-0.32, -1.62, 0);
+  robotGroup.add(flameLeft);
+
+  const flameRight = new THREE.Mesh(thrusterFlameGeo, thrusterFlameMat);
+  flameRight.position.set(0.32, -1.62, 0);
+  robotGroup.add(flameRight);
+
   // Scroll Trigger attached specifically to #robot-section
   const ROBOT_STATE = { scrollProgress: 0 };
 
@@ -517,6 +540,11 @@ updateSpotlight();
     orbitalRing.material.color.copy(currentColor);
     thrusterGlowLeft.material.color.copy(currentColor);
     thrusterGlowRight.material.color.copy(currentColor);
+    const flamePulse = 1 + Math.sin(elapsedTime * 14.0) * 0.18;
+    flameLeft.scale.set(flamePulse, flamePulse, flamePulse);
+    flameRight.scale.set(flamePulse, flamePulse, flamePulse);
+    flameLeft.material.color.copy(currentColor);
+    flameRight.material.color.copy(currentColor);
     robotCoreLight.color.copy(currentColor);
 
     renderer.render(scene, camera);
@@ -844,6 +872,7 @@ Guidelines:
   const authModalSubtitle = document.getElementById('auth-modal-subtitle');
   
   const navLoginBtn = document.getElementById('nav-login-btn');
+  const mobileNavLoginBtn = document.getElementById('mobile-nav-login-btn');
   const navCtaBtn = document.getElementById('nav-cta-btn');
   const heroCtaBtn = document.getElementById('hero-cta-btn');
   
@@ -895,8 +924,11 @@ Guidelines:
   }
 
   // Event Listeners for Opening Modal
+  const mobileNavSignupBtn = document.getElementById('mobile-nav-signup-btn');
   if (navLoginBtn) navLoginBtn.addEventListener('click', () => openModal('login'));
+  if (mobileNavLoginBtn) mobileNavLoginBtn.addEventListener('click', () => openModal('login'));
   if (navCtaBtn) navCtaBtn.addEventListener('click', () => openModal('signup'));
+  if (mobileNavSignupBtn) mobileNavSignupBtn.addEventListener('click', () => openModal('signup'));
   if (heroCtaBtn) heroCtaBtn.addEventListener('click', () => openModal('signup'));
 
   document.querySelectorAll('.deploy-plan-btn, .hero-deploy-cta').forEach(btn => {
@@ -973,6 +1005,72 @@ Guidelines:
         cardActionStatus.classList.remove('hidden');
         cardActionStatus.innerHTML = '<span class="text-[#10b981] font-bold">✅ Incident logged to compliance audit trail. Closed.</span>';
       }
+    });
+  }
+
+  // Pillar 1 Mobile Comparison Tab Switcher
+  const p1TabLegacy = document.getElementById('p1-tab-legacy');
+  const p1TabCyenex = document.getElementById('p1-tab-cyenex');
+  const p1CardLegacy = document.getElementById('p1-card-legacy');
+  const p1CardCyenex = document.getElementById('p1-card-cyenex');
+  const p1MobileToCyenex = document.getElementById('p1-mobile-to-cyenex');
+  const p1MobileToLegacy = document.getElementById('p1-mobile-to-legacy');
+
+  function setP1View(activeView) {
+    if (!p1CardLegacy || !p1CardCyenex) return;
+    
+    if (activeView === 'cyenex') {
+      p1CardLegacy.classList.add('p1-card-hidden-mobile');
+      p1CardCyenex.classList.remove('p1-card-hidden-mobile');
+
+      if (p1TabLegacy) {
+        p1TabLegacy.classList.remove('p1-tab-legacy-active');
+        p1TabLegacy.classList.add('text-[#8b90a0]', 'border-transparent');
+      }
+      if (p1TabCyenex) {
+        p1TabCyenex.classList.add('p1-tab-cyenex-active');
+        p1TabCyenex.classList.remove('text-[#8b90a0]', 'border-transparent');
+      }
+    } else {
+      p1CardLegacy.classList.remove('p1-card-hidden-mobile');
+      p1CardCyenex.classList.add('p1-card-hidden-mobile');
+
+      if (p1TabLegacy) {
+        p1TabLegacy.classList.add('p1-tab-legacy-active');
+        p1TabLegacy.classList.remove('text-[#8b90a0]', 'border-transparent');
+      }
+      if (p1TabCyenex) {
+        p1TabCyenex.classList.remove('p1-tab-cyenex-active');
+        p1TabCyenex.classList.add('text-[#8b90a0]', 'border-transparent');
+      }
+    }
+  }
+
+  if (p1TabLegacy) {
+    p1TabLegacy.addEventListener('click', () => {
+      setP1View('legacy');
+    });
+  }
+
+  if (p1TabCyenex) {
+    p1TabCyenex.addEventListener('click', () => {
+      playAffirmationChime();
+      setP1View('cyenex');
+    });
+  }
+
+  if (p1MobileToCyenex) {
+    p1MobileToCyenex.addEventListener('click', () => {
+      playAffirmationChime();
+      setP1View('cyenex');
+      p1CardCyenex?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  if (p1MobileToLegacy) {
+    p1MobileToLegacy.addEventListener('click', () => {
+      setP1View('legacy');
+      p1CardLegacy?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
 
@@ -1164,39 +1262,75 @@ Guidelines:
   const billingSubtextBase = document.getElementById('billing-subtext-base');
   const billingSubtextAdv = document.getElementById('billing-subtext-advanced');
   const billingSubtextPro = document.getElementById('billing-subtext-pro');
+  const planBadgeBase = document.getElementById('plan-badge-base');
+  const planBadgeAdv = document.getElementById('plan-badge-advanced');
+  const planBadgePro = document.getElementById('plan-badge-pro');
+  const planFeatureBase = document.getElementById('plan-feature-base');
+  const planFeatureAdv = document.getElementById('plan-feature-advanced');
+  const planFeaturePro = document.getElementById('plan-feature-pro');
+  const billingSavingsBanner = document.getElementById('billing-savings-banner');
 
   if (btnMonthly && btnYearly) {
+    const activeBtnClass = "px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
+    const inactiveBtnClass = "px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
+
     function setBillingCycle(cycle) {
       if (cycle === 'yearly') {
-        btnYearly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
-        btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
+        btnYearly.className = activeBtnClass;
+        btnMonthly.className = inactiveBtnClass;
         
-        if (priceBase) priceBase.innerText = "₹124";
+        // Base Plan: 15 Days Free (Pays for 11.5 months = ₹1,714/yr => ~₹143/user/mo)
+        if (priceBase) priceBase.innerText = "₹143";
         if (periodBase) periodBase.innerText = "/user/month";
-        if (billingSubtextBase) billingSubtextBase.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded-full border border-[#10b981]/25">Billed ₹1,490/yr • 2 Months Free</span>`;
+        if (billingSubtextBase) billingSubtextBase.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#10b981] bg-[#10b981]/10 px-2 py-0.5 rounded-full border border-[#10b981]/25">Billed ₹1,714/yr • 15 Days Free</span>`;
+        if (planBadgeBase) planBadgeBase.innerText = "15 Days Free on Yearly // Solo & Small Teams";
+        if (planFeatureBase) planFeatureBase.innerHTML = `<i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>15 Days Free with Yearly Plan</strong></span>`;
 
-        if (priceAdv) priceAdv.innerText = "₹207";
+        // Advanced Plan: 1 Month Free (Pays for 11 months = ₹2,739/yr => ~₹228/user/mo)
+        if (priceAdv) priceAdv.innerText = "₹228";
         if (periodAdv) periodAdv.innerText = "/user/month";
-        if (billingSubtextAdv) billingSubtextAdv.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00f2fe] bg-[#00f2fe]/10 px-2 py-0.5 rounded-full border border-[#00f2fe]/25">Billed ₹2,490/yr • 2 Months Free</span>`;
+        if (billingSubtextAdv) billingSubtextAdv.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00f2fe] bg-[#00f2fe]/10 px-2 py-0.5 rounded-full border border-[#00f2fe]/25">Billed ₹2,739/yr • 1 Month Free</span>`;
+        if (planBadgeAdv) planBadgeAdv.innerText = "1 Month Free on Yearly // Complete Coverage";
+        if (planFeatureAdv) planFeatureAdv.innerHTML = `<i class="ph ph-check-bold text-[#00f2fe]"></i> <span><strong>1 Month Free with Yearly Plan</strong></span>`;
 
+        // Pro Plan: 2 Months Free (Pays for 10 months = ₹5,590/yr => ~₹465/user/mo)
         if (pricePro) pricePro.innerText = "₹465";
         if (periodPro) periodPro.innerText = "/user/month";
         if (billingSubtextPro) billingSubtextPro.innerHTML = `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f59e0b] bg-[#f59e0b]/10 px-2 py-0.5 rounded-full border border-[#f59e0b]/25">Billed ₹5,590/yr • 2 Months Free</span>`;
-      } else {
-        btnMonthly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md";
-        btnYearly.className = "px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white";
+        if (planBadgePro) planBadgePro.innerText = "2 Months Free on Yearly // Total Peace of Mind";
+        if (planFeaturePro) planFeaturePro.innerHTML = `<i class="ph ph-check-bold text-[#f59e0b]"></i> <span><strong>2 Months Free with Yearly Plan</strong></span>`;
 
+        if (billingSavingsBanner) {
+          billingSavingsBanner.className = "text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#10b981] flex items-center justify-center gap-1.5 select-none transition-all duration-300";
+        }
+      } else {
+        btnMonthly.className = activeBtnClass;
+        btnYearly.className = inactiveBtnClass;
+
+        // Base Plan Monthly Reset
         if (priceBase) priceBase.innerText = "₹149";
         if (periodBase) periodBase.innerText = "/user/month";
         if (billingSubtextBase) billingSubtextBase.innerHTML = "";
+        if (planBadgeBase) planBadgeBase.innerText = "14-Day Free Trial // Solo & Small Teams";
+        if (planFeatureBase) planFeatureBase.innerHTML = `<i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>14 Days Free Trial</strong></span>`;
 
+        // Advanced Plan Monthly Reset
         if (priceAdv) priceAdv.innerText = "₹249";
         if (periodAdv) periodAdv.innerText = "/user/month";
         if (billingSubtextAdv) billingSubtextAdv.innerHTML = "";
+        if (planBadgeAdv) planBadgeAdv.innerText = "Growing Teams // Complete Coverage";
+        if (planFeatureAdv) planFeatureAdv.innerHTML = `<i class="ph ph-check-bold text-[#10b981]"></i> <span>Everything in Base Plan</span>`;
 
+        // Pro Plan Monthly Reset
         if (pricePro) pricePro.innerText = "₹559";
         if (periodPro) periodPro.innerText = "/user/month";
         if (billingSubtextPro) billingSubtextPro.innerHTML = "";
+        if (planBadgePro) planBadgePro.innerText = "Full Suite // Total Peace of Mind";
+        if (planFeaturePro) planFeaturePro.innerHTML = `<i class="ph ph-check-bold text-[#f59e0b]"></i> <span>Everything in Advanced Plan</span>`;
+
+        if (billingSavingsBanner) {
+          billingSavingsBanner.className = "text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#38bdf8] flex items-center justify-center gap-1.5 select-none transition-all duration-300";
+        }
       }
     }
 
@@ -1204,3 +1338,80 @@ Guidelines:
     btnYearly.addEventListener('click', () => setBillingCycle('yearly'));
   }
 })();
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   MOBILE NAVIGATION DRAWER CONTROLLER
+───────────────────────────────────────────────────────────────────────────── */
+(function initMobileNavDrawer() {
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const toggleIcon = document.getElementById('mobile-menu-icon');
+  const mobileDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileLoginBtn = document.getElementById('mobile-nav-login-btn');
+
+  if (!toggleBtn || !mobileDrawer) return;
+
+  function toggleDrawer(open) {
+    const isOpen = open !== undefined ? open : !mobileDrawer.classList.contains('open');
+    if (isOpen) {
+      mobileDrawer.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        mobileDrawer.classList.add('open');
+      });
+      toggleBtn.classList.add('active');
+      if (toggleIcon) {
+        toggleIcon.classList.remove('ph-list');
+        toggleIcon.classList.add('ph-x');
+      }
+    } else {
+      mobileDrawer.classList.remove('open');
+      toggleBtn.classList.remove('active');
+      if (toggleIcon) {
+        toggleIcon.classList.remove('ph-x');
+        toggleIcon.classList.add('ph-list');
+      }
+      setTimeout(() => {
+        if (!mobileDrawer.classList.contains('open')) {
+          mobileDrawer.classList.add('hidden');
+        }
+      }, 250);
+    }
+  }
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDrawer();
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      toggleDrawer(false);
+    });
+  });
+
+  if (mobileLoginBtn) {
+    mobileLoginBtn.addEventListener('click', () => {
+      toggleDrawer(false);
+    });
+  }
+
+  const mobileSignupBtn = document.getElementById('mobile-nav-signup-btn');
+  if (mobileSignupBtn) {
+    mobileSignupBtn.addEventListener('click', () => {
+      toggleDrawer(false);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!mobileDrawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+      toggleDrawer(false);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      toggleDrawer(false);
+    }
+  });
+})();
+

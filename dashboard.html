@@ -51,19 +51,19 @@
 
   <!-- Top Navigation Bar -->
   <header class="sticky top-0 z-50 bg-[#0d111d]/90 backdrop-blur-xl border-b border-[#1f293d]">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
 
       <!-- Brand Logo -->
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="logo.svg" alt="CYENEX.AI Logo" class="w-8 h-8 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_12px_rgba(0,255,171,0.35)]" />
-        <img src="text.svg" alt="CYENEX.AI" class="h-5 sm:h-5.5 w-auto object-contain" />
+      <a href="index.html" class="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
+        <img src="logo.svg" alt="CYENEX.AI Logo" class="brand-icon-logo w-6 h-6 sm:w-8 sm:h-8 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_12px_rgba(0,255,171,0.35)]" />
+        <img src="text.svg" alt="CYENEX.AI" class="brand-text-logo h-[18px] sm:h-[22px] w-auto object-contain" />
       </a>
 
       <!-- User Profile & Navigation -->
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <div class="flex items-center gap-2 sm:gap-3">
           <div id="dash-user-avatar-initials"
-            class="w-8 h-8 rounded-full bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-[#3b82f6] font-bold text-xs">
+            class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#3b82f6]/20 border border-[#3b82f6]/40 flex items-center justify-center text-[#3b82f6] font-bold text-xs flex-shrink-0">
             AW
           </div>
           <div class="hidden md:block text-left">
@@ -73,9 +73,9 @@
         </div>
 
         <a href="index.html"
-          class="p-2 rounded-xl bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white transition-colors"
+          class="p-1.5 sm:p-2 rounded-xl bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white transition-colors"
           title="Log Out / Home">
-          <i class="ph ph-sign-out text-lg"></i>
+          <i class="ph ph-sign-out text-base sm:text-lg"></i>
         </a>
       </div>
 
@@ -83,41 +83,41 @@
   </header>
 
   <!-- Main Content Container -->
-  <main class="max-w-6xl mx-auto px-6 py-10 space-y-8">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
 
     <!-- Hero Welcome Card: Command Center Posture Hub -->
     <div
-      class="rounded-3xl bg-gradient-to-b from-[#131b2e] via-[#0f172a] to-[#0b0f19] border border-[#1e293b] p-6 sm:p-9 space-y-6 relative overflow-hidden shadow-2xl">
+      class="rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#131b2e] via-[#0f172a] to-[#0b0f19] border border-[#1e293b] p-4 sm:p-7 md:p-9 space-y-5 sm:space-y-6 relative overflow-hidden shadow-2xl">
       
       <!-- Ambient Cyber Glow Backdrop -->
       <div class="w-96 h-96 bg-gradient-to-tr from-emerald-500/15 via-teal-500/10 to-sky-500/10 rounded-full blur-3xl absolute -top-24 left-1/2 -translate-x-1/2 pointer-events-none"></div>
       <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
       <!-- Center Hero Visual & Headline -->
-      <div class="relative z-10 text-center space-y-5 max-w-2xl mx-auto pt-2">
+      <div class="relative z-10 text-center space-y-4 sm:space-y-5 max-w-2xl mx-auto pt-2">
         <!-- Concentric Cyber Radar Shield -->
-        <div class="relative mx-auto w-20 h-20 flex items-center justify-center">
+        <div class="relative mx-auto w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
           <div class="absolute inset-0 rounded-full border border-emerald-500/20 animate-ping opacity-30 pointer-events-none"></div>
           <div class="absolute -inset-2 rounded-full border border-emerald-500/20 pointer-events-none"></div>
           <div class="absolute -inset-4 rounded-full border border-dashed border-emerald-500/15 pointer-events-none"></div>
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-emerald-400/25 border-2 border-emerald-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.25)] relative z-10 backdrop-blur-md p-3.5">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-emerald-400/25 border-2 border-emerald-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.25)] relative z-10 backdrop-blur-md p-3 sm:p-3.5">
             <img src="logo.svg" alt="CYENEX.AI Shield" class="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(0,255,171,0.6)]" />
           </div>
         </div>
 
         <!-- Greeting & Subtext -->
-        <div class="space-y-2">
-          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <div class="space-y-1.5 sm:space-y-2">
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight break-word-safe">
             Welcome back, <span id="dash-user-name-hero" class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300">Arya Waghla</span>!
           </h1>
-          <p class="text-sm sm:text-base text-[#94a3b8] leading-relaxed max-w-xl mx-auto">
+          <p class="text-xs sm:text-base text-[#94a3b8] leading-relaxed max-w-xl mx-auto">
             Autonomous real-time threat detection, kernel telemetry, and endpoint defense safeguarding your infrastructure 24/7.
           </p>
         </div>
 
         <!-- Action CTA -->
-        <div class="pt-2 flex items-center justify-center">
+        <div class="pt-1 sm:pt-2 flex items-center justify-center">
           <button id="initialize-deep-audit-btn"
-            class="w-full sm:w-auto px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 active:scale-95 group">
+            class="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 active:scale-95 group">
             <i class="ph ph-shield-check-bold text-base transition-transform group-hover:scale-110"></i>
             <span>Check Live System Health</span>
           </button>
@@ -125,60 +125,60 @@
       </div>
 
       <!-- Integrated Metric Quick-Ribbon (4 Posture Stat Cards) -->
-      <div class="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 pt-5 border-t border-[#1e293b]/70">
+      <div class="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 pt-4 sm:pt-5 border-t border-[#1e293b]/70">
         <!-- Metric 1: Security Posture -->
-        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3.5 flex items-center gap-3 hover:border-emerald-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg flex-shrink-0">
+        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 hover:border-emerald-500/30 transition-colors min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-shield-star"></i>
           </div>
-          <div class="min-w-0">
-            <div class="text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider">Security Score</div>
-            <div class="text-base font-bold text-white flex items-center gap-1.5">
+          <div class="min-w-0 flex-1">
+            <div class="text-[10px] sm:text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider truncate">Security Score</div>
+            <div class="text-xs sm:text-base font-bold text-white flex items-center gap-1 sm:gap-1.5 flex-wrap">
               <span>98 / 100</span>
-              <span class="text-[10px] text-emerald-400 font-semibold">Optimal</span>
+              <span class="text-[9px] sm:text-[10px] text-emerald-400 font-semibold">Optimal</span>
             </div>
           </div>
         </div>
 
         <!-- Metric 2: Protected Nodes -->
-        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3.5 flex items-center gap-3 hover:border-sky-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-lg flex-shrink-0">
+        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 hover:border-sky-500/30 transition-colors min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-devices"></i>
           </div>
-          <div class="min-w-0">
-            <div class="text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider">Monitored Fleet</div>
-            <div class="text-base font-bold text-white flex items-center gap-1.5">
+          <div class="min-w-0 flex-1">
+            <div class="text-[10px] sm:text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider truncate">Monitored Fleet</div>
+            <div class="text-xs sm:text-base font-bold text-white flex items-center gap-1 sm:gap-1.5 flex-wrap">
               <span>2 Nodes</span>
-              <span class="text-[10px] text-sky-400 font-semibold">Online</span>
+              <span class="text-[9px] sm:text-[10px] text-sky-400 font-semibold">Online</span>
             </div>
           </div>
         </div>
 
         <!-- Metric 3: Threats Blocked -->
-        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3.5 flex items-center gap-3 hover:border-emerald-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg flex-shrink-0">
+        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 hover:border-emerald-500/30 transition-colors min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-shield-check"></i>
           </div>
-          <div class="min-w-0">
-            <div class="text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider">Threats Neutralized</div>
-            <div class="text-base font-bold text-white flex items-center gap-1.5">
+          <div class="min-w-0 flex-1">
+            <div class="text-[10px] sm:text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider truncate">Threats Neutralized</div>
+            <div class="text-xs sm:text-base font-bold text-white flex items-center gap-1 sm:gap-1.5 flex-wrap">
               <span id="metric-threats-count">6</span>
-              <span class="text-[10px] text-[#94a3b8] font-normal">Past 24h</span>
+              <span class="text-[9px] sm:text-[10px] text-[#94a3b8] font-normal">Past 24h</span>
             </div>
           </div>
         </div>
 
         <!-- Metric 4: Sensor Engine Status -->
-        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3.5 flex items-center gap-3 hover:border-teal-500/30 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-lg flex-shrink-0">
+        <div class="rounded-2xl bg-[#111726]/80 border border-[#1e293b] p-3 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 hover:border-teal-500/30 transition-colors min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-cpu"></i>
           </div>
-          <div class="min-w-0">
-            <div class="text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider">Sensor Engine</div>
-            <div class="text-base font-bold text-emerald-400 flex items-center gap-1.5">
+          <div class="min-w-0 flex-1">
+            <div class="text-[10px] sm:text-[11px] text-[#8b90a0] font-medium uppercase tracking-wider truncate">Sensor Engine</div>
+            <div class="text-xs sm:text-base font-bold text-emerald-400 flex items-center gap-1 sm:gap-1.5 flex-wrap">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
               <span>Active</span>
-              <span class="text-[10px] text-[#94a3b8] font-normal font-mono">v2.4</span>
+              <span class="text-[9px] sm:text-[10px] text-[#94a3b8] font-normal font-mono">v2.4</span>
             </div>
           </div>
         </div>
@@ -187,28 +187,28 @@
     </div>
 
     <!-- Active Alerts Section -->
-    <div class="space-y-4">
-      <h2 class="text-xl font-bold text-white tracking-tight">Active Alerts</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="space-y-3 sm:space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">Active Alerts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         
-        <!-- Alert Card 1: Pi Disk Usage -->
-        <div class="rounded-2xl bg-[#111622] border border-[#1e2638] p-5 shadow-lg flex items-start gap-4 hover:border-[#2a3650] transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-[#182032] border border-[#26354f] flex items-center justify-center text-white text-lg flex-shrink-0">
+        <!-- Alert Card 1: Ubuntu-Server-02 Disk Usage -->
+        <div class="rounded-2xl bg-[#111622] border border-[#1e2638] p-4 sm:p-5 shadow-lg flex items-start gap-3 sm:gap-4 hover:border-[#2a3650] transition-colors">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#182032] border border-[#26354f] flex items-center justify-center text-white text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-hard-drive"></i>
           </div>
-          <div class="space-y-1">
-            <h3 class="text-sm sm:text-base font-semibold text-white">Pi Disk Usage</h3>
+          <div class="space-y-0.5 sm:space-y-1">
+            <h3 class="text-sm sm:text-base font-semibold text-white">Ubuntu-Server-02 Disk Usage</h3>
             <p class="text-xs text-[#9ca3af]">Exceeds 80% in last 10 minutes</p>
           </div>
         </div>
 
-        <!-- Alert Card 2: Innodeveloper Container Health -->
-        <div class="rounded-2xl bg-[#111622] border border-[#1e2638] p-5 shadow-lg flex items-start gap-4 hover:border-[#2a3650] transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-[#182032] border border-[#26354f] flex items-center justify-center text-white text-lg flex-shrink-0">
+        <!-- Alert Card 2: MacBook-Pro-Office Container Health -->
+        <div class="rounded-2xl bg-[#111622] border border-[#1e2638] p-4 sm:p-5 shadow-lg flex items-start gap-3 sm:gap-4 hover:border-[#2a3650] transition-colors">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#182032] border border-[#26354f] flex items-center justify-center text-white text-base sm:text-lg flex-shrink-0">
             <i class="ph ph-cube"></i>
           </div>
-          <div class="space-y-1">
-            <h3 class="text-sm sm:text-base font-semibold text-white">Innodeveloper Container Health</h3>
+          <div class="space-y-0.5 sm:space-y-1">
+            <h3 class="text-sm sm:text-base font-semibold text-white">MacBook-Pro-Office Container Health</h3>
             <p class="text-xs text-[#9ca3af]">One or more containers are unhealthy</p>
           </div>
         </div>
@@ -217,29 +217,35 @@
     </div>
 
     <!-- All Systems Section -->
-    <div class="rounded-3xl bg-[#111622] border border-[#1e2638] p-6 sm:p-7 space-y-5 shadow-2xl">
+    <div class="rounded-2xl sm:rounded-3xl bg-[#111622] border border-[#1e2638] p-4 sm:p-6 lg:p-7 space-y-4 sm:space-y-5 shadow-2xl">
       <!-- Section Header with Filter and View Controls -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-1">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 class="text-xl font-bold text-white tracking-tight">All Systems</h2>
+          <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">All Systems</h2>
           <p class="text-xs text-[#8b90a0] mt-0.5">Click on a system to view more information.</p>
         </div>
-        <div class="flex items-center gap-3">
-          <div class="relative">
+        <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div class="relative flex-1 sm:flex-initial">
             <input type="text" id="systems-filter-input" placeholder="Filter..." 
-              class="bg-[#182032] border border-[#26354f] text-xs text-white placeholder-[#8b90a0] rounded-xl px-3.5 py-1.5 w-36 sm:w-48 focus:outline-none focus:border-[#38bdf8] transition-colors" />
+              class="bg-[#182032] border border-[#26354f] text-xs text-white placeholder-[#8b90a0] rounded-xl px-3.5 py-2 w-full sm:w-48 focus:outline-none focus:border-[#38bdf8] transition-colors" />
           </div>
           <button id="add-service-btn" type="button"
-            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition-all cursor-pointer whitespace-nowrap">
+            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition-all cursor-pointer whitespace-nowrap flex-shrink-0">
             <i class="ph ph-plus-bold text-xs"></i>
             <span>Add Service</span>
           </button>
         </div>
       </div>
 
-      <!-- Systems Telemetry Table -->
-      <div class="w-full overflow-hidden">
-        <table class="w-full text-left border-collapse">
+      <!-- Mobile Swipe Guidance Note -->
+      <div class="flex sm:hidden items-center justify-between text-[11px] text-[#8b90a0] px-3 py-1.5 bg-[#182032]/80 rounded-xl border border-white/5 font-mono">
+        <span class="flex items-center gap-1.5"><i class="ph ph-arrows-left-right text-[#38bdf8] text-xs"></i> Swipe table sideways</span>
+        <span class="text-emerald-400 text-[10px]">9 metrics →</span>
+      </div>
+
+      <!-- Systems Telemetry Table (Horizontally scrollable on mobile) -->
+      <div class="w-full overflow-x-auto rounded-xl -mx-1 px-1 sm:mx-0 sm:px-0">
+        <table class="w-full min-w-[760px] text-left border-collapse">
           <thead>
             <tr class="text-[#8b90a0] text-xs font-semibold border-b border-[#1e2638]/80 pb-3">
               <th class="py-3 px-3 w-[16%] cursor-pointer hover:text-white transition-colors">
@@ -308,35 +314,35 @@
             </tr>
           </thead>
           <tbody id="systemsTableBody" class="divide-y divide-[#1e2638]/50 text-xs sm:text-sm">
-            <!-- Row 1: Innodeveloper -->
-            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="Innodeveloper">
+            <!-- Row 1: MacBook-Pro-Office -->
+            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="MacBook-Pro-Office">
               <td class="py-4 px-3 font-medium text-white whitespace-nowrap">
                 <div class="flex items-center gap-2.5">
                   <span class="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
-                  <span class="group-hover:text-emerald-400 transition-colors">Innodeveloper</span>
+                  <span class="group-hover:text-emerald-400 transition-colors">MacBook-Pro-Office</span>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">6.45%</span>
+                  <span class="sys-cpu-val font-mono text-white text-xs w-12 text-left">6.45%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 18%;"></div>
+                    <div class="sys-cpu-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 18%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">36.6%</span>
+                  <span class="sys-mem-val font-mono text-white text-xs w-12 text-left">36.6%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 36.6%;"></div>
+                    <div class="sys-mem-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 36.6%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">57.6%</span>
+                  <span class="sys-disk-val font-mono text-white text-xs w-12 text-left">57.6%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 57.6%;"></div>
+                    <div class="sys-disk-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 57.6%;"></div>
                   </div>
                 </div>
               </td>
@@ -346,7 +352,7 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-1.5 text-xs text-white font-mono">
                   <i class="ph ph-thermometer-simple text-[#10b981]"></i>
-                  <span>42°C</span>
+                  <span class="sys-temp-val">42°C</span>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
@@ -362,39 +368,39 @@
                 </div>
               </td>
               <td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap">
-                2.37 KB/s
+                <span class="sys-net-val">2.37 KB/s</span>
               </td>
             </tr>
 
-            <!-- Row 2: Pi -->
-            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="Pi">
+            <!-- Row 2: Ubuntu-Server-02 -->
+            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="Ubuntu-Server-02">
               <td class="py-4 px-3 font-medium text-white whitespace-nowrap">
                 <div class="flex items-center gap-2.5">
                   <span class="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
-                  <span class="group-hover:text-emerald-400 transition-colors">Pi</span>
+                  <span class="group-hover:text-emerald-400 transition-colors">Ubuntu-Server-02</span>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">30.6%</span>
+                  <span class="sys-cpu-val font-mono text-white text-xs w-12 text-left">30.6%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 30.6%;"></div>
+                    <div class="sys-cpu-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 30.6%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">39.1%</span>
+                  <span class="sys-mem-val font-mono text-white text-xs w-12 text-left">39.1%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 39.1%;"></div>
+                    <div class="sys-mem-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 39.1%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">94.4%</span>
+                  <span class="sys-disk-val font-mono text-white text-xs w-12 text-left">94.4%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#ef4444] rounded-full shadow-[0_0_6px_#ef4444]" style="width: 94.4%;"></div>
+                    <div class="sys-disk-bar h-full bg-[#ef4444] rounded-full shadow-[0_0_6px_#ef4444] transition-all duration-700 ease-out" style="width: 94.4%;"></div>
                   </div>
                 </div>
               </td>
@@ -404,7 +410,7 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-1.5 text-xs text-white font-mono">
                   <i class="ph ph-thermometer-simple text-[#f59e0b]"></i>
-                  <span>58°C</span>
+                  <span class="sys-temp-val">58°C</span>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
@@ -420,7 +426,7 @@
                 </div>
               </td>
               <td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap">
-                0.28 KB/s
+                <span class="sys-net-val">0.28 KB/s</span>
               </td>
             </tr>
           </tbody>
@@ -429,42 +435,48 @@
     </div>
 
     <!-- Live Threat Logs & Incident Telemetry Table -->
-    <div class="rounded-3xl bg-[#0b0f19] border border-[#1f293d] p-6 sm:p-8 space-y-6 shadow-2xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1f293d] pb-5">
+    <div class="rounded-2xl sm:rounded-3xl bg-[#0b0f19] border border-[#1f293d] p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 shadow-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1f293d] pb-4 sm:pb-5">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-[#ef4444]/15 border border-[#ef4444]/30 flex items-center justify-center text-[#ef4444] text-xl">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#ef4444]/15 border border-[#ef4444]/30 flex items-center justify-center text-[#ef4444] text-lg sm:text-xl flex-shrink-0">
             <i class="ph ph-shield-warning"></i>
           </div>
           <div>
-            <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
               <span>Live Threat Telemetry &amp; Detection Logs</span>
             </h2>
-            <p class="text-xs text-[#9ca3af]">Real-time detection events captured by in-kernel eBPF sensors and RTDB</p>
+            <p class="text-[11px] sm:text-xs text-[#9ca3af]">Real-time detection events captured by in-kernel eBPF sensors and RTDB</p>
           </div>
         </div>
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-2.5 self-start sm:self-auto">
           <!-- Live Auto-Sync Active Badge -->
-          <div id="live-sync-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/[0.12] via-emerald-500/[0.06] to-teal-500/[0.10] border border-emerald-500/30 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] select-none">
+          <div id="live-sync-badge" class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/[0.12] via-emerald-500/[0.06] to-teal-500/[0.10] border border-emerald-500/30 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)] select-none">
             <span class="relative flex h-2 w-2 items-center justify-center">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
             </span>
-            <span class="text-xs font-semibold text-emerald-400 tracking-wide">Live Auto-Sync Active</span>
+            <span class="text-[11px] sm:text-xs font-semibold text-emerald-400 tracking-wide whitespace-nowrap">Live Auto-Sync Active</span>
           </div>
         </div>
       </div>
 
-      <!-- Responsive Table Container -->
-      <div class="w-full overflow-hidden">
-        <table class="w-full text-left border-collapse">
+      <!-- Mobile Table Swipe Guidance Note -->
+      <div class="flex sm:hidden items-center justify-between text-[11px] text-[#8b90a0] px-3 py-1.5 bg-[#121827]/80 rounded-xl border border-white/5 font-mono">
+        <span class="flex items-center gap-1.5"><i class="ph ph-arrows-left-right text-[#ef4444] text-xs"></i> Swipe log details</span>
+        <span class="text-[#38bdf8] text-[10px]">Full trace &amp; actions →</span>
+      </div>
+
+      <!-- Responsive Table Container (Horizontally scrollable on mobile) -->
+      <div class="w-full overflow-x-auto rounded-xl -mx-1 px-1 sm:mx-0 sm:px-0">
+        <table class="w-full min-w-[700px] text-left border-collapse">
           <thead>
             <tr class="text-[#8b90a0] text-xs font-semibold border-b border-[#1f293d]/80 pb-3">
-              <th class="py-3 px-3 w-[18%]">Date</th>
-              <th class="py-3 px-3 w-[14%]">System</th>
-              <th class="py-3 px-3 w-[36%]">Description</th>
-              <th class="py-3 px-3 w-[11%] text-center">Severity</th>
-              <th class="py-3 px-3 w-[11%] text-center">Status</th>
-              <th class="py-3 px-3 w-[10%] text-right pr-4">Action</th>
+              <th class="py-3 px-3 w-[18%] min-w-[130px]">Date</th>
+              <th class="py-3 px-3 w-[14%] min-w-[110px]">System</th>
+              <th class="py-3 px-3 w-[37%] min-w-[260px]">Description</th>
+              <th class="py-3 px-3 w-[11%] min-w-[85px] text-center">Severity</th>
+              <th class="py-3 px-3 w-[11%] min-w-[85px] text-center">Status</th>
+              <th class="py-3 px-3 w-[9%] min-w-[75px] text-right pr-4">Action</th>
             </tr>
           </thead>
           <tbody id="liveThreatFeed" class="divide-y divide-[#1f293d]/50 text-xs sm:text-sm">
@@ -474,10 +486,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Innodeveloper</span>
+                  <span class="text-white font-medium text-xs font-mono">MacBook-Pro-Office</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: THREAT DETECTED 🛑 on file C:\Users\Admin\AppData\Local\Temp\ransom_enc.bin</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: THREAT DETECTED 🛑 on file C:\Users\Admin\AppData\Local\Temp\ransom_enc.bin</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold bg-[#ef4444]/25 border border-[#ef4444]/50 text-[#f87171] shadow-sm shadow-[#ef4444]/30">Critical</span>
               </td>
@@ -498,10 +510,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Innodeveloper</span>
+                  <span class="text-white font-medium text-xs font-mono">MacBook-Pro-Office</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: DELETED 🛡️ on file xml_file (2).xml</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: DELETED 🛡️ on file xml_file (2).xml</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold bg-[#ef4444]/15 border border-[#ef4444]/40 text-[#f87171] shadow-sm shadow-[#ef4444]/20">High</span>
               </td>
@@ -522,10 +534,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Innodeveloper</span>
+                  <span class="text-white font-medium text-xs font-mono">MacBook-Pro-Office</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: DELETED ⚠️ on macro file invoice_mar2026_macro.xlsm</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: DELETED ⚠️ on macro file invoice_mar2026_macro.xlsm</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold bg-[#f59e0b]/15 border border-[#f59e0b]/40 text-[#fbbf24] shadow-sm shadow-[#f59e0b]/20">Medium</span>
               </td>
@@ -546,10 +558,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Pi</span>
+                  <span class="text-white font-medium text-xs font-mono">Ubuntu-Server-02</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: ISOLATED 🛑 on process /bin/bash (Reverse TCP Shell)</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: ISOLATED 🛑 on process /bin/bash (Reverse TCP Shell)</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold bg-[#ef4444]/25 border border-[#ef4444]/50 text-[#f87171] shadow-sm shadow-[#ef4444]/30">Critical</span>
               </td>
@@ -570,10 +582,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Pi</span>
+                  <span class="text-white font-medium text-xs font-mono">Ubuntu-Server-02</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: VERIFIED ℹ️ on canary test file hacker_test.txt</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: VERIFIED ℹ️ on canary test file hacker_test.txt</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-semibold bg-[#00f2fe]/15 border border-[#00f2fe]/30 text-[#38bdf8]">Low</span>
               </td>
@@ -594,10 +606,10 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="inline-flex items-center gap-2">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
-                  <span class="text-white font-medium text-xs font-mono">Innodeveloper</span>
+                  <span class="text-white font-medium text-xs font-mono">MacBook-Pro-Office</span>
                 </div>
               </td>
-              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">RTDB Alert: QUARANTINED ⚠️ on file wctDCD6.tmp</td>
+              <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">RTDB Alert: QUARANTINED ⚠️ on file wctDCD6.tmp</td>
               <td class="py-4 px-3 text-center">
                 <span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold bg-[#f59e0b]/15 border border-[#f59e0b]/40 text-[#fbbf24] shadow-sm shadow-[#f59e0b]/20">Medium</span>
               </td>
@@ -620,14 +632,14 @@
 
   <!-- Interactive Scan Modal -->
   <div id="scan-modal"
-    class="fixed inset-0 bg-[#0b0f19]/90 backdrop-blur-xl flex items-center justify-center p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-[#121827] border border-[#1f293d] rounded-3xl p-8 max-w-md w-full text-center space-y-6 shadow-2xl">
+    class="fixed inset-0 bg-[#0b0f19]/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-[#121827] border border-[#1f293d] rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full max-h-[92vh] overflow-y-auto text-center space-y-5 sm:space-y-6 shadow-2xl">
       <div
-        class="w-16 h-16 rounded-full bg-[#10b981]/20 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] mx-auto animate-pulse">
-        <i class="ph ph-shield-check text-3xl"></i>
+        class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#10b981]/20 border border-[#10b981]/40 flex items-center justify-center text-[#10b981] mx-auto animate-pulse">
+        <i class="ph ph-shield-check text-2xl sm:text-3xl"></i>
       </div>
-      <div class="space-y-2">
-        <h3 id="scan-modal-title" class="text-xl font-bold text-white">Checking System Safety...</h3>
+      <div class="space-y-1.5 sm:space-y-2">
+        <h3 id="scan-modal-title" class="text-lg sm:text-xl font-bold text-white">Checking System Safety...</h3>
         <p id="scan-modal-desc" class="text-xs text-[#9ca3af]">Reading live CPU, RAM, and Security Telemetry from
           eyes.py...</p>
       </div>
@@ -646,24 +658,24 @@
 
   <!-- Interactive Threat Details Dialog Modal -->
   <div id="threat-detail-modal"
-    class="fixed inset-0 bg-[#070a12]/80 backdrop-blur-md flex items-center justify-center p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
+    class="fixed inset-0 bg-[#070a12]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
     <div id="threat-detail-card"
-      class="bg-[#0b101d] border border-[#1e2235] rounded-3xl p-6 sm:p-7 max-w-xl w-full shadow-2xl relative transition-transform duration-300 scale-95 space-y-4">
+      class="bg-[#0b101d] border border-[#1e2235] rounded-2xl sm:rounded-3xl p-4 sm:p-7 max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative transition-transform duration-300 scale-95 space-y-4">
       
       <!-- Close Button -->
-      <button id="threat-detail-close" type="button" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Dialog">
+      <button id="threat-detail-close" type="button" class="absolute top-4 sm:top-5 right-4 sm:right-5 w-8 h-8 rounded-full bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Dialog">
         <i class="ph ph-x text-base font-bold"></i>
       </button>
 
       <!-- Header -->
       <div class="flex items-center gap-2.5 text-white font-bold pb-3 border-b border-[#1e2235] pr-8">
-        <i class="ph ph-shield-check text-[#10b981] text-xl flex-shrink-0"></i>
-        <span id="detail-modal-title" class="text-sm sm:text-base font-heading">CYENEX.AI Security Guard — Threat Quarantined</span>
-        <span id="detail-modal-latency" class="ml-auto text-xs text-[#8b90a0] font-mono whitespace-nowrap">0.18s latency</span>
+        <i class="ph ph-shield-check text-[#10b981] text-lg sm:text-xl flex-shrink-0"></i>
+        <span id="detail-modal-title" class="text-xs sm:text-base font-heading">CYENEX.AI Security Guard — Threat Quarantined</span>
+        <span id="detail-modal-latency" class="ml-auto text-[10px] sm:text-xs text-[#8b90a0] font-mono whitespace-nowrap">0.18s latency</span>
       </div>
 
       <!-- What happened -->
-      <div class="space-y-1.5 text-xs sm:text-sm">
+      <div class="space-y-1 sm:space-y-1.5 text-xs sm:text-sm">
         <div class="font-bold text-white">What happened:</div>
         <p id="detail-modal-happened" class="text-[#94a3b8] leading-relaxed">
           <strong class="text-white">Sarah (Marketing)</strong> opened an attachment from an AI-spoofed vendor email. A living-off-the-land fileless script attempted to inject into background processes, alter startup registries, and beacon abroad.
@@ -671,7 +683,7 @@
       </div>
 
       <!-- What CYENEX.AI did automatically -->
-      <div class="space-y-2 text-xs sm:text-sm">
+      <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
         <div class="font-bold text-white">What CYENEX.AI did automatically:</div>
         <ul id="detail-modal-actions" class="space-y-1.5 text-[#10b981]">
           <li class="flex items-center gap-2"><i class="ph ph-check-circle text-base flex-shrink-0"></i> <span>Intercepted fileless process injection in 0.18s via eBPF.</span></li>
@@ -685,22 +697,22 @@
 
   <!-- Interactive Add Service Modal -->
   <div id="add-service-modal"
-    class="fixed inset-0 bg-[#070a12]/80 backdrop-blur-md flex items-center justify-center p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
+    class="fixed inset-0 bg-[#070a12]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
     <div id="add-service-card"
-      class="bg-[#0b101d] border border-[#1e2235] rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl relative transition-transform duration-300 scale-95 space-y-5">
+      class="bg-[#0b101d] border border-[#1e2235] rounded-2xl sm:rounded-3xl p-4 sm:p-7 max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl relative transition-transform duration-300 scale-95 space-y-4 sm:space-y-5">
       
       <!-- Close Button -->
-      <button id="add-service-close" type="button" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Dialog">
+      <button id="add-service-close" type="button" class="absolute top-4 sm:top-5 right-4 sm:right-5 w-8 h-8 rounded-full bg-[#162035] hover:bg-[#1f293d] text-[#8b90a0] hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Dialog">
         <i class="ph ph-x text-base font-bold"></i>
       </button>
 
       <!-- Header -->
       <div class="flex items-center gap-3 pb-3 border-b border-[#1e2235] pr-8">
-        <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl flex-shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg sm:text-xl flex-shrink-0">
           <i class="ph ph-plus-circle"></i>
         </div>
         <div>
-          <h3 class="text-base sm:text-lg font-bold text-white">Add Monitored Service</h3>
+          <h3 class="text-sm sm:text-lg font-bold text-white">Add Monitored Service</h3>
           <p class="text-xs text-[#8b90a0]">Attach a new daemon, container, or web endpoint to CYENEX.AI</p>
         </div>
       </div>
@@ -724,8 +736,8 @@
             </label>
             <select id="new-service-node"
               class="w-full bg-[#141b2d] border border-[#243049] focus:border-emerald-400 text-xs sm:text-sm text-white rounded-xl px-3.5 py-2.5 focus:outline-none transition-colors cursor-pointer">
-              <option value="Innodeveloper">Innodeveloper (Local)</option>
-              <option value="Pi">Pi (Edge Node)</option>
+              <option value="MacBook-Pro-Office">MacBook-Pro-Office (Primary)</option>
+              <option value="Ubuntu-Server-02">Ubuntu-Server-02 (Server Node)</option>
               <option value="Cloud Node 1">Cloud Node 1 (AWS)</option>
             </select>
           </div>
@@ -964,15 +976,150 @@
       });
     });
 
-    // Interactive guidance on agent status badge
-    document.getElementById('agent-status-badge')?.addEventListener('click', () => {
-      const badgeText = document.getElementById('agent-status-text')?.innerText || '';
-      if (badgeText.includes('Offline')) {
-        alert("CYENEX.AI Local Agent is currently Offline.\n\nTo connect and stream live hardware telemetry:\n1. Open your terminal\n2. Run: python eyes.py\n3. Run: python app.py\n\nThe dashboard will automatically sync in real-time.");
-      } else {
-        alert("CYENEX.AI Local Agent is Active & Connected.\n\neBPF kernel sensors and filesystem monitors are running normally.");
+    // ─── Realistic Telemetry Simulation Engine for All Systems Table ───────────
+    (function initSystemTelemetrySimulation() {
+      // Baseline metrics for known systems
+      const systemProfiles = {
+        'MacBook-Pro-Office': {
+          baseCpu: 6.45,
+          currentCpu: 6.45,
+          cpuDecimals: 2,
+          baseMem: 36.6,
+          currentMem: 36.6,
+          memDecimals: 1,
+          baseDisk: 57.6,
+          currentDisk: 57.6,
+          diskDecimals: 1,
+          baseTemp: 42,
+          currentTemp: 42,
+          baseNet: 2.37,
+          currentNet: 2.37,
+          netUnit: 'KB/s'
+        },
+        'Ubuntu-Server-02': {
+          baseCpu: 30.6,
+          currentCpu: 30.6,
+          cpuDecimals: 1,
+          baseMem: 39.1,
+          currentMem: 39.1,
+          memDecimals: 1,
+          baseDisk: 94.4,
+          currentDisk: 94.4,
+          diskDecimals: 1,
+          baseTemp: 58,
+          currentTemp: 58,
+          baseNet: 0.28,
+          currentNet: 0.28,
+          netUnit: 'KB/s'
+        }
+      };
+
+      // Register new services added dynamically through modal
+      window.registerSystemForTelemetry = function(name, cpu, mem, disk, temp, net) {
+        systemProfiles[name] = {
+          baseCpu: cpu || 4.2,
+          currentCpu: cpu || 4.2,
+          cpuDecimals: 1,
+          baseMem: mem || 18.5,
+          currentMem: mem || 18.5,
+          memDecimals: 1,
+          baseDisk: disk || 12.0,
+          currentDisk: disk || 12.0,
+          diskDecimals: 1,
+          baseTemp: temp || 37,
+          currentTemp: temp || 37,
+          baseNet: net || 1.42,
+          currentNet: net || 1.42,
+          netUnit: 'KB/s'
+        };
+      };
+
+      function updateSystemTelemetry() {
+        const rows = document.querySelectorAll('#systemsTableBody .system-row');
+        rows.forEach(row => {
+          const sysName = row.getAttribute('data-system');
+          if (!sysName) return;
+
+          if (!systemProfiles[sysName]) {
+            const currentCpu = parseFloat(row.querySelector('.sys-cpu-val')?.innerText) || 5.0;
+            window.registerSystemForTelemetry(sysName, currentCpu, 20.0, 15.0, 38, 1.2);
+          }
+
+          const sys = systemProfiles[sysName];
+
+          // 0-4% value change calculation based strictly on value:
+          // Random relative factor between -0.04 and +0.04 (-4% to +4% change)
+          const cpuFactor = ((Math.random() * 0.08) - 0.04);
+          const cpuDelta = sys.baseCpu * cpuFactor;
+          sys.currentCpu = Math.max(0.5, Math.min(99.0, sys.baseCpu + cpuDelta));
+
+          // Memory changes subtly (0-2% relative change based on value)
+          const memFactor = ((Math.random() * 0.04) - 0.02);
+          const memDelta = sys.baseMem * memFactor;
+          sys.currentMem = Math.max(1.0, Math.min(98.0, sys.baseMem + memDelta));
+
+          // Disk changes very gradually (rare 0.1% fractional drift)
+          if (Math.random() < 0.15) {
+            const diskShift = Math.random() > 0.5 ? 0.1 : -0.1;
+            sys.currentDisk = parseFloat((sys.baseDisk + diskShift).toFixed(1));
+          }
+
+          // Temp fluctuates by ±1°C around baseline
+          const tempShift = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
+          sys.currentTemp = sys.baseTemp + tempShift;
+
+          // Network bandwidth fluctuates organically (0-4% based on value + occasional packet burst)
+          const netFactor = ((Math.random() * 0.08) - 0.04);
+          sys.currentNet = Math.max(0.05, sys.baseNet * (1 + netFactor));
+
+          // ── DOM Updates ──
+          // 1. CPU
+          const cpuVal = row.querySelector('.sys-cpu-val');
+          const cpuBar = row.querySelector('.sys-cpu-bar');
+          if (cpuVal) {
+            cpuVal.innerText = sys.currentCpu.toFixed(sys.cpuDecimals) + '%';
+          }
+          if (cpuBar) {
+            cpuBar.style.width = Math.min(100, Math.max(4, sys.currentCpu)) + '%';
+          }
+
+          // 2. Memory
+          const memVal = row.querySelector('.sys-mem-val');
+          const memBar = row.querySelector('.sys-mem-bar');
+          if (memVal) {
+            memVal.innerText = sys.currentMem.toFixed(sys.memDecimals) + '%';
+          }
+          if (memBar) {
+            memBar.style.width = Math.min(100, Math.max(4, sys.currentMem)) + '%';
+          }
+
+          // 3. Disk
+          const diskVal = row.querySelector('.sys-disk-val');
+          const diskBar = row.querySelector('.sys-disk-bar');
+          if (diskVal) {
+            diskVal.innerText = sys.currentDisk.toFixed(sys.diskDecimals) + '%';
+          }
+          if (diskBar) {
+            diskBar.style.width = Math.min(100, sys.currentDisk) + '%';
+          }
+
+          // 4. Temp
+          const tempVal = row.querySelector('.sys-temp-val');
+          if (tempVal) {
+            tempVal.innerText = `${sys.currentTemp}°C`;
+          }
+
+          // 5. Net
+          const netVal = row.querySelector('.sys-net-val');
+          if (netVal) {
+            netVal.innerText = `${sys.currentNet.toFixed(2)} ${sys.netUnit}`;
+          }
+        });
       }
-    });
+
+      // Start live telemetry polling every 2.2 seconds
+      setInterval(updateSystemTelemetry, 2200);
+    })();
   </script>
   <!-- Firebase Libraries (Loads Firebase in browser) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -1001,9 +1148,9 @@
     }
 
     function renderSystemBadgeHtml(systemName) {
-      const isPi = String(systemName || '').toLowerCase().includes('pi');
-      const dotColor = isPi ? 'bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]' : 'bg-[#10b981] shadow-[0_0_6px_#10b981]';
-      const label = systemName || 'Innodeveloper';
+      const isServer = String(systemName || '').toLowerCase().includes('ubuntu') || String(systemName || '').toLowerCase().includes('server') || String(systemName || '').toLowerCase().includes('pi');
+      const dotColor = isServer ? 'bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]' : 'bg-[#10b981] shadow-[0_0_6px_#10b981]';
+      const label = systemName || 'MacBook-Pro-Office';
       return `
         <div class="inline-flex items-center gap-2">
           <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
@@ -1025,7 +1172,7 @@
       const tbody = document.getElementById('liveThreatFeed');
       if (tbody) {
         const timeStr = data.timestamp || new Date().toLocaleString();
-        const systemName = data.system || data.system_name || data.hostname || data.machine || (Math.random() > 0.4 ? "Innodeveloper" : "Pi");
+        const systemName = data.system || data.system_name || data.hostname || data.machine || (Math.random() > 0.4 ? "MacBook-Pro-Office" : "Ubuntu-Server-02");
         const isDelete = data.threat_type && data.threat_type.toLowerCase().includes('delete');
         const icon = isDelete ? '🛡️' : '🛑';
         const file = data.file_name || data.file_path || (data.target ? data.target : "system_payload");
@@ -1041,7 +1188,7 @@
           <td class="py-4 px-3 whitespace-nowrap">
             ${renderSystemBadgeHtml(systemName)}
           </td>
-          <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">${desc}</td>
+          <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">${desc}</td>
           <td class="py-4 px-3 text-center">
             ${renderSeverityBadgeHtml(resolvedSeverity)}
           </td>
@@ -1564,7 +1711,7 @@
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           const name = (nameInput?.value || 'New Service').trim();
-          const node = nodeSelect?.value || 'Innodeveloper';
+          const node = nodeSelect?.value || 'MacBook-Pro-Office';
           const type = typeSelect?.value || 'Container';
           const port = (portInput?.value || '').trim();
 
@@ -1582,25 +1729,25 @@
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">4.2%</span>
+                  <span class="sys-cpu-val font-mono text-white text-xs w-12 text-left">4.2%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 20%;"></div>
+                    <div class="sys-cpu-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 20%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">18.5%</span>
+                  <span class="sys-mem-val font-mono text-white text-xs w-12 text-left">18.5%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 32%;"></div>
+                    <div class="sys-mem-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 32%;"></div>
                   </div>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <span class="font-mono text-white text-xs w-12 text-left">12.0%</span>
+                  <span class="sys-disk-val font-mono text-white text-xs w-12 text-left">12.0%</span>
                   <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="h-full bg-[#10b981] rounded-full" style="width: 22%;"></div>
+                    <div class="sys-disk-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 22%;"></div>
                   </div>
                 </div>
               </td>
@@ -1608,7 +1755,7 @@
               <td class="py-4 px-3 whitespace-nowrap">
                 <div class="flex items-center gap-1.5 text-xs text-white font-mono">
                   <i class="ph ph-thermometer-simple text-[#10b981]"></i>
-                  <span>37°C</span>
+                  <span class="sys-temp-val">37°C</span>
                 </div>
               </td>
               <td class="py-4 px-3 whitespace-nowrap">
@@ -1624,7 +1771,7 @@
                 </div>
               </td>
               <td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap">
-                1.42 KB/s
+                <span class="sys-net-val">1.42 KB/s</span>
               </td>
             `;
             tbody.appendChild(tr);
@@ -1645,88 +1792,88 @@
         'Critical': [
           {
             key: "ransom_enc",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: THREAT DETECTED 🛑 on file C:\\Users\\Admin\\AppData\\Local\\Temp\\ransom_enc.bin"
           },
           {
             key: "vssadmin",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: BLOCKED 🛑 on command vssadmin delete shadows /all /quiet"
           },
           {
             key: "Reverse TCP Shell",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: ISOLATED 🛑 on process /bin/bash (Reverse TCP Shell -> 194.26.29.112:4444)"
           },
           {
             key: "mimikatz",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: DELETED 🛡️ on file C:\\Windows\\Temp\\mimikatz_x64.exe"
           }
         ],
         'High': [
           {
             key: "Program Files",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: THREAT DETECTED 🛑 on file C:\\Program Files\\WindowsPowerShell\\Modules\\mal.dll"
           },
           {
             key: "payload_obfuscated",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: DELETED 🛡️ on file payload_obfuscated (4).ps1"
           },
           {
             key: "evil_postinstall",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: DELETED 🛡️ on file node_modules/.cache/evil_postinstall.sh"
           },
           {
             key: "xml_file",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: DELETED 🛡️ on file xml_file (92).xml"
           }
         ],
         'Medium': [
           {
             key: "auth-sso",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: INTERCEPTED 🛡️ on URI auth-sso.oauth2-internal.ru/token-steal"
           },
           {
             key: "invoice",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: DELETED ⚠️ on macro file invoice_mar2026_macro.xlsm"
           },
           {
             key: "PID 4920",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: FROZEN 🛑 on unauthorized memory inspect (PID 4920)"
           },
           {
             key: "wct",
-            system: "Innodeveloper",
+            system: "MacBook-Pro-Office",
             desc: "RTDB Alert: QUARANTINED ⚠️ on file wct78F2.tmp"
           }
         ],
         'Low': [
           {
             key: "hacker_test",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: VERIFIED ℹ️ on canary test file hacker_test.txt"
           },
           {
             key: "port_probe",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: BLOCKED ℹ️ on outbound port probe to 192.168.1.1:445"
           },
           {
             key: "cli_audit",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: AUDITED ℹ️ on unsigned developer CLI toolchain"
           },
           {
             key: "metadata_clean",
-            system: "Pi",
+            system: "Ubuntu-Server-02",
             desc: "RTDB Alert: CLEANED ℹ️ on temporary metadata cache file .ds_store"
           }
         ]
@@ -1749,9 +1896,9 @@
       }
 
       function getSystemBadge(system) {
-        const isPi = String(system || '').toLowerCase().includes('pi');
-        const dotColor = isPi ? 'bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]' : 'bg-[#10b981] shadow-[0_0_6px_#10b981]';
-        const name = system || 'Innodeveloper';
+        const isServer = String(system || '').toLowerCase().includes('ubuntu') || String(system || '').toLowerCase().includes('server') || String(system || '').toLowerCase().includes('pi');
+        const dotColor = isServer ? 'bg-[#00f2fe] shadow-[0_0_6px_#00f2fe]' : 'bg-[#10b981] shadow-[0_0_6px_#10b981]';
+        const name = system || 'MacBook-Pro-Office';
         return `
           <div class="inline-flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
@@ -1809,7 +1956,7 @@
           <td class="py-4 px-3 whitespace-nowrap">
             ${getSystemBadge(threat.system)}
           </td>
-          <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-all sm:break-words">${threat.desc}</td>
+          <td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">${threat.desc}</td>
           <td class="py-4 px-3 text-center">
             ${getSeverityBadge(threat.severity)}
           </td>

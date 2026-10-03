@@ -66,16 +66,16 @@
   <div id="content-wrapper">
 
     <!-- ─── Header / Navbar ────────────────────────────────────────────── -->
-    <header class="fixed top-0 left-0 w-full z-50 px-6 lg:px-16 py-4 backdrop-blur-xl bg-[#07080a]/85 border-b border-white/10">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <header class="fixed top-0 left-0 w-full z-50 px-3 sm:px-6 lg:px-16 py-2.5 sm:py-4 backdrop-blur-xl bg-[#07080a]/85 border-b border-white/10">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
         
         <!-- Brand Logo -->
-        <a href="#" class="flex items-center gap-2.5 group">
-          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-8 h-8 sm:w-9 sm:h-9 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_12px_rgba(0,255,171,0.35)]" />
-          <img src="text.svg" alt="CYENEX.AI" class="h-5 sm:h-5.5 w-auto object-contain" />
+        <a href="#" class="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="brand-icon-logo w-6 h-6 sm:w-8 sm:h-8 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_12px_rgba(0,255,171,0.35)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="brand-text-logo h-[18px] sm:h-[22px] w-auto object-contain" />
         </a>
 
-        <!-- Navigation Links -->
+        <!-- Desktop Navigation Links -->
         <nav class="hidden lg:flex items-center gap-7 text-xs font-semibold text-[#94a3b8]">
           <a href="#alert-translator" class="hover:text-white transition-colors flex items-center gap-1.5">
             <i class="ph ph-chat-circle-dots text-[#00f2fe]"></i>
@@ -93,126 +93,159 @@
           <button id="nav-login-btn" class="hover:text-white transition-colors cursor-pointer ml-2">Login</button>
         </nav>
 
-        <!-- Navbar Action -->
-        <div class="flex items-center gap-3">
-          <a href="dashboard.html" class="hidden sm:inline-flex text-[11px] text-[#94a3b8] hover:text-[#00f2fe] transition-colors py-2 px-3 rounded-lg border border-white/5 hover:border-[#00f2fe]/30">
-            Dashboard
+        <!-- Navbar Action & Mobile Menu Toggle -->
+        <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+          <a href="dashboard.html" id="nav-dashboard-btn" class="btn-mint py-1.5 sm:py-2.5 px-3.5 sm:px-6 text-[10px] sm:text-xs font-bold cursor-pointer flex-shrink-0 inline-flex items-center gap-1.5">
+            <span>Dashboard</span>
+            <i class="ph ph-arrow-right-bold text-xs sm:text-sm"></i>
           </a>
-          <button id="nav-cta-btn" class="btn-mint py-2.5 px-6 text-xs font-bold cursor-pointer">
-            <span>Start Free Trial</span>
-            <i class="ph ph-arrow-right-bold text-sm"></i>
+          <!-- Mobile Drawer Toggle Button (Under 1024px) -->
+          <button id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+            <i id="mobile-menu-icon" class="ph ph-list text-xl"></i>
           </button>
         </div>
 
       </div>
+
+      <!-- Slide-down Mobile Navigation Drawer (< 1024px) -->
+      <div id="mobile-nav-drawer" class="hidden flex-col gap-3 pt-4 pb-2 border-t border-white/10 mt-3 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-medium text-[#94a3b8]">
+          <a href="#alert-translator" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-[#0b101d] hover:bg-[#131b2e] hover:text-white border border-white/5 transition-all">
+            <i class="ph ph-chat-circle-dots text-[#00f2fe] text-base"></i>
+            <span>Plain-English Alerts</span>
+          </a>
+          <a href="#dev-performance" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-[#0b101d] hover:bg-[#131b2e] hover:text-white border border-white/5 transition-all">
+            <i class="ph ph-lightning text-[#10b981] text-base"></i>
+            <span>Zero Lag Speed</span>
+          </a>
+          <a href="#quick-deploy" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-[#0b101d] hover:bg-[#131b2e] hover:text-white border border-white/5 transition-all">
+            <i class="ph ph-devices text-[#f59e0b] text-base"></i>
+            <span>All Devices &amp; 3-Min Setup</span>
+          </a>
+          <a href="#pricing-section" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-[#0b101d] hover:bg-[#131b2e] hover:text-white border border-white/5 transition-all">
+            <i class="ph ph-tag text-[#38bdf8] text-base"></i>
+            <span>Pricing Plans</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-2.5 pt-2 border-t border-white/10">
+          <button id="mobile-nav-login-btn" class="flex-1 py-2.5 px-3 text-center text-xs font-semibold rounded-xl bg-[#131b2e] hover:bg-[#1a243d] text-white border border-white/10 hover:border-white/20 transition-all cursor-pointer shadow-sm">
+            Client Login
+          </button>
+          <button id="mobile-nav-signup-btn" type="button" class="btn-mint flex-1 py-2.5 px-4 text-center text-xs font-bold rounded-xl cursor-pointer shadow-md inline-flex items-center justify-center gap-1.5">
+            <span>Start Free Trial</span>
+            <i class="ph ph-arrow-right-bold text-xs"></i>
+          </button>
+        </div>
+      </div>
     </header>
 
     <!-- ─── Hero Section: Simple Security Promise ─────────────────────── -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center px-6 lg:px-16 pt-28 pb-20 text-center">
-      <div class="max-w-4xl mx-auto space-y-8 z-10">
+    <section id="hero" class="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-16 pt-24 sm:pt-28 pb-16 sm:pb-20 text-center">
+      <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8 z-10 w-full">
         
         <!-- Mode Badge -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#131b2e] border border-[#1f293d]">
+        <div class="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#131b2e] border border-[#1f293d] max-w-full">
           <span class="relative flex h-2 w-2 flex-shrink-0">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
           </span>
-          <span class="text-xs font-semibold text-[#94a3b8]">Simple &amp; Automatic // Built for Busy Business Owners</span>
+          <span class="text-[11px] sm:text-xs font-semibold text-[#94a3b8] truncate">Simple &amp; Automatic // Built for Busy Business Owners</span>
         </div>
 
         <!-- Headline -->
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.15] tracking-tight text-white font-heading">
-          Security so simple, you can focus on <span class="cred-glow-mint">GROWING YOUR BUSINESS</span>.
+        <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white font-heading break-word-safe">
+          Security so simple, <br class="hidden sm:inline" />you can focus on <br class="sm:hidden" />
+          <span class="cred-glow-mint block sm:inline mt-1 sm:mt-0">GROWING YOUR BUSINESS</span>.
         </h1>
 
         <!-- Subheadline -->
-        <p class="text-base sm:text-xl text-[#94a3b8] max-w-2xl mx-auto leading-relaxed font-normal">
+        <p class="text-sm sm:text-lg md:text-xl text-[#94a3b8] max-w-2xl mx-auto leading-relaxed font-normal">
           CYENEX.AI works quietly in the background like a trusted digital guard. Protect your laptops, office PCs, mobile phones, and servers from viruses, scams, and data theft with zero tech skills needed.
         </p>
 
         <!-- Primary CTA Button (Emerald Mint Pill) -->
-        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button id="hero-cta-btn" class="btn-mint cursor-pointer py-4 px-10 text-xs font-bold">
-            <i class="ph ph-shield-check text-xl"></i>
+        <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <button id="hero-cta-btn" class="btn-mint cursor-pointer py-3.5 sm:py-4 px-6 sm:px-10 text-xs sm:text-sm font-bold w-full sm:w-auto">
+            <i class="ph ph-shield-check text-lg sm:text-xl"></i>
             <span>Protect My Business Today</span>
           </button>
         </div>
 
         <!-- Multi-Platform Coverage Pill Strip -->
-        <div class="pt-4 flex flex-col items-center gap-3">
-          <div class="inline-flex items-center flex-wrap justify-center gap-2 sm:gap-4 px-5 py-2.5 rounded-2xl bg-[#0b101d]/90 border border-[#1e2235] backdrop-blur-md shadow-lg text-xs">
-            <span class="text-[#8b90a0] font-medium mr-1">Guarding all your platforms:</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-windows-logo text-[#00f2fe] text-base"></i>
+        <div class="pt-3 sm:pt-4 flex flex-col items-center gap-2 sm:gap-3 w-full">
+          <div class="inline-flex items-center flex-wrap justify-center gap-2 sm:gap-3.5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-2xl bg-[#0b101d]/90 border border-[#1e2235] backdrop-blur-md shadow-lg text-[11px] sm:text-xs max-w-full">
+            <span class="text-[#8b90a0] font-medium mr-0.5 sm:mr-1">Guarding all platforms:</span>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-windows-logo text-[#00f2fe] text-sm sm:text-base"></i>
               <span>Windows</span>
             </div>
             <span class="text-[#1e2235] hidden sm:inline">•</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-apple-logo text-gray-300 text-base"></i>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-apple-logo text-gray-300 text-sm sm:text-base"></i>
               <span>macOS</span>
             </div>
             <span class="text-[#1e2235] hidden sm:inline">•</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-linux-logo text-[#f59e0b] text-base"></i>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-linux-logo text-[#f59e0b] text-sm sm:text-base"></i>
               <span>Linux</span>
             </div>
             <span class="text-[#1e2235] hidden sm:inline">•</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-android-logo text-[#10b981] text-base"></i>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-android-logo text-[#10b981] text-sm sm:text-base"></i>
               <span>Android</span>
             </div>
             <span class="text-[#1e2235] hidden sm:inline">•</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-device-mobile text-sky-400 text-base"></i>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-device-mobile text-sky-400 text-sm sm:text-base"></i>
               <span>iOS</span>
             </div>
             <span class="text-[#1e2235] hidden sm:inline">•</span>
-            <div class="flex items-center gap-1.5 text-white font-semibold">
-              <i class="ph ph-hard-drives text-[#a855f7] text-base"></i>
+            <div class="flex items-center gap-1 text-white font-semibold">
+              <i class="ph ph-hard-drives text-[#a855f7] text-sm sm:text-base"></i>
               <span>Servers</span>
             </div>
           </div>
-          <p class="text-[11px] text-[#8b90a0]">One unified dashboard for all your team's laptops, phones, and office servers.</p>
+          <p class="text-[10px] sm:text-[11px] text-[#8b90a0]">One unified dashboard for all your team's laptops, phones, and office servers.</p>
         </div>
 
       </div>
     </section>
 
     <!-- ─── 3D Sentinel Robot + Dedicated Dialogue Console Section ────── -->
-    <section id="robot-section" class="relative max-w-6xl mx-auto px-4 sm:px-6 my-14 min-h-[580px] sm:min-h-[640px] flex items-center justify-center z-10">
+    <section id="robot-section" class="relative max-w-6xl mx-auto px-3 sm:px-6 my-10 sm:my-14 flex items-center justify-center z-10">
       
       <!-- 3D Canvas & Speech Viewport with Zero Collision Layout -->
-      <div id="robot-canvas-container" class="w-full max-w-6xl min-h-[580px] sm:min-h-[640px] relative flex flex-col md:flex-row items-center justify-end p-6 sm:p-10 rounded-3xl overflow-hidden bg-gradient-to-r from-[#060911] via-[#090e1a] to-[#0c1424] border border-[#1e2235]/80 shadow-2xl backdrop-blur-md">
+      <div id="robot-canvas-container" class="w-full max-w-6xl min-h-[580px] sm:min-h-[620px] md:min-h-[640px] relative flex flex-col md:flex-row items-center justify-end p-4 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-r from-[#060911] via-[#090e1a] to-[#0c1424] border border-[#1e2235]/80 shadow-2xl backdrop-blur-md pb-6 sm:pb-8 md:pb-10">
         
         <!-- Three.js Canvas Strictly Covering Background / Left Side -->
-        <canvas id="robot-webgl-canvas" class="w-full h-full absolute inset-0 rounded-3xl pointer-events-auto z-0"></canvas>
+        <canvas id="robot-webgl-canvas" class="w-full h-full absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-auto z-0"></canvas>
         
-        <!-- Floating Live Status Badge (Top-Left) -->
-        <div class="absolute top-5 left-5 z-20 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#07080a]/90 border border-[#1e2235] backdrop-blur-md text-xs font-heading shadow-lg">
-          <span id="robot-status-dot" class="w-2.5 h-2.5 rounded-full bg-[#00f2fe] animate-pulse"></span>
-          <span id="robot-status-text" class="text-gray-300 font-mono uppercase tracking-wider text-[10px] sm:text-xs font-semibold">CYENEX 24/7 AI Guard // Active on All Devices</span>
+        <!-- Floating Live Status Badge (Centered on mobile, left on desktop) -->
+        <div class="absolute top-3 sm:top-5 left-1/2 -translate-x-1/2 sm:left-5 sm:translate-x-0 z-20 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#07080a]/90 border border-[#1e2235] backdrop-blur-md text-xs font-heading shadow-lg max-w-[calc(100%-24px)] whitespace-nowrap">
+          <span id="robot-status-dot" class="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#00f2fe] animate-pulse flex-shrink-0"></span>
+          <span id="robot-status-text" class="text-gray-300 font-mono uppercase tracking-wider text-[9px] sm:text-[10px] md:text-xs font-semibold truncate">CYENEX 24/7 AI Guard // Active on All Devices</span>
         </div>
 
-        <!-- Dedicated Right-Side Dialogue Console (Guaranteed Zero Collision) -->
-        <div id="speech-cloud-wrapper" class="relative md:absolute md:right-8 lg:right-12 z-30 pointer-events-auto max-w-[420px] lg:max-w-[460px] w-full my-auto mt-72 md:mt-0 transition-all duration-300">
+        <!-- Dedicated Right-Side Dialogue Console (Positioned cleanly below Sentinel on mobile) -->
+        <div id="speech-cloud-wrapper" class="relative md:absolute md:right-8 lg:right-12 z-30 pointer-events-auto max-w-[420px] lg:max-w-[460px] w-full my-auto transition-all duration-300">
           
           <!-- Translucent Dark Glass Speech Bubble -->
-          <div id="speech-bubble" class="relative p-5 sm:p-6 rounded-2xl bg-[#0b101d]/95 border border-[#00f2fe]/60 backdrop-blur-xl shadow-2xl shadow-[#00f2fe]/10 transition-all duration-300">
+          <div id="speech-bubble" class="relative p-4 sm:p-6 rounded-2xl bg-[#0b101d]/95 border border-[#00f2fe]/60 backdrop-blur-xl shadow-2xl shadow-[#00f2fe]/10 transition-all duration-300">
             
-            <!-- Speech Pointer Tail (Pointing left toward 3D Sentinel on Desktop, pointing up on Mobile) -->
-            <div id="speech-tail" class="hidden md:block absolute -left-3 top-8 w-0 h-0 border-y-[8px] border-y-transparent border-r-[12px] border-r-[#00f2fe]/80 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]"></div>
+            <!-- Speech Pointer Tail (Pointing left toward Sentinel on Desktop, pointing up on Mobile) -->
+            <div id="speech-tail" class="absolute -left-3 top-8 w-0 h-0 border-y-[8px] border-y-transparent border-r-[12px] border-r-[#00f2fe]/80 drop-shadow-[0_0_8px_rgba(0,242,254,0.6)]"></div>
 
             <!-- Speech Header -->
-            <div class="flex items-center justify-between pb-3 mb-3 border-b border-[#1e2235]">
-              <div class="flex items-center gap-2">
+            <div class="flex items-center justify-between pb-2.5 mb-2.5 sm:pb-3 sm:mb-3 border-b border-[#1e2235] gap-2">
+              <div class="flex items-center gap-2 flex-shrink-0">
                 <span class="relative flex h-2 w-2 flex-shrink-0">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
                 </span>
-                <span class="text-[11px] uppercase font-mono font-bold tracking-widest text-[#00f2fe]" id="speech-header-title">CYENEX.AI Digital Guard</span>
+                <span class="text-[10px] sm:text-[11px] uppercase font-mono font-bold tracking-widest text-[#00f2fe]" id="speech-header-title">CYENEX Digital Guard</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-[9px] font-mono uppercase text-[#00f2fe] px-2 py-0.5 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/30 font-semibold flex items-center gap-1.5">
+              <div class="flex items-center gap-1.5 flex-shrink-0">
+                <span class="hidden sm:inline-flex text-[9px] font-mono uppercase text-[#00f2fe] px-2 py-0.5 rounded bg-[#00f2fe]/10 border border-[#00f2fe]/30 font-semibold items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-[#00f2fe] animate-pulse"></span>
                   <span>AI Copilot</span>
                 </span>
@@ -221,41 +254,42 @@
             </div>
 
             <!-- Dynamic Streaming Dialogue Text -->
-            <div id="speech-text" class="text-xs sm:text-sm font-light leading-relaxed text-gray-100 min-h-[44px] max-h-[140px] overflow-y-auto no-scrollbar font-sans">
-              Hello! I'm your <strong class="text-[#00f2fe] font-semibold">CYENEX AI Security Guard</strong>. I protect your computers, mobile devices, and servers from viruses, fake emails, and scam links—without ever slowing you down. Click a question below or ask me anything!
+            <div id="speech-text" class="text-xs sm:text-sm font-light leading-relaxed text-gray-100 min-h-[40px] max-h-[140px] overflow-y-auto no-scrollbar font-sans break-word-safe">
+              Hello! I'm your <strong class="text-[#00f2fe] font-semibold">CYENEX AI Guard</strong>. I defend your computers, phones, and servers from cyber threats in real time. Ask me a question below or pick a prompt!
             </div>
 
             <!-- Embedded Input Line & Send Button -->
-            <form id="speech-form" class="mt-4 pt-3 border-t border-[#1e2235]/80 flex items-center gap-2">
+            <form id="speech-form" class="mt-3 sm:mt-4 pt-3 border-t border-[#1e2235]/80 flex items-center gap-2">
               <input 
                 type="text" 
                 id="speech-input" 
-                placeholder="Ask about computer safety, scam emails, or setup..." 
+                placeholder="Ask about computer safety or setup..." 
                 autocomplete="off"
-                class="flex-1 bg-[#101625] border border-[#1e2235] focus:border-[#00f2fe] focus:outline-none text-white text-xs px-3.5 py-2.5 rounded-xl placeholder-[#6b7280] transition-all font-sans"
+                class="flex-1 bg-[#101625] border border-[#1e2235] focus:border-[#00f2fe] focus:outline-none text-white text-xs px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl placeholder-[#6b7280] transition-all font-sans"
               >
               <button 
                 type="submit" 
                 id="speech-send-btn" 
+                aria-label="Send message"
                 class="w-9 h-9 rounded-xl bg-[#10b981] hover:bg-[#059669] text-slate-950 font-semibold text-xs transition-all flex items-center justify-center flex-shrink-0 cursor-pointer shadow-lg shadow-[#10b981]/25 active:scale-95"
               >
-                <i class="ph ph-paper-plane-tilt-bold text-sm"></i>
+                <i class="ph-bold ph-paper-plane-tilt text-base text-slate-950"></i>
               </button>
             </form>
 
           </div>
 
-          <!-- Quick-Prompt Chips for Everyday Users -->
-          <div id="quick-chips-container" class="mt-3 flex items-center gap-2 flex-wrap">
-            <button class="quick-chip text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#10b981] hover:text-[#10b981] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95" data-prompt="Does it work on Android, iOS & Servers?">
+          <!-- Quick-Prompt Chips for Everyday Users (Scrollable on small screens) -->
+          <div id="quick-chips-container" class="mt-3 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar sm:flex-wrap pb-1">
+            <button class="quick-chip text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#10b981] hover:text-[#10b981] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap flex-shrink-0" data-prompt="Does it work on Android, iOS & Servers?">
               <i class="ph ph-devices text-xs text-[#10b981]"></i>
               <span>Android, iOS &amp; Servers?</span>
             </button>
-            <button class="quick-chip text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#00f2fe] hover:text-[#00f2fe] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95" data-prompt="Will it slow down my computer?">
+            <button class="quick-chip text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#00f2fe] hover:text-[#00f2fe] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap flex-shrink-0" data-prompt="Will it slow down my computer?">
               <i class="ph ph-lightning text-xs text-[#00f2fe]"></i>
               <span>Will it slow my computer?</span>
             </button>
-            <button class="quick-chip text-[10px] sm:text-[11px] px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#f59e0b] hover:text-[#f59e0b] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95" data-prompt="How do you handle fake emails and scams?">
+            <button class="quick-chip text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1.5 rounded-full bg-[#0b101d]/90 border border-[#1e2235] hover:border-[#f59e0b] hover:text-[#f59e0b] text-[#9ca3af] backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-md active:scale-95 whitespace-nowrap flex-shrink-0" data-prompt="How do you handle fake emails and scams?">
               <i class="ph ph-shield-warning text-xs text-[#f59e0b]"></i>
               <span>Fake emails &amp; scams?</span>
             </button>
@@ -268,158 +302,183 @@
     </section>
 
     <!-- ─── PILLAR 1: Plain-English Security Stories ──────────────────── -->
-    <section id="alert-translator" class="relative max-w-7xl mx-auto px-6 py-20 z-10">
-      <div class="space-y-12">
+    <section id="alert-translator" class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 z-10">
+      <div class="space-y-10 sm:space-y-12">
         
         <!-- Section Header -->
-        <div class="text-center space-y-4 max-w-3xl mx-auto">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#00f2fe] text-xs font-heading uppercase tracking-widest">
+        <div class="text-center space-y-3 sm:space-y-4 max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#00f2fe] text-[11px] sm:text-xs font-heading uppercase tracking-widest">
             <i class="ph ph-chat-circle-text text-sm"></i>
             <span>Pillar 1 // Plain-English Security Stories</span>
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-bold">
+          <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold break-word-safe">
             From Terrifying Tech Errors to <br class="hidden sm:inline" />
             <span class="cred-glow">10-SECOND PLAIN-ENGLISH SOLUTIONS</span>.
           </h2>
-          <p class="text-[#8b90a0] text-sm sm:text-base leading-relaxed">
+          <p class="text-[#8b90a0] text-xs sm:text-sm md:text-base leading-relaxed">
             Traditional antivirus programs throw confusing codes, red screens, and scary alerts that leave you wondering: <em>"Did we get hacked? Are our bank accounts safe?"</em> CYENEX.AI explains exactly what happened in simple everyday words and fixes it for you automatically.
           </p>
         </div>
 
+        <!-- Mobile Segmented Comparison Switcher (< lg) -->
+        <div class="flex lg:hidden justify-center items-center">
+          <div class="inline-flex p-1 rounded-2xl bg-[#090d16] border border-[#1e2235] shadow-xl gap-1">
+            <button id="p1-tab-legacy" type="button" class="p1-tab-btn p1-tab-legacy-active px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+              <span>Legacy Antivirus</span>
+            </button>
+            <button id="p1-tab-cyenex" type="button" class="p1-tab-btn px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold text-[#8b90a0] hover:text-white flex items-center gap-1.5 cursor-pointer border border-transparent">
+              <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+              <span>CYENEX Guard</span>
+              <span class="px-1.5 py-0.5 text-[9px] rounded-md bg-[#10b981]/20 text-[#10b981] font-mono font-bold uppercase">10s Fix</span>
+            </button>
+          </div>
+        </div>
+
         <!-- Interactive Comparison: Confusing Antivirus vs Digital IT Teammate -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 items-stretch">
           
           <!-- Column 1: The Incumbent Trap (Confusing Error Alerts) -->
-          <div class="glass-card p-6 sm:p-8 space-y-5 border-rose-500/25 bg-[#0b0e17]/95 flex flex-col justify-between shadow-xl">
-            <div class="space-y-4">
+          <div id="p1-card-legacy" class="glass-card p-4 sm:p-6 lg:p-8 space-y-3.5 sm:space-y-4 border-rose-500/25 bg-[#0b0e17]/95 flex flex-col justify-between shadow-xl">
+            <div class="space-y-3 sm:space-y-4">
               
-              <!-- Console Header -->
-              <div class="flex items-center justify-between pb-3 border-b border-rose-500/20">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
-                  <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-                  <span class="w-3 h-3 rounded-full bg-slate-600 inline-block"></span>
-                  <span class="text-xs font-mono text-rose-400 font-semibold ml-2">Traditional Antivirus Alert</span>
+              <!-- Console Header (Guaranteed single-line across all viewports) -->
+              <div class="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-rose-500/20 gap-2">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block flex-shrink-0"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block flex-shrink-0"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-slate-600 inline-block flex-shrink-0"></span>
+                  <span class="text-[11px] sm:text-xs font-mono text-rose-400 font-semibold ml-1 truncate">Windows Security • Legacy AV</span>
                 </div>
-                <span class="text-[10px] font-mono uppercase bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/30">Confusing Jargon</span>
+                <span class="text-[9px] font-mono uppercase bg-rose-500/15 text-rose-400 px-2 py-0.5 rounded border border-rose-500/30 flex-shrink-0 whitespace-nowrap">⚠️ Cryptic Popup</span>
               </div>
 
               <!-- Terminal Metadata Strip -->
-              <div class="flex items-center justify-between text-[11px] font-mono text-[#8b90a0] bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">
-                <span>DEVICE: Work Laptop (Win11)</span>
-                <span class="text-rose-400 font-semibold">STATUS: UNKNOWN ERROR</span>
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#8b90a0] bg-black/40 px-2.5 sm:px-3 py-1.5 rounded-lg border border-white/5 gap-2">
+                <span class="truncate">HOST: Work-PC (Win11)</span>
+                <span class="text-rose-400 font-semibold flex-shrink-0 whitespace-nowrap">CODE: 0x8007 • UNRESOLVED</span>
               </div>
 
-              <!-- Raw Cryptic Hex Dump Alert Box -->
-              <div class="bg-[#050608] rounded-xl p-4 font-mono text-xs text-rose-300/90 leading-relaxed border border-rose-500/30 space-y-2.5">
-                <div class="text-rose-400 font-bold flex items-center justify-between">
-                  <span>[CRITICAL ALERT] Trojan.Win32.Generic!0x8007</span>
-                  <span class="text-xs font-normal text-amber-400">Severity: Extreme</span>
+              <!-- Raw Cryptic Hex Dump Alert Box (Authentic OS dialog styling) -->
+              <div class="bg-[#050608] rounded-xl p-3 sm:p-4 font-mono text-[10.5px] sm:text-xs text-rose-300/90 leading-relaxed border border-rose-500/30 space-y-2 break-word-safe">
+                <div class="text-rose-400 font-bold flex items-center justify-between gap-1 pb-1 border-b border-rose-500/20">
+                  <span class="truncate">[CRITICAL ALERT] Trojan.Win32.Generic</span>
+                  <span class="text-[9px] sm:text-xs text-amber-400 font-normal flex-shrink-0">Sev: Extreme</span>
                 </div>
-                <div class="text-[#8b90a0]">[SYSTEM ERROR TRACE]</div>
-                <div class="text-gray-300 pl-2 text-[11px] border-l-2 border-rose-500/40">
-                  Faulting module: ntdll.dll 0x00007FFB32A9<br>
-                  Memory violation: 0xC0000005 in explorer.exe<br>
-                  Process ancestry: powershell.exe -ExecutionPolicy Bypass -Hidden<br>
-                  Socket state: 192.168.1.104:54210 -&gt; UNKNOWN_IP:443
+                <div class="text-gray-300 pl-2 text-[10px] sm:text-[11px] border-l-2 border-rose-500/40 space-y-0.5 font-mono">
+                  <div class="truncate">▶ Fault: ntdll.dll 0x7FFB32A9 • Mem 0xC0000005</div>
+                  <div class="text-[#8b90a0] truncate">▶ Trace: powershell.exe -ExecutionPolicy Bypass</div>
+                  <div class="truncate">▶ Socket: 192.168.1.104:54210 → UNKNOWN_IP:443</div>
                 </div>
-                <div class="text-[#8b90a0] text-[11px]">Contact your network administrator or reinstall system.</div>
-                <div class="text-amber-400 text-[11px] pt-1 border-t border-white/5">
-                  Action required: Manual registry clean, adapter disconnect, or SOC consult.
+                <div class="text-amber-400 text-[10px] sm:text-[11px] pt-1.5 border-t border-white/5 truncate">
+                  Action Required: Manual registry clean or emergency IT technician.
                 </div>
               </div>
 
             </div>
 
             <!-- Why This Fails Lean Teams & Metrics -->
-            <div class="space-y-4 pt-4 border-t border-white/5">
-              <div class="space-y-1.5 text-xs">
-                <div class="flex items-center gap-2.5 text-rose-300 font-semibold text-xs md:text-sm">
+            <div class="space-y-2.5 sm:space-y-4 pt-3 sm:pt-4 border-t border-white/5">
+              <div class="space-y-1 text-xs">
+                <div class="flex items-center gap-2 text-rose-300 font-semibold text-xs md:text-sm">
                   <i class="ph ph-warning-circle text-base flex-shrink-0"></i>
                   <span>The Failure Mode: Panic &amp; Confusion</span>
                 </div>
-                <p class="text-[#8b90a0] leading-relaxed">
-                  A normal business owner or office worker sees this and panics: <em>Are we hacked? Is our money safe? Who do we call?</em> You either ignore the warning out of confusion or spend thousands hiring an emergency IT expert.
+                <p class="text-[#8b90a0] text-[11px] sm:text-xs leading-relaxed">
+                  Non-technical employees panic: <em>"Did we get hacked? Are our bank accounts safe?"</em> Result: 45+ minutes lost or thousands spent on emergency consultants.
                 </p>
               </div>
 
               <!-- Balanced Benchmark Strip -->
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center font-mono text-[10px]">
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">Avg Panic</span>
-                  <span class="text-rose-400 font-bold">45+ Minutes</span>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2 pt-2 border-t border-white/5 text-center font-mono">
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">Avg Panic</span>
+                  <span class="text-rose-400 font-bold block text-[11px] sm:text-xs">45+ Mins</span>
                 </div>
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">False Alarms</span>
-                  <span class="text-amber-400 font-bold">28% Lockouts</span>
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">False Alarms</span>
+                  <span class="text-amber-400 font-bold block text-[11px] sm:text-xs">28% Lock</span>
                 </div>
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">Requires</span>
-                  <span class="text-rose-300 font-bold">IT Technician</span>
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">Requires</span>
+                  <span class="text-rose-300 font-bold block text-[11px] sm:text-xs">IT Expert</span>
                 </div>
+              </div>
+
+              <!-- Mobile Direct Switcher CTA -->
+              <div class="lg:hidden pt-2 border-t border-white/5">
+                <button id="p1-mobile-to-cyenex" type="button" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#10b981]/20 to-[#00f2fe]/20 hover:from-[#10b981]/30 hover:to-[#00f2fe]/30 border border-[#10b981]/40 text-[#10b981] font-semibold text-xs transition-all flex items-center justify-center gap-1.5 shadow-lg active:scale-98 cursor-pointer">
+                  <span>⚡ See How CYENEX Solves This (0.18s)</span>
+                  <i class="ph ph-arrow-right font-bold"></i>
+                </button>
               </div>
             </div>
 
           </div>
 
           <!-- Column 2: CYENEX.AI Solution (The Digital Security Guard) -->
-          <div class="glass-card p-6 sm:p-8 space-y-5 border-[#10b981]/40 bg-[#0c1424]/95 shadow-2xl shadow-[#10b981]/10 flex flex-col justify-between">
-            <div class="space-y-4">
+          <div id="p1-card-cyenex" class="glass-card p-4 sm:p-6 lg:p-8 space-y-3.5 sm:space-y-4 border-[#10b981]/40 bg-[#0c1424]/95 shadow-2xl shadow-[#10b981]/10 flex flex-col justify-between p1-card-hidden-mobile lg:flex">
+            <div class="space-y-3 sm:space-y-4">
               
-              <!-- Card Header -->
-              <div class="flex items-center justify-between pb-3 border-b border-[#10b981]/30">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-6 h-6 rounded-lg bg-[#10b981]/20 text-[#10b981] flex items-center justify-center font-bold text-xs">
-                    <i class="ph ph-bell-ringing"></i>
+              <!-- Card Header (Guaranteed single-line across all viewports) -->
+              <div class="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-[#10b981]/30 gap-2">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <div class="w-5 h-5 rounded-md bg-[#10b981]/20 text-[#10b981] flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    <i class="ph ph-bell-ringing text-xs"></i>
                   </div>
-                  <span class="text-xs font-bold text-white">CYENEX Instant Notification (Phone / Email / Slack)</span>
+                  <span class="text-[11px] sm:text-xs font-bold text-white truncate">CYENEX Sentinel • Autonomous Guard</span>
                 </div>
-                <span class="text-[10px] font-mono uppercase bg-[#10b981]/15 text-[#10b981] px-2.5 py-0.5 rounded-full border border-[#10b981]/30 font-semibold">Safe &amp; Automatic</span>
+                <span class="text-[9px] font-mono uppercase bg-[#10b981]/15 text-[#10b981] px-2 py-0.5 rounded-full border border-[#10b981]/30 font-semibold flex-shrink-0 whitespace-nowrap">✨ 10s Auto-Fix</span>
+              </div>
+
+              <!-- Reassuring Status Strip -->
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#8b90a0] bg-black/40 px-2.5 sm:px-3 py-1.5 rounded-lg border border-white/5 gap-2">
+                <span class="truncate">HOST: Work-PC (Win11)</span>
+                <span class="text-[#10b981] font-semibold flex-shrink-0 whitespace-nowrap">STATUS: 100% PROTECTED</span>
               </div>
 
               <!-- Plain English Story Card -->
-              <div class="bg-[#101625] rounded-xl p-4 sm:p-4.5 border border-[#1e2235] space-y-3 text-xs">
+              <div class="bg-[#101625] rounded-xl p-3 sm:p-4 border border-[#1e2235] space-y-2.5 text-xs">
                 
-                <div class="flex items-center gap-2 text-white font-bold pb-2 border-b border-[#1e2235]">
-                  <i class="ph ph-shield-check text-[#10b981] text-base"></i>
-                  <span>CYENEX Security Guard — Threat Stopped</span>
-                  <span class="ml-auto text-[10px] text-[#10b981] font-mono">0.18s reaction</span>
+                <div class="flex items-center gap-1.5 sm:gap-2 text-white font-bold pb-2 border-b border-[#1e2235]">
+                  <i class="ph ph-shield-check text-[#10b981] text-base flex-shrink-0"></i>
+                  <span class="text-[11px] sm:text-xs">Threat Neutralized in 0.18s</span>
+                  <span class="ml-auto text-[9px] text-[#10b981] font-mono font-semibold">Autonomous</span>
                 </div>
 
-                <div class="space-y-1">
-                  <div class="font-bold text-white">What happened:</div>
-                  <p class="text-[#94a3b8] leading-relaxed">
-                    <strong class="text-white">An employee</strong> clicked a link in a fake invoice email. The malicious file tried to secretly access saved browser passwords and office files.
+                <div class="space-y-0.5">
+                  <div class="font-bold text-white text-[11px]">What happened:</div>
+                  <p class="text-[#94a3b8] text-[10.5px] sm:text-[11px] leading-relaxed">
+                    <strong class="text-white">An employee</strong> clicked a link in a fake invoice email. The malicious file was immediately isolated.
                   </p>
                 </div>
 
-                <div class="space-y-1">
-                  <div class="font-bold text-white">What CYENEX did automatically:</div>
-                  <ul class="space-y-1 text-[#10b981]">
-                    <li class="flex items-center gap-2"><i class="ph ph-check-circle"></i> <span>Blocked the suspicious download in 0.18 seconds.</span></li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check-circle"></i> <span>Safely deleted the malicious file before it could run.</span></li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check-circle"></i> <span>Your passwords, bank logins, and files are 100% safe.</span></li>
+                <div class="space-y-0.5">
+                  <div class="font-bold text-white text-[11px]">What CYENEX did automatically:</div>
+                  <ul class="space-y-0.5 text-[#10b981] text-[10.5px] sm:text-[11px]">
+                    <li class="flex items-start gap-1.5"><i class="ph ph-check-circle mt-0.5 flex-shrink-0"></i> <span>Blocked &amp; deleted suspicious download in 0.18s.</span></li>
+                    <li class="flex items-start gap-1.5"><i class="ph ph-check-circle mt-0.5 flex-shrink-0"></i> <span>All passwords, bank logins, and files are 100% safe.</span></li>
                   </ul>
                 </div>
 
                 <!-- 1-Click Interactive Next Steps -->
-                <div class="pt-2 border-t border-[#1e2235] space-y-2">
-                  <div class="font-bold text-white text-[11px]">
+                <div class="pt-2 border-t border-[#1e2235] space-y-1.5">
+                  <div class="font-bold text-white text-[10px] sm:text-[11px]">
                     Recommended Action (1-Click Simplicity):
                   </div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <button id="demo-notify-vendor-btn" class="interactive-btn px-3.5 py-2 rounded-xl bg-[#00f2fe]/15 hover:bg-[#00f2fe]/25 text-[#00f2fe] border border-[#00f2fe]/40 font-semibold text-[11px] transition-all cursor-pointer flex items-center gap-1.5 active:scale-95">
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5">
+                    <button id="demo-notify-vendor-btn" class="interactive-btn px-3 py-1.5 rounded-lg bg-[#00f2fe]/15 hover:bg-[#00f2fe]/25 text-[#00f2fe] border border-[#00f2fe]/40 font-semibold text-[10px] sm:text-[11px] transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95">
                       <i class="ph ph-paper-plane-tilt"></i>
-                      <span>Notify Sender (Auto-draft warning email)</span>
+                      <span>Auto-draft warning email</span>
                     </button>
-                    <button id="demo-dismiss-log-btn" class="interactive-btn px-3.5 py-2 rounded-xl bg-[#162035] hover:bg-[#1f293d] text-white border border-[#1e2235] font-semibold text-[11px] transition-all cursor-pointer flex items-center gap-1.5 active:scale-95">
+                    <button id="demo-dismiss-log-btn" class="interactive-btn px-3 py-1.5 rounded-lg bg-[#162035] hover:bg-[#1f293d] text-white border border-[#1e2235] font-semibold text-[10px] sm:text-[11px] transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95">
                       <i class="ph ph-check"></i>
-                      <span>Dismiss &amp; Keep Safe (All Good)</span>
+                      <span>Dismiss &amp; Keep Safe</span>
                     </button>
                   </div>
 
                   <!-- Dedicated Interactive Feedback Status Container -->
-                  <div id="card-action-status" class="hidden text-[11px] font-mono text-[#10b981] pt-1"></div>
+                  <div id="card-action-status" class="hidden text-[10px] sm:text-[11px] font-mono text-[#10b981] pt-0.5"></div>
                 </div>
 
               </div>
@@ -427,31 +486,39 @@
             </div>
 
             <!-- Why This Wins & Metrics -->
-            <div class="space-y-4 pt-4 border-t border-white/5">
-              <div class="space-y-1.5 text-xs">
-                <div class="flex items-center gap-2.5 text-[#10b981] font-semibold text-xs md:text-sm">
+            <div class="space-y-2.5 sm:space-y-4 pt-3 sm:pt-4 border-t border-white/5">
+              <div class="space-y-1 text-xs">
+                <div class="flex items-center gap-2 text-[#10b981] font-semibold text-xs md:text-sm">
                   <i class="ph ph-check-circle text-base flex-shrink-0"></i>
                   <span>The Only 3 Answers You Ever Need</span>
                 </div>
-                <p class="text-[#8b90a0] leading-relaxed">
-                  <em>What tried to attack us? Are we safe? What do I need to do right now?</em> CYENEX handles the heavy lifting so you never have to guess.
+                <p class="text-[#8b90a0] text-[11px] sm:text-xs leading-relaxed">
+                  <em>What attacked us? Are we safe? What do I do?</em> CYENEX handles it so you never have to guess.
                 </p>
               </div>
 
               <!-- Balanced Benchmark Strip -->
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/5 text-center font-mono text-[10px]">
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">Resolution Time</span>
-                  <span class="text-[#10b981] font-bold">&lt; 10 Seconds</span>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2 pt-2 border-t border-white/5 text-center font-mono">
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">Resolution</span>
+                  <span class="text-[#10b981] font-bold block text-[11px] sm:text-xs">&lt; 10 Sec</span>
                 </div>
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">Peace of Mind</span>
-                  <span class="text-[#00f2fe] font-bold">100% Protected</span>
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">Peace of Mind</span>
+                  <span class="text-[#00f2fe] font-bold block text-[11px] sm:text-xs">100% Safe</span>
                 </div>
-                <div class="p-2 rounded bg-black/30 border border-white/5">
-                  <span class="text-[#8b90a0] block">Skills Needed</span>
-                  <span class="text-white font-bold">Zero Experience</span>
+                <div class="p-1.5 rounded-lg bg-black/40 border border-white/5">
+                  <span class="text-[#8b90a0] block text-[8px] sm:text-[9px] uppercase tracking-wider">Skills</span>
+                  <span class="text-white font-bold block text-[11px] sm:text-xs">Zero Exp</span>
                 </div>
+              </div>
+
+              <!-- Mobile Direct Switcher CTA back to legacy -->
+              <div class="lg:hidden pt-2 border-t border-white/5">
+                <button id="p1-mobile-to-legacy" type="button" class="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[#8b90a0] hover:text-white font-semibold text-xs transition-all flex items-center justify-center gap-1.5 active:scale-98 cursor-pointer">
+                  <i class="ph ph-arrow-left font-bold"></i>
+                  <span>Compare with Legacy Antivirus Alert</span>
+                </button>
               </div>
             </div>
 
@@ -463,65 +530,65 @@
     </section>
 
     <!-- ─── PILLAR 2: Zero-Lag Speed & Lightweight Performance ─────── -->
-    <section id="dev-performance" class="relative max-w-7xl mx-auto px-6 py-24 z-10 border-t border-[#1e2235]">
-      <div class="space-y-14">
+    <section id="dev-performance" class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 z-10 border-t border-[#1e2235]">
+      <div class="space-y-10 sm:space-y-14">
         
         <!-- Section Header -->
-        <div class="text-center space-y-4 max-w-3xl mx-auto">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#10b981] text-xs font-heading uppercase tracking-widest">
+        <div class="text-center space-y-3 sm:space-y-4 max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#10b981] text-[11px] sm:text-xs font-heading uppercase tracking-widest">
             <i class="ph ph-lightning text-sm"></i>
             <span>Pillar 2 // Zero-Lag Speed &amp; Performance</span>
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-bold">
+          <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold break-word-safe">
             Cybersecurity That Never <br class="hidden sm:inline" />
             <span class="cred-glow-mint">SLOWS DOWN YOUR COMPUTERS</span>.
           </h2>
-          <p class="text-[#8b90a0] text-sm sm:text-base leading-relaxed">
+          <p class="text-[#8b90a0] text-xs sm:text-sm md:text-base leading-relaxed">
             Most traditional antivirus software freezes your screen, spins up noisy fans, and drains your battery while scanning files during your busy workday. CYENEX.AI is engineered to be silent, fast, and completely invisible.
           </p>
         </div>
 
         <!-- 3 Core Speed Benefits -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 text-left">
           
           <!-- Card 1: Smart App Awareness -->
-          <div class="glass-card p-6 space-y-4">
-            <div class="w-12 h-12 rounded-2xl bg-[#00f2fe]/10 border border-[#00f2fe]/30 flex items-center justify-center text-[#00f2fe] text-2xl">
+          <div class="glass-card p-5 sm:p-6 space-y-3.5 sm:space-y-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#00f2fe]/10 border border-[#00f2fe]/30 flex items-center justify-center text-[#00f2fe] text-xl sm:text-2xl">
               <i class="ph ph-browsers"></i>
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">1. Smart App Awareness</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">1. Smart App Awareness</h3>
             <p class="text-[#8b90a0] text-xs leading-relaxed">
               CYENEX.AI knows the difference between normal work (like Zoom meetings, Excel sheets, Chrome browsing, and video streaming) and real cyber threats. It never freezes your meetings or interrupts you with annoying false alarms.
             </p>
-            <div class="text-[11px] font-mono text-[#00f2fe] pt-2 border-t border-[#1e2235]">
+            <div class="text-[10px] sm:text-[11px] font-mono text-[#00f2fe] pt-2 border-t border-[#1e2235]">
               // Zero annoying false alarms
             </div>
           </div>
 
           <!-- Card 2: Silent Background Guard -->
-          <div class="glass-card p-6 space-y-4">
-            <div class="w-12 h-12 rounded-2xl bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-center text-[#10b981] text-2xl">
+          <div class="glass-card p-5 sm:p-6 space-y-3.5 sm:space-y-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#10b981]/10 border border-[#10b981]/30 flex items-center justify-center text-[#10b981] text-xl sm:text-2xl">
               <i class="ph ph-shield-check"></i>
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">2. Silent Background Guard</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">2. Silent Background Guard</h3>
             <p class="text-[#8b90a0] text-xs leading-relaxed">
               Instead of grinding your hard drive to a halt with heavy manual scans, CYENEX.AI watches your incoming files and links in real time. Dangerous attachments and scam links are stopped before they can execute.
             </p>
-            <div class="text-[11px] font-mono text-[#10b981] pt-2 border-t border-[#1e2235]">
+            <div class="text-[10px] sm:text-[11px] font-mono text-[#10b981] pt-2 border-t border-[#1e2235]">
               // Zero frozen screens or spin-locks
             </div>
           </div>
 
           <!-- Card 3: Strict Under 4% Computer Power Guarantee -->
-          <div class="glass-card p-6 space-y-4">
-            <div class="w-12 h-12 rounded-2xl bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex items-center justify-center text-[#f59e0b] text-2xl">
+          <div class="glass-card p-5 sm:p-6 space-y-3.5 sm:space-y-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex items-center justify-center text-[#f59e0b] text-xl sm:text-2xl">
               <i class="ph ph-gauge"></i>
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">3. Strict &lt; 4% Power Guarantee</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">3. Strict &lt; 4% Power Guarantee</h3>
             <p class="text-[#8b90a0] text-xs leading-relaxed">
               If your computer or phone is busy opening large files or multitasking, CYENEX.AI automatically steps aside so your device stays cool, fast, and battery-friendly. Your actual work always comes first.
             </p>
-            <div class="text-[11px] font-mono text-[#f59e0b] pt-2 border-t border-[#1e2235]">
+            <div class="text-[10px] sm:text-[11px] font-mono text-[#f59e0b] pt-2 border-t border-[#1e2235]">
               // Guaranteed &lt; 4% power footprint
             </div>
           </div>
@@ -532,52 +599,52 @@
     </section>
 
     <!-- ─── PILLAR 3: Instant 3-Minute Setup on All Devices ──────────── -->
-    <section id="quick-deploy" class="relative max-w-7xl mx-auto px-6 py-24 z-10 border-t border-[#1e2235]">
-      <div class="space-y-16">
+    <section id="quick-deploy" class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 z-10 border-t border-[#1e2235]">
+      <div class="space-y-10 sm:space-y-16">
         
         <!-- Section Header -->
-        <div class="text-center space-y-4 max-w-3xl mx-auto">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#f59e0b] text-xs font-heading uppercase tracking-widest">
+        <div class="text-center space-y-3 sm:space-y-4 max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#f59e0b] text-[11px] sm:text-xs font-heading uppercase tracking-widest">
             <i class="ph ph-devices text-sm"></i>
             <span>Pillar 3 // Instant 3-Minute Setup</span>
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-bold">
+          <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold break-word-safe">
             Protected in Under 3 Minutes. <br class="hidden sm:inline" />
             <span class="cred-glow-amber">WORKS ON DESKTOPS, PHONES &amp; SERVERS.</span>
           </h2>
-          <p class="text-[#8b90a0] text-sm sm:text-base leading-relaxed">
+          <p class="text-[#8b90a0] text-xs sm:text-sm md:text-base leading-relaxed">
             Getting robust cybersecurity shouldn't require hiring an expensive consultant or sitting through annoying sales calls. Install in 1 click across all your team's devices and sleep soundly.
           </p>
         </div>
 
         <!-- 3-Step Sequence Walkthrough -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 relative">
           
-          <div class="p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
-            <div class="w-10 h-10 rounded-full bg-[#00f2fe]/15 border border-[#00f2fe]/30 flex items-center justify-center text-[#00f2fe] font-mono font-bold text-sm">
+          <div class="p-5 sm:p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#00f2fe]/15 border border-[#00f2fe]/30 flex items-center justify-center text-[#00f2fe] font-mono font-bold text-xs sm:text-sm">
               01
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">Sign Up in 30 Seconds</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">Sign Up in 30 Seconds</h3>
             <p class="text-xs text-[#8b90a0] leading-relaxed">
               Create an account with your regular email address. 14-day free trial with no credit card required, zero sales pressure, and instant access.
             </p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
-            <div class="w-10 h-10 rounded-full bg-[#10b981]/15 border border-[#10b981]/30 flex items-center justify-center text-[#10b981] font-mono font-bold text-sm">
+          <div class="p-5 sm:p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#10b981]/15 border border-[#10b981]/30 flex items-center justify-center text-[#10b981] font-mono font-bold text-xs sm:text-sm">
               02
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">1-Click Install on Any Device</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">1-Click Install on Any Device</h3>
             <p class="text-xs text-[#8b90a0] leading-relaxed">
               Works seamlessly on Windows PCs, MacBooks, Linux, Android smartphones, iPhones/iPads, and cloud or office servers.
             </p>
           </div>
 
-          <div class="p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
-            <div class="w-10 h-10 rounded-full bg-[#f59e0b]/15 border border-[#f59e0b]/30 flex items-center justify-center text-[#f59e0b] font-mono font-bold text-sm">
+          <div class="p-5 sm:p-6 rounded-2xl bg-[#0b101d] border border-[#1e2235] space-y-3 relative group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f59e0b]/15 border border-[#f59e0b]/30 flex items-center justify-center text-[#f59e0b] font-mono font-bold text-xs sm:text-sm">
               03
             </div>
-            <h3 class="font-heading text-lg font-bold text-white">Instant Peace of Mind</h3>
+            <h3 class="font-heading text-base sm:text-lg font-bold text-white">Instant Peace of Mind</h3>
             <p class="text-xs text-[#8b90a0] leading-relaxed">
               Your digital guard activates instantly in the background. Zero complex setup or technical jargon—all devices stay protected 24/7.
             </p>
@@ -589,50 +656,51 @@
     </section>
 
     <!-- ─── PRICING SECTION: Transparent Self-Serve ────────────────────── -->
-    <section id="pricing-section" class="relative max-w-7xl mx-auto px-6 py-24 z-10 border-t border-[#1e2235]">
-      <div class="space-y-14">
+    <section id="pricing-section" class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 z-10 border-t border-[#1e2235]">
+      <div class="space-y-10 sm:space-y-14">
         
-        <div class="text-center space-y-4 max-w-2xl mx-auto">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#10b981] text-xs font-heading uppercase tracking-widest">
+        <div class="text-center space-y-3 sm:space-y-4 max-w-2xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#101625] border border-[#1e2235] text-[#10b981] text-[11px] sm:text-xs font-heading uppercase tracking-widest">
             <i class="ph ph-tag text-sm"></i>
             <span>Simple Transparent Pricing</span>
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-bold">
+          <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold break-word-safe">
             Protection That Scales <span class="cred-glow-mint">WITH YOUR TEAM</span>.
           </h2>
-          <p class="text-[#8b90a0] text-sm leading-relaxed">
+          <p class="text-[#8b90a0] text-xs sm:text-sm leading-relaxed">
             No minimum seat extortion, no hidden setup fees, and no annual lock-in. Cancel or adjust anytime in 1 click.
           </p>
 
           <!-- Billing Cycle Toggle Switch -->
-          <div class="flex flex-col items-center justify-center gap-3.5 pt-4">
+          <div class="flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 pt-3 sm:pt-4">
             <div class="rounded-2xl bg-[#0c1220] border border-[#1e2738] p-1.5 inline-flex items-center relative select-none shadow-xl">
               <button id="billing-monthly-btn" type="button"
-                class="px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md">
+                class="px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 cursor-pointer bg-[#222d42] text-white shadow-md">
                 Monthly
               </button>
               <button id="billing-yearly-btn" type="button"
-                class="px-8 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white">
+                class="px-5 sm:px-8 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 cursor-pointer text-[#8b90a0] hover:text-white">
                 Yearly
               </button>
             </div>
-            <div class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#38bdf8] flex items-center justify-center gap-2 select-none">
-              <span>SAVE WITH 2 MONTHS FREE ON YEARLY BILLING</span>
+            <div id="billing-savings-banner" class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#38bdf8] flex items-center justify-center gap-1.5 select-none transition-all duration-300">
+              <i class="ph ph-sparkle text-sm text-[#00f2fe]"></i>
+              <span>ANNUAL DISCOUNTS: BASE (15 DAYS) • ADV (1 MO) • PRO (2 MO FREE)</span>
             </div>
           </div>
         </div>
 
         <!-- 3 Tier Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 text-left">
           
           <!-- Tier 1: Base -->
-          <div class="glass-card p-8 space-y-6 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="text-[11px] font-mono text-[#10b981] uppercase tracking-wider font-semibold">14-Day Free Trial // Solo &amp; Small Teams</div>
-              <h3 class="font-heading text-2xl font-bold text-white">Base</h3>
+          <div class="glass-card p-5 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 flex flex-col justify-between">
+            <div class="space-y-3 sm:space-y-4">
+              <div id="plan-badge-base" class="text-[10px] sm:text-[11px] font-mono text-[#10b981] uppercase tracking-wider font-semibold">14-Day Free Trial // Solo &amp; Small Teams</div>
+              <h3 class="font-heading text-xl sm:text-2xl font-bold text-white">Base</h3>
               <div class="space-y-1">
                 <div class="flex items-baseline gap-1">
-                  <span id="price-base" class="text-4xl font-extrabold text-white font-heading transition-all duration-300">₹149</span>
+                  <span id="price-base" class="text-3xl sm:text-4xl font-extrabold text-white font-heading transition-all duration-300">₹149</span>
                   <span id="period-base" class="text-xs text-[#8b90a0]">/user/month</span>
                 </div>
                 <div id="billing-subtext-base" class="min-h-[20px]"></div>
@@ -640,32 +708,32 @@
               <p class="text-xs text-[#8b90a0] leading-relaxed">
                 Essential everyday protection covering your emails, files, and computer safety with zero lag.
               </p>
-              <ul class="space-y-2.5 text-xs text-[#94a3b8] pt-4 border-t border-[#1e2235]">
-                <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>14 Days Free Trial</strong></span></li>
+              <ul class="space-y-2 text-xs text-[#94a3b8] pt-3 sm:pt-4 border-t border-[#1e2235]">
+                <li id="plan-feature-base" class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>14 Days Free Trial</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>Covers Windows, Mac, Android, iOS &amp; Servers</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>Automated Virus &amp; Scam Defense</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>Email &amp; Phishing Link Protection</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span><strong>Silent Background Guard (Zero Lag)</strong></span></li>
               </ul>
             </div>
-            <div>
-              <button class="deploy-plan-btn w-full py-3.5 rounded-xl bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] hover:border-[#10b981]/50 text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer" data-plan="base">
+            <div class="pt-2">
+              <button class="deploy-plan-btn w-full py-3 sm:py-3.5 rounded-xl bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] hover:border-[#10b981]/50 text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer" data-plan="base">
                 Start 14-Day Free Trial
               </button>
             </div>
           </div>
 
           <!-- Tier 2: Advanced (Featured) -->
-          <div class="glass-card p-8 space-y-6 flex flex-col justify-between border-[#10b981]/50 bg-[#0d1627] relative shadow-2xl shadow-[#10b981]/15">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#10b981] text-slate-950 font-heading font-bold text-[10px] uppercase tracking-wider">
+          <div class="glass-card p-5 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 flex flex-col justify-between border-[#10b981]/50 bg-[#0d1627] relative shadow-2xl shadow-[#10b981]/15">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-[#10b981] text-slate-950 font-heading font-bold text-[10px] uppercase tracking-wider shadow-md">
               Most Popular
             </div>
-            <div class="space-y-4">
-              <div class="text-[11px] font-mono text-[#00f2fe] uppercase tracking-wider font-semibold">Growing Teams // Complete Coverage</div>
-              <h3 class="font-heading text-2xl font-bold text-white">Advanced</h3>
+            <div class="space-y-3 sm:space-y-4">
+              <div id="plan-badge-advanced" class="text-[10px] sm:text-[11px] font-mono text-[#00f2fe] uppercase tracking-wider font-semibold">Growing Teams // Complete Coverage</div>
+              <h3 class="font-heading text-xl sm:text-2xl font-bold text-white">Advanced</h3>
               <div class="space-y-1">
                 <div class="flex items-baseline gap-1">
-                  <span id="price-advanced" class="text-4xl font-extrabold text-white font-heading transition-all duration-300">₹249</span>
+                  <span id="price-advanced" class="text-3xl sm:text-4xl font-extrabold text-white font-heading transition-all duration-300">₹249</span>
                   <span id="period-advanced" class="text-xs text-[#8b90a0]">/user/month</span>
                 </div>
                 <div id="billing-subtext-advanced" class="min-h-[20px]"></div>
@@ -673,29 +741,29 @@
               <p class="text-xs text-[#8b90a0] leading-relaxed">
                 Enhanced security designed for growing businesses, startups, and multi-device office teams.
               </p>
-              <ul class="space-y-2.5 text-xs text-white pt-4 border-t border-[#1e2235]">
-                <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span>Everything in Base Plan</span></li>
+              <ul class="space-y-2 text-xs text-white pt-3 sm:pt-4 border-t border-[#1e2235]">
+                <li id="plan-feature-advanced" class="flex items-center gap-2"><i class="ph ph-check-bold text-[#10b981]"></i> <span>Everything in Base Plan</span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#00f2fe]"></i> <span><strong>Real-Time Online Threat &amp; Link Blocker</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#00f2fe]"></i> <span><strong>Automatic Threat Quarantine &amp; Safe Recovery</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#00f2fe]"></i> <span>Centralized Multi-Device Fleet Dashboard</span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#00f2fe]"></i> <span>Instant Phone &amp; Email Security Alerts</span></li>
               </ul>
             </div>
-            <div>
-              <button class="deploy-plan-btn w-full btn-mint py-3.5 text-xs font-heading font-bold uppercase tracking-wider cursor-pointer" data-plan="advanced">
+            <div class="pt-2">
+              <button class="deploy-plan-btn w-full btn-mint py-3 sm:py-3.5 text-xs font-heading font-bold uppercase tracking-wider cursor-pointer" data-plan="advanced">
                 Deploy Advanced Plan
               </button>
             </div>
           </div>
 
           <!-- Tier 3: Pro -->
-          <div class="glass-card p-8 space-y-6 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="text-[11px] font-mono text-[#f59e0b] uppercase tracking-wider font-semibold">Full Suite // Total Peace of Mind</div>
-              <h3 class="font-heading text-2xl font-bold text-white">Pro</h3>
+          <div class="glass-card p-5 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 flex flex-col justify-between md:col-span-2 lg:col-span-1">
+            <div class="space-y-3 sm:space-y-4">
+              <div id="plan-badge-pro" class="text-[10px] sm:text-[11px] font-mono text-[#f59e0b] uppercase tracking-wider font-semibold">Full Suite // Total Peace of Mind</div>
+              <h3 class="font-heading text-xl sm:text-2xl font-bold text-white">Pro</h3>
               <div class="space-y-1">
                 <div class="flex items-baseline gap-1">
-                  <span id="price-pro" class="text-4xl font-extrabold text-white font-heading transition-all duration-300">₹559</span>
+                  <span id="price-pro" class="text-3xl sm:text-4xl font-extrabold text-white font-heading transition-all duration-300">₹559</span>
                   <span id="period-pro" class="text-xs text-[#8b90a0]">/user/month</span>
                 </div>
                 <div id="billing-subtext-pro" class="min-h-[20px]"></div>
@@ -703,16 +771,16 @@
               <p class="text-xs text-[#8b90a0] leading-relaxed">
                 Full comprehensive defense with our 24/7 AI Security Guard across all your business devices and servers.
               </p>
-              <ul class="space-y-2.5 text-xs text-[#94a3b8] pt-4 border-t border-[#1e2235]">
-                <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span>Everything in Advanced Plan</span></li>
+              <ul class="space-y-2 text-xs text-[#94a3b8] pt-3 sm:pt-4 border-t border-[#1e2235]">
+                <li id="plan-feature-pro" class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span>Everything in Advanced Plan</span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span><strong>24/7 AI-Powered Digital Security Guard</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span><strong>Instant Automated Threat Cleanup &amp; Isolation</strong></span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span>Step-by-Step Plain-English Help for Any Issue</span></li>
                 <li class="flex items-center gap-2"><i class="ph ph-check-bold text-[#f59e0b]"></i> <span>Priority Support for Desktops, Phones &amp; Servers</span></li>
               </ul>
             </div>
-            <div>
-              <button class="deploy-plan-btn w-full py-3.5 rounded-xl bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] hover:border-[#f59e0b]/50 text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer" data-plan="pro">
+            <div class="pt-2">
+              <button class="deploy-plan-btn w-full py-3 sm:py-3.5 rounded-xl bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] hover:border-[#f59e0b]/50 text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer" data-plan="pro">
                 Deploy Pro Plan
               </button>
             </div>
@@ -726,28 +794,28 @@
 
 
     <!-- ─── Final CTA & Footer ─────────────────────────────────────────── -->
-    <div id="fortress" class="relative bg-[#07080a] border-t border-[#1e2235] z-20 px-6 lg:px-16 py-20 space-y-20">
+    <div id="fortress" class="relative bg-[#07080a] border-t border-[#1e2235] z-20 px-4 sm:px-6 lg:px-16 py-16 sm:py-20 space-y-16 sm:space-y-20">
       
       <!-- Final CTA Section -->
-      <section class="max-w-4xl mx-auto text-center space-y-8 glass-card p-12 sm:p-16 relative overflow-hidden">
-        <div class="w-96 h-96 bg-[#10b981]/10 rounded-full blur-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-        <div class="relative z-10 space-y-6">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0b101d] border border-[#1e2235] text-[#10b981] text-xs font-heading uppercase tracking-widest">
+      <section class="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 glass-card p-6 sm:p-10 lg:p-16 relative overflow-hidden">
+        <div class="w-72 sm:w-96 h-72 sm:h-96 bg-[#10b981]/10 rounded-full blur-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        <div class="relative z-10 space-y-4 sm:space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#0b101d] border border-[#1e2235] text-[#10b981] text-[10px] sm:text-xs font-heading uppercase tracking-widest">
             Starting at ₹149/user/month // 14-Day Free Trial
           </div>
-          <h2 class="font-heading text-3xl sm:text-5xl font-bold">
+          <h2 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold break-word-safe">
             Total Protection For All Your Devices <br class="hidden sm:inline" />
             <span class="cred-glow-mint">WITHOUT THE HEADACHES OR SLOWDOWNS</span>.
           </h2>
-          <p class="text-[#8b90a0] text-base max-w-lg mx-auto font-light">
+          <p class="text-[#8b90a0] text-xs sm:text-sm md:text-base max-w-lg mx-auto font-light leading-relaxed">
             Set up in under 3 minutes with zero sales calls, no minimum contracts, and automatic 24/7 defense for Windows, Mac, Linux, Android, iOS, and Servers.
           </p>
-          <div class="flex items-center justify-center gap-4 flex-wrap pt-2">
-            <button class="hero-deploy-cta btn-mint text-sm py-4 px-10 cursor-pointer">
-              <i class="ph ph-shield-check text-lg"></i>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2">
+            <button class="hero-deploy-cta btn-mint text-xs sm:text-sm py-3.5 sm:py-4 px-6 sm:px-10 cursor-pointer w-full sm:w-auto">
+              <i class="ph ph-shield-check text-base sm:text-lg"></i>
               <span>Start 14-Day Free Trial</span>
             </button>
-            <a href="dashboard.html" class="px-6 py-4 rounded-full bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] text-xs font-semibold transition-all">
+            <a href="dashboard.html" class="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-full bg-[#101625] hover:bg-[#162035] text-white border border-[#1e2235] text-xs font-semibold transition-all text-center">
               View Live Protection Dashboard
             </a>
           </div>
@@ -755,19 +823,19 @@
       </section>
 
       <!-- Footer -->
-      <footer class="max-w-7xl mx-auto pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#8b90a0]">
-        <div class="flex items-center gap-3">
-          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(0,255,171,0.25)]" />
-          <img src="text.svg" alt="CYENEX.AI" class="h-4.5 w-auto object-contain" />
-          <span class="text-[11px]">© 2026 CYENEX.AI. Effortless Cybersecurity for Everyone.</span>
+      <footer class="max-w-7xl mx-auto pt-8 sm:pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#8b90a0]">
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-start text-center sm:text-left">
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="brand-icon-logo w-6 h-6 sm:w-7 sm:h-7 object-contain drop-shadow-[0_0_8px_rgba(0,255,171,0.25)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="brand-text-logo h-[16px] sm:h-[18px] w-auto object-contain" />
+          <span class="text-[10px] sm:text-[11px] block sm:inline">© 2026 CYENEX.AI. Effortless Cybersecurity for Everyone.</span>
         </div>
-        <div class="flex items-center gap-6 flex-wrap">
-          <a href="admin.html" class="hover:text-[#00f2fe] text-[#00f2fe]/90 font-semibold transition-colors flex items-center gap-1.5"><i class="ph ph-database text-sm"></i> Admin Portal</a>
-          <a href="dashboard.html" class="hover:text-white transition-colors">Live Dashboard</a>
-          <a href="#alert-translator" class="hover:text-white transition-colors">Plain-English Alerts</a>
-          <a href="#dev-performance" class="hover:text-white transition-colors">Zero-Lag Speed</a>
-          <a href="#quick-deploy" class="hover:text-white transition-colors">Supported Platforms</a>
-          <a href="#pricing-section" class="hover:text-white transition-colors">Pricing</a>
+        <div class="flex items-center justify-center gap-4 sm:gap-6 flex-wrap text-[11px] sm:text-xs">
+          <a href="admin.html" class="hover:text-[#00f2fe] text-[#00f2fe]/90 font-semibold transition-colors flex items-center gap-1.5 py-1.5"><i class="ph ph-database text-sm"></i> Admin Portal</a>
+          <a href="dashboard.html" class="hover:text-white transition-colors py-1.5">Live Dashboard</a>
+          <a href="#alert-translator" class="hover:text-white transition-colors py-1.5">Plain-English Alerts</a>
+          <a href="#dev-performance" class="hover:text-white transition-colors py-1.5">Zero-Lag Speed</a>
+          <a href="#quick-deploy" class="hover:text-white transition-colors py-1.5">Supported Platforms</a>
+          <a href="#pricing-section" class="hover:text-white transition-colors py-1.5">Pricing</a>
         </div>
       </footer>
 
@@ -776,21 +844,21 @@
   </div>
 
   <!-- ─── Interactive Glassmorphism Auth / Quick-Deploy Modal ──────────── -->
-  <div id="auth-modal" class="fixed inset-0 bg-[#07080a]/80 backdrop-blur-xl flex items-center justify-center p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
+  <div id="auth-modal" class="fixed inset-0 bg-[#07080a]/80 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4 z-[100] hidden opacity-0 transition-opacity duration-300">
     
-    <!-- Modal Card -->
-    <div id="auth-modal-card" class="bg-[#0b101d]/95 border border-[#1e2235] rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl relative transition-transform duration-300 scale-95">
+    <!-- Modal Card with Keyboard-Safe Max Height and Touch Scrolling -->
+    <div id="auth-modal-card" class="bg-[#0b101d]/95 border border-[#1e2235] rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl relative transition-transform duration-300 scale-95 max-h-[92vh] overflow-y-auto no-scrollbar">
       
       <!-- Close Button -->
-      <button id="auth-modal-close" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#1e2235]/60 hover:bg-[#1e2235] text-[#8b90a0] hover:text-white flex items-center justify-center transition-all cursor-pointer">
+      <button id="auth-modal-close" aria-label="Close authentication modal" class="absolute top-4 sm:top-5 right-4 sm:right-5 w-8 h-8 rounded-full bg-[#1e2235]/60 hover:bg-[#1e2235] text-[#8b90a0] hover:text-white flex items-center justify-center transition-all cursor-pointer">
         <i class="ph ph-x text-base"></i>
       </button>
 
       <!-- Brand Logo Header -->
       <div class="text-center space-y-2 mb-6">
         <div class="inline-flex items-center justify-center gap-2.5">
-          <img src="logo.svg" alt="CYENEX.AI Logo" class="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(0,255,171,0.3)]" />
-          <img src="text.svg" alt="CYENEX.AI" class="h-5 w-auto object-contain" />
+          <img src="logo.svg" alt="CYENEX.AI Logo" class="brand-icon-logo w-7 h-7 sm:w-8 sm:h-8 object-contain drop-shadow-[0_0_10px_rgba(0,255,171,0.3)]" />
+          <img src="text.svg" alt="CYENEX.AI" class="brand-text-logo h-[18px] sm:h-[20px] w-auto object-contain" />
         </div>
         <p id="auth-modal-subtitle" class="text-xs text-[#8b90a0]">Deploy fleet protection in 3 minutes. 14-day free pilot.</p>
       </div>

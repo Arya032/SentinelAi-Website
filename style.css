@@ -31,6 +31,33 @@
   padding: 0;
 }
 
+/* Rock-solid logo brand sizing (immune to Tailwind scale omissions) */
+.brand-text-logo {
+  height: 18px !important;
+  width: auto !important;
+  max-width: 110px !important;
+  object-fit: contain !important;
+  display: inline-block !important;
+}
+
+.brand-icon-logo {
+  width: 26px !important;
+  height: 26px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+@media (min-width: 640px) {
+  .brand-text-logo {
+    height: 22px !important;
+    max-width: 140px !important;
+  }
+  .brand-icon-logo {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
 html, body {
   width: 100%;
   min-height: 100vh;
@@ -184,35 +211,37 @@ html, body {
   transform: translateY(-1px);
 }
 
-/* Primary Emerald Mint Pill Button (#10b981) */
+/* Primary High-Contrast Emerald Mint Button (#10b981 & #00f2fe) */
 .btn-mint {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 38px;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(0, 242, 254, 0.12) 100%);
-  border: 1px solid var(--mint-emerald);
+  gap: 10px;
+  padding: 13px 30px;
+  background: linear-gradient(135deg, #00f2fe 0%, #10b981 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 50px;
-  color: #ffffff;
+  color: #050811 !important;
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.92rem;
-  letter-spacing: 0.05em;
+  font-weight: 800 !important;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25), inset 0 0 12px rgba(16, 185, 129, 0.15);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              background 0.25s ease;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.45), 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.22s ease;
   will-change: transform, box-shadow;
   transform: translateZ(0);
+}
+
+.btn-mint * {
+  color: #050811 !important;
+  font-weight: 800 !important;
 }
 
 .btn-mint::before {
@@ -222,7 +251,7 @@ html, body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
@@ -232,17 +261,52 @@ html, body {
 }
 
 .btn-mint:hover {
-  transform: translateY(-2px) scale(1.035);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.38) 0%, rgba(0, 242, 254, 0.22) 100%);
-  border-color: #34d399;
-  box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.5), 0 0 35px rgba(0, 242, 254, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  transform: translateY(-2px) scale(1.025);
+  filter: brightness(1.08);
+  box-shadow: 0 0 35px rgba(0, 242, 254, 0.7), 0 0 20px rgba(16, 185, 129, 0.6), 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #020408 !important;
 }
 
 .btn-mint:active {
-  transform: translateY(1px) scale(0.98);
-  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
-  transition-duration: 0.08s;
+  transform: translateY(1px) scale(0.975);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+}
+
+/* Sleek Cybernetic Mobile Hamburger Toggle */
+#mobile-menu-toggle {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, rgba(22, 31, 52, 0.95) 0%, rgba(13, 19, 34, 0.95) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+#mobile-menu-toggle:hover {
+  border-color: rgba(16, 185, 129, 0.6) !important;
+  background: linear-gradient(135deg, rgba(28, 42, 72, 0.98) 0%, rgba(17, 26, 48, 0.98) 100%) !important;
+  color: #00f2fe !important;
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+#mobile-menu-toggle:active {
+  transform: scale(0.94) !important;
+}
+
+#mobile-menu-toggle.active {
+  border-color: #00f2fe !important;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.45) !important;
+  color: #00f2fe !important;
 }
 
 /* Translucent Glassmorphism Cards (#0b101d) */
@@ -333,22 +397,63 @@ html, body {
   filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
 }
 
-/* Mobile Responsive Fallback for Speech Cloud */
-@media (max-width: 640px) {
+/* Mobile Responsive Positioning for Speech Cloud (Clean spacing below floating 3D Sentinel) */
+@media (max-width: 767px) {
   #speech-cloud-wrapper {
     position: relative !important;
     transform: none !important;
-    margin: 12px auto 0 auto;
-    width: 92% !important;
+    margin: 205px auto 0 auto !important;
+    width: 100% !important;
     max-width: 100% !important;
     top: auto !important;
     left: auto !important;
+    right: auto !important;
   }
   #speech-tail {
-    top: -12px !important;
+    display: block !important;
+    top: -10px !important;
     left: 50% !important;
     transform: translateX(-50%) rotate(-90deg) !important;
   }
+}
+
+/* Touch Device Optimization: Disable desktop cursor spotlight */
+@media (hover: none), (pointer: coarse) {
+  #cursor-spotlight {
+    display: none !important;
+  }
+}
+
+/* Mobile Navigation Drawer Animations & Glassmorphism */
+#mobile-nav-drawer {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  transform: translateY(-10px);
+}
+#mobile-nav-drawer.open {
+  display: flex !important;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsive Text & Container Utilities */
+.break-word-safe {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 380px) {
+  .btn-mint {
+    padding: 12px 20px !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.02em !important;
+  }
+}
+
+/* Modal Keyboard-Safe Scrollbar */
+#auth-modal-card {
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Markdown & Code Formatting within Speech Console */
@@ -376,5 +481,41 @@ html, body {
 #speech-text li {
   list-style-type: disc;
   margin-bottom: 2px;
+}
+
+/* Pillar 1 Comparison Switcher & Card Transitions */
+.p1-tab-btn {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.p1-tab-legacy-active {
+  background: rgba(244, 63, 94, 0.15) !important;
+  color: #fda4af !important;
+  border-color: rgba(244, 63, 94, 0.4) !important;
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+}
+
+.p1-tab-cyenex-active {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #6ee7b7 !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+@media (max-width: 1023px) {
+  .p1-card-hidden-mobile {
+    display: none !important;
+  }
+}
+
+/* Diagnostic Monospace Terminal Traces */
+.terminal-trace-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
