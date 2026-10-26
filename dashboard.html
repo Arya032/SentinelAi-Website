@@ -314,119 +314,14 @@
             </tr>
           </thead>
           <tbody id="systemsTableBody" class="divide-y divide-[#1e2638]/50 text-xs sm:text-sm">
-            <!-- Row 1: MacBook-Pro-Office -->
-            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="MacBook-Pro-Office">
-              <td class="py-4 px-3 font-medium text-white whitespace-nowrap">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
-                  <span class="group-hover:text-emerald-400 transition-colors">MacBook-Pro-Office</span>
+            <!-- Real device rows injected here by Firebase polling -->
+            <tr id="systems-loading-row">
+              <td colspan="9" class="py-10 text-center">
+                <div class="flex flex-col items-center gap-3">
+                  <div class="w-10 h-10 rounded-full border-2 border-emerald-500/30 border-t-emerald-400 animate-spin"></div>
+                  <p class="text-[#8b90a0] text-sm">Connecting to your devices...</p>
+                  <p class="text-[#64748b] text-xs max-w-xs">Run <b class="text-white">Start-Agent.bat</b> on your PC and log in with the same email to see live data here.</p>
                 </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-cpu-val font-mono text-white text-xs w-12 text-left">6.45%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-cpu-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 18%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-mem-val font-mono text-white text-xs w-12 text-left">36.6%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-mem-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 36.6%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-disk-val font-mono text-white text-xs w-12 text-left">57.6%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-disk-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 57.6%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 text-[#64748b] whitespace-nowrap font-mono">
-                —
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-1.5 text-xs text-white font-mono">
-                  <i class="ph ph-thermometer-simple text-[#10b981]"></i>
-                  <span class="sys-temp-val">42°C</span>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/30">
-                  <i class="ph ph-shield-check text-xs"></i>
-                  <span>Secured</span>
-                </span>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-1.5 text-xs font-medium text-emerald-400">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>
-                  <span>Healthy</span>
-                </div>
-              </td>
-              <td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap">
-                <span class="sys-net-val">2.37 KB/s</span>
-              </td>
-            </tr>
-
-            <!-- Row 2: Ubuntu-Server-02 -->
-            <tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="Ubuntu-Server-02">
-              <td class="py-4 px-3 font-medium text-white whitespace-nowrap">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
-                  <span class="group-hover:text-emerald-400 transition-colors">Ubuntu-Server-02</span>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-cpu-val font-mono text-white text-xs w-12 text-left">30.6%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-cpu-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 30.6%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-mem-val font-mono text-white text-xs w-12 text-left">39.1%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-mem-bar h-full bg-[#10b981] rounded-full transition-all duration-700 ease-out" style="width: 39.1%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <span class="sys-disk-val font-mono text-white text-xs w-12 text-left">94.4%</span>
-                  <div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden flex items-center">
-                    <div class="sys-disk-bar h-full bg-[#ef4444] rounded-full shadow-[0_0_6px_#ef4444] transition-all duration-700 ease-out" style="width: 94.4%;"></div>
-                  </div>
-                </div>
-              </td>
-              <td class="py-4 px-3 text-[#64748b] whitespace-nowrap font-mono">
-                —
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-1.5 text-xs text-white font-mono">
-                  <i class="ph ph-thermometer-simple text-[#f59e0b]"></i>
-                  <span class="sys-temp-val">58°C</span>
-                </div>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/30">
-                  <i class="ph ph-shield-check text-xs"></i>
-                  <span>Guarded</span>
-                </span>
-              </td>
-              <td class="py-4 px-3 whitespace-nowrap">
-                <div class="flex items-center gap-1.5 text-xs font-medium text-amber-400">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_6px_#f59e0b]"></span>
-                  <span>Warning</span>
-                </div>
-              </td>
-              <td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap">
-                <span class="sys-net-val">0.28 KB/s</span>
               </td>
             </tr>
           </tbody>
@@ -851,6 +746,12 @@
           ? '<div class="flex items-center gap-1.5 text-xs font-medium text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span><span>Healthy</span></div>'
           : '<div class="flex items-center gap-1.5 text-xs font-medium text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_6px_#f59e0b]"></span><span>Warning</span></div>';
 
+        // Stop button for each device
+        var onlineStatus = online ? '' : ' style="opacity:0.5"';
+        var stopBtn = online
+          ? '<button onclick="stopDevice(\''+deviceName+'\'" type="button" class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-[#ef4444]/15 hover:bg-[#ef4444]/30 text-[#f87171] text-[10px] font-bold border border-[#ef4444]/30 transition-all cursor-pointer active:scale-95"><i class="ph ph-stop-circle text-xs"></i>Stop</button>'
+          : '<span class="text-[10px] text-[#64748b] font-mono">Offline</span>';
+
         return '<tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="' + deviceName + '">' +
           '<td class="py-4 px-3 font-medium text-white whitespace-nowrap"><div class="flex items-center gap-2.5">' +
           '<span class="w-2 h-2 rounded-full" style="background:' + dotColor + ';box-shadow:0 0 8px ' + dotColor + '"></span>' +
@@ -865,7 +766,8 @@
           '<td class="py-4 px-3 whitespace-nowrap"><div class="flex items-center gap-1.5 text-xs text-white font-mono"><i class="ph ph-thermometer-simple text-[#10b981]"></i><span>—</span></div></td>' +
           '<td class="py-4 px-3 whitespace-nowrap">' + secBadge + '</td>' +
           '<td class="py-4 px-3 whitespace-nowrap">' + healthBadge + '</td>' +
-          '<td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap"><span>' + threats + ' blocked</span></td>' +
+          '<td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap"><div class="flex items-center gap-2">' +
+          '<span>' + threats + ' blocked</span>' + stopBtn + '</div></td>' +
         '</tr>';
       }
 
@@ -876,15 +778,93 @@
         return 'bg-[#00f2fe]/15 border-[#00f2fe]/30 text-[#38bdf8]';
       }
 
+      // ── Browser Notifications ─────────────────────────────────────────────
+      (function requestNotifPermission() {
+        if ('Notification' in window && Notification.permission === 'default') {
+          Notification.requestPermission();
+        }
+      })();
+
+      function showThreatNotification(t) {
+        // Browser notification
+        if ('Notification' in window && Notification.permission === 'granted') {
+          try {
+            new Notification('⚠️ Threat Blocked — ' + (t.severity || 'Alert'), {
+              body: (t.hostname || 'Your PC') + ': ' + (t.threat_type || '') + ' → ' + (t.file_name || t.details || ''),
+              icon: 'logo.svg'
+            });
+          } catch(e) {}
+        }
+        // In-page toast popup
+        showThreatToast(t);
+      }
+
+      function showThreatToast(t) {
+        var existing = document.getElementById('sentinel-threat-toast');
+        if (existing) existing.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'sentinel-threat-toast';
+        toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:99999;max-width:360px;width:100%;' +
+          'background:#0b101d;border:1px solid rgba(239,68,68,0.5);border-radius:16px;padding:16px;' +
+          'box-shadow:0 0 40px rgba(239,68,68,0.2);font-family:sans-serif;color:#f1f5f9;' +
+          'animation:slideInToast 0.3s ease-out;';
+
+        var sev = t.severity || 'Alert';
+        var sevColor = sev === 'Critical' ? '#ef4444' : sev === 'High' ? '#f97316' : sev === 'Medium' ? '#f59e0b' : '#38bdf8';
+
+        toast.innerHTML =
+          '<div style="display:flex;align-items:flex-start;gap:12px;">' +
+          '<div style="width:36px;height:36px;border-radius:10px;background:rgba(239,68,68,0.15);' +
+          'border:1px solid rgba(239,68,68,0.3);display:flex;align-items:center;justify-content:center;' +
+          'font-size:18px;flex-shrink:0;">🛡️</div>' +
+          '<div style="flex:1;min-width:0;">' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
+          '<span style="font-weight:700;font-size:0.875rem;">Threat Blocked</span>' +
+          '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid;background:' + sevColor + '20;color:' + sevColor + ';border-color:' + sevColor + '50;">' + sev + '</span>' +
+          '<button onclick="document.getElementById(\'sentinel-threat-toast\').remove()" ' +
+          'style="margin-left:auto;background:none;border:none;color:#64748b;cursor:pointer;font-size:1rem;padding:0;">✕</button></div>' +
+          '<div style="font-size:0.8rem;color:#94a3b8;margin-bottom:2px;">' + (t.hostname || 'Your PC') + '</div>' +
+          '<div style="font-size:0.8rem;color:#e2e8f0;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
+          (t.threat_type || '') + ': ' + (t.file_name || t.details || '') + '</div>' +
+          '<div style="font-size:0.75rem;color:#10b981;margin-top:6px;">✓ Quarantined automatically</div>' +
+          '</div></div>';
+
+        document.body.appendChild(toast);
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 8000);
+      }
+
+      // CSS for toast animation
+      var toastStyle = document.createElement('style');
+      toastStyle.textContent = '@keyframes slideInToast { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }';
+      document.head.appendChild(toastStyle);
+
+      // ── Remote Stop Device ────────────────────────────────────────────────
+      async function stopDevice(deviceName) {
+        if (!_currentUser || !_currentUser.email) return;
+        if (!confirm('Stop SentinelAI on "' + deviceName + '"?\n\nThe agent will shut down within 30 seconds.')) return;
+        var uid = emailToUserId(_currentUser.email);
+        var stopUrl = FIREBASE_DB + '/users/' + uid + '/devices/' + deviceName + '/commands/stop.json';
+        try {
+          await fetch(stopUrl, { method: 'PUT', body: 'true', headers: { 'Content-Type': 'application/json' } });
+          showThreatToast({ severity: 'Low', hostname: deviceName, threat_type: 'Stop Command Sent', file_name: 'Agent will stop within 30 seconds', details: '' });
+        } catch(e) {
+          alert('Could not send stop command. Check your connection.');
+        }
+      }
+
       // Insert a real threat row into the live feed table
-      function insertRealThreat(key, t, tbody) {
+      function insertRealThreat(key, t, tbody, isNew) {
         if (_seenThreatKeys.has(key)) return;
         _seenThreatKeys.add(key);
+
+        // Show notification only for genuinely new threats (not history on page load)
+        if (isNew) showThreatNotification(t);
 
         var sev = t.severity || 'Low';
         var badgeCls = getSeverityBadgeClass(sev);
         var tr = document.createElement('tr');
-        tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-[#1f293d]/50 bg-[#10b981]/5 transition-all duration-700';
+        tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-[#1f293d]/50' + (isNew ? ' bg-[#10b981]/5' : '') + ' transition-all duration-700';
         tr.innerHTML =
           '<td class="py-4 px-3 text-[#94a3b8] font-mono text-xs whitespace-nowrap">' + (t.timestamp || '') + '</td>' +
           '<td class="py-4 px-3 whitespace-nowrap"><div class="inline-flex items-center gap-2">' +
@@ -896,7 +876,7 @@
           '<td class="py-4 px-3 text-right pr-4"><button type="button" class="view-threat-btn inline-flex items-center gap-1.5 text-xs font-bold bg-[#10b981] hover:bg-[#059669] text-slate-950 px-3.5 py-1.5 rounded-xl shadow-md active:scale-95 transition-all cursor-pointer ml-auto group" data-threat-key="' + key + '"><span>View</span><i class="ph ph-arrow-right-bold text-xs group-hover:translate-x-0.5 transition-transform"></i></button></td>';
 
         tbody.prepend(tr);
-        setTimeout(function() { tr.classList.remove('bg-[#10b981]/5'); }, 1500);
+        if (isNew) setTimeout(function() { tr.classList.remove('bg-[#10b981]/5'); }, 1500);
         while (tbody.children.length > 30) tbody.removeChild(tbody.lastElementChild);
 
         // Update threats counter
@@ -905,51 +885,60 @@
       }
 
       // Main Firebase polling function — called every 30s
+      var _firstPoll = true;
       async function pollFirebaseData() {
         var userEmail = _currentUser && _currentUser.email ? _currentUser.email : null;
         if (!userEmail) return;
         var uid = emailToUserId(userEmail);
 
         try {
-          // Fetch all devices for this user
           var devRes = await fetch(FIREBASE_DB + '/users/' + uid + '/devices.json');
           if (devRes.ok) {
             var devices = await devRes.json();
-            if (devices && typeof devices === 'object') {
-              var tbody = document.getElementById('systemsTableBody');
+            var tbody = document.getElementById('systemsTableBody');
+
+            if (!devices || typeof devices !== 'object' || Object.keys(devices).length === 0) {
+              // No devices found — show helpful message
+              if (tbody && _firstPoll) {
+                tbody.innerHTML = '<tr><td colspan="9" class="py-10 text-center">' +
+                  '<div class="flex flex-col items-center gap-3">' +
+                  '<div style="font-size:2rem;">🖥️</div>' +
+                  '<p class="text-[#8b90a0] text-sm font-semibold">No devices connected yet</p>' +
+                  '<p class="text-[#64748b] text-xs max-w-xs">Run <b class="text-white">Start-Agent.bat</b> from the downloaded ZIP on your PC and enter your email <b class="text-emerald-400">' + userEmail + '</b></p>' +
+                  '</div></td></tr>';
+              }
+            } else {
+              // Real devices found! Build rows
               if (tbody) {
                 tbody.innerHTML = '';
                 Object.entries(devices).forEach(function(entry) {
                   var devName = entry[0], devData = entry[1];
-                  var health = devData.health || {};
+                  var health = devData && devData.health ? devData.health : {};
                   tbody.innerHTML += buildSystemRow(devName, health);
                 });
-
-                // Update "monitored fleet" count
-                var fleetEl = document.querySelector('[data-metric="fleet"]');
-                if (!fleetEl) fleetEl = document.querySelector('#metric-fleet-count');
-                // Pulse the live-sync badge
-                var badge = document.getElementById('live-sync-badge');
-                if (badge) {
-                  badge.classList.add('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]');
-                  setTimeout(function() { badge.classList.remove('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]'); }, 800);
-                }
               }
 
-              // Fetch threats for each device and show new ones
+              // Pulse the Live Auto-Sync badge
+              var badge = document.getElementById('live-sync-badge');
+              if (badge) {
+                badge.classList.add('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]');
+                setTimeout(function() { badge.classList.remove('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]'); }, 800);
+              }
+
+              // Fetch threats per device
               var threatTbody = document.getElementById('liveThreatFeed');
               if (threatTbody) {
                 for (var devName in devices) {
-                  var threatsRes = await fetch(FIREBASE_DB + '/users/' + uid + '/devices/' + devName + '/threats.json?orderBy="timestamp"&limitToLast=20');
+                  var threatsRes = await fetch(FIREBASE_DB + '/users/' + uid + '/devices/' + devName + '/threats.json?limitToLast=20');
                   if (threatsRes.ok) {
                     var threats = await threatsRes.json();
                     if (threats && typeof threats === 'object') {
-                      // Sort by newest first
                       var sorted = Object.entries(threats).sort(function(a,b) {
                         return (b[1].timestamp||'').localeCompare(a[1].timestamp||'');
                       });
                       sorted.forEach(function(entry) {
-                        insertRealThreat(entry[0], entry[1], threatTbody);
+                        // isNew = false on first load (don't notify for history), true on subsequent polls
+                        insertRealThreat(entry[0], entry[1], threatTbody, !_firstPoll);
                       });
                     }
                   }
@@ -958,15 +947,14 @@
             }
           }
         } catch(e) {
-          // Silently fail — mock data still shows from injectMockThreat
+          // Network error — keep showing whatever is already there
         }
+        _firstPoll = false;
       }
 
-      // Start polling immediately + every 30 seconds
+      // Poll immediately + every 30 seconds
       pollFirebaseData();
       setInterval(pollFirebaseData, 30000);
-
-
 
     // Live Agent API Linking
     const AGENT_API = "http://127.0.0.1:5000";
