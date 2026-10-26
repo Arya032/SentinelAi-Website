@@ -1415,3 +1415,49 @@ Guidelines:
   });
 })();
 
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SENTINELAI WINDOWS DOWNLOAD — Auto-fetches latest release from GitHub
+───────────────────────────────────────────────────────────────────────────── */
+(function initWindowsDownloadButtons() {
+  const GITHUB_REPO = 'Arya032/SentinelAi-Python';
+  const RELEASES_URL = `https://github.com/${GITHUB_REPO}/releases/latest`;
+
+  const heroBtnLink   = document.getElementById('hero-windows-download-btn');
+  const heroBtnText   = document.getElementById('hero-win-btn-text');
+  const stepBtnLink   = document.getElementById('step-windows-download-btn');
+  const stepBtnText   = document.getElementById('step-win-btn-text');
+  const stepVerBadge  = document.getElementById('step-version-badge');
+
+  // Set fallback links immediately (works even without network)
+  if (heroBtnLink) heroBtnLink.href = RELEASES_URL;
+  if (stepBtnLink) stepBtnLink.href = RELEASES_URL;
+
+  // Try to fetch the actual latest release asset URL
+  fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+
+      const version = data.tag_name || 'v1.0.0';
+
+      // Find the Setup.exe asset
+      const asset = (data.assets || []).find(
+        a => a.name && a.name.toLowerCase().includes('setup') && a.name.endsWith('.exe')
+      );
+      const downloadUrl = asset ? asset.browser_download_url : data.html_url;
+      const sizeMB = asset ? ` · ${(asset.size / 1048576).toFixed(0)} MB` : '';
+
+      // Update hero button
+      if (heroBtnLink) heroBtnLink.href = downloadUrl;
+      if (heroBtnText) heroBtnText.textContent = `Download for Windows  ${version}`;
+
+      // Update step card button
+      if (stepBtnLink) stepBtnLink.href = downloadUrl;
+      if (stepBtnText) stepBtnText.textContent = `Download for Windows (.exe)${sizeMB}`;
+      if (stepVerBadge) stepVerBadge.textContent = version;
+    })
+    .catch(() => {
+      // Silently fall back to releases page link (already set above)
+    });
+})();
