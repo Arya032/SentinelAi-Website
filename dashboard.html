@@ -784,7 +784,12 @@
   </div>
 
   <script>
-      // Load user credentials from localStorage
+      const FIREBASE_DB = 'https://studio-167261963-da656-default-rtdb.firebaseio.com';
+
+      // ── Load user credentials from localStorage ─────────────────────────────
+      var _currentUser = null;
+      var _userId = 'default_user';
+
       (function loadUserData() {
         const savedUser = localStorage.getItem('sentinel_user');
         if (savedUser) {
@@ -793,6 +798,12 @@
             if (user.name === 'Alex Morgan') user.name = 'Arya Waghla';
             if (user.initials === 'AM') user.initials = 'AW';
             localStorage.setItem('sentinel_user', JSON.stringify(user));
+            _currentUser = user;
+
+            // Convert email to Firebase-safe user_id key (same logic as installer)
+            if (user.email) {
+              _userId = user.email.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            }
 
             if (user.name) {
               const heroNameSpan = document.getElementById('dash-user-name-hero');
@@ -811,6 +822,151 @@
           } catch (e) { }
         }
       })();
+
+      // ── Firebase Real-Time Data Integration ────────────────────────────────
+      // Reads the logged-in user's devices and threats from Firebase Realtime DB.
+      // The agent writes to /users/{user_id}/devices/{device}/health and /threats.
+
+      var _seenThreatKeys = new Set();
+
+      function emailToUserId(email) {
+        return (email || '').toLowerCase().replace(/[^a-z0-9]/g, '_');
+      }
+
+      // Build a row for the systems table from a real device health record
+      function buildSystemRow(deviceName, h) {
+        var cpu  = Math.round(h.cpu  || 0);
+        var ram  = Math.round(h.ram  || 0);
+        var disk = Math.round(h.disk || 0);
+        var score = h.security_score || 100;
+        var status = h.health_status || 'SECURED';
+        var online = h.is_online !== false;
+        var threats = h.threats_count || 0;
+        var dotColor = online ? '#10b981' : '#64748b';
+        var diskColor = disk > 85 ? '#ef4444' : disk > 70 ? '#f59e0b' : '#10b981';
+        var secBadge = score >= 90
+          ? '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/30"><i class="ph ph-shield-check text-xs"></i><span>Secured</span></span>'
+          : '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#f59e0b]/15 text-[#fbbf24] border border-[#f59e0b]/30"><i class="ph ph-shield-warning text-xs"></i><span>Guarded</span></span>';
+        var healthBadge = score >= 90
+          ? '<div class="flex items-center gap-1.5 text-xs font-medium text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span><span>Healthy</span></div>'
+          : '<div class="flex items-center gap-1.5 text-xs font-medium text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_6px_#f59e0b]"></span><span>Warning</span></div>';
+
+        return '<tr class="system-row hover:bg-white/[0.02] transition-colors cursor-pointer group" data-system="' + deviceName + '">' +
+          '<td class="py-4 px-3 font-medium text-white whitespace-nowrap"><div class="flex items-center gap-2.5">' +
+          '<span class="w-2 h-2 rounded-full" style="background:' + dotColor + ';box-shadow:0 0 8px ' + dotColor + '"></span>' +
+          '<span class="group-hover:text-emerald-400 transition-colors">' + deviceName + '</span></div></td>' +
+          '<td class="py-4 px-3 whitespace-nowrap"><div class="flex items-center gap-2"><span class="font-mono text-white text-xs w-12 text-left">' + cpu + '%</span>' +
+          '<div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden"><div class="h-full bg-[#10b981] rounded-full transition-all duration-700" style="width:' + Math.min(cpu,100) + '%"></div></div></div></td>' +
+          '<td class="py-4 px-3 whitespace-nowrap"><div class="flex items-center gap-2"><span class="font-mono text-white text-xs w-12 text-left">' + ram + '%</span>' +
+          '<div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden"><div class="h-full bg-[#10b981] rounded-full transition-all duration-700" style="width:' + Math.min(ram,100) + '%"></div></div></div></td>' +
+          '<td class="py-4 px-3 whitespace-nowrap"><div class="flex items-center gap-2"><span class="font-mono text-white text-xs w-12 text-left">' + disk + '%</span>' +
+          '<div class="w-12 sm:w-14 h-2.5 bg-[#202738] rounded-full p-[1px] overflow-hidden"><div class="h-full rounded-full transition-all duration-700" style="width:' + Math.min(disk,100) + '%;background:' + diskColor + '"></div></div></div></td>' +
+          '<td class="py-4 px-3 text-[#64748b] whitespace-nowrap font-mono">—</td>' +
+          '<td class="py-4 px-3 whitespace-nowrap"><div class="flex items-center gap-1.5 text-xs text-white font-mono"><i class="ph ph-thermometer-simple text-[#10b981]"></i><span>—</span></div></td>' +
+          '<td class="py-4 px-3 whitespace-nowrap">' + secBadge + '</td>' +
+          '<td class="py-4 px-3 whitespace-nowrap">' + healthBadge + '</td>' +
+          '<td class="py-4 px-3 text-[#cbd5e1] font-mono text-xs whitespace-nowrap"><span>' + threats + ' blocked</span></td>' +
+        '</tr>';
+      }
+
+      function getSeverityBadgeClass(s) {
+        if (s === 'Critical') return 'bg-[#ef4444]/25 border-[#ef4444]/50 text-[#f87171]';
+        if (s === 'High')     return 'bg-[#ef4444]/15 border-[#ef4444]/40 text-[#f87171]';
+        if (s === 'Medium')   return 'bg-[#f59e0b]/15 border-[#f59e0b]/40 text-[#fbbf24]';
+        return 'bg-[#00f2fe]/15 border-[#00f2fe]/30 text-[#38bdf8]';
+      }
+
+      // Insert a real threat row into the live feed table
+      function insertRealThreat(key, t, tbody) {
+        if (_seenThreatKeys.has(key)) return;
+        _seenThreatKeys.add(key);
+
+        var sev = t.severity || 'Low';
+        var badgeCls = getSeverityBadgeClass(sev);
+        var tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors border-b border-[#1f293d]/50 bg-[#10b981]/5 transition-all duration-700';
+        tr.innerHTML =
+          '<td class="py-4 px-3 text-[#94a3b8] font-mono text-xs whitespace-nowrap">' + (t.timestamp || '') + '</td>' +
+          '<td class="py-4 px-3 whitespace-nowrap"><div class="inline-flex items-center gap-2">' +
+          '<span class="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span>' +
+          '<span class="text-white font-medium text-xs font-mono">' + (t.hostname || t.device_name || '—') + '</span></div></td>' +
+          '<td class="py-4 px-3 text-white font-medium text-xs sm:text-sm break-words">🛡️ ' + (t.threat_type || '') + ': ' + (t.file_name || t.details || '') + '</td>' +
+          '<td class="py-4 px-3 text-center"><span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-bold border shadow-sm ' + badgeCls + '">' + sev + '</span></td>' +
+          '<td class="py-4 px-3 text-center"><span class="inline-flex items-center justify-center px-3.5 py-0.5 rounded-full text-xs font-medium bg-[#1e293b] border border-white/5 text-[#94a3b8]">Blocked</span></td>' +
+          '<td class="py-4 px-3 text-right pr-4"><button type="button" class="view-threat-btn inline-flex items-center gap-1.5 text-xs font-bold bg-[#10b981] hover:bg-[#059669] text-slate-950 px-3.5 py-1.5 rounded-xl shadow-md active:scale-95 transition-all cursor-pointer ml-auto group" data-threat-key="' + key + '"><span>View</span><i class="ph ph-arrow-right-bold text-xs group-hover:translate-x-0.5 transition-transform"></i></button></td>';
+
+        tbody.prepend(tr);
+        setTimeout(function() { tr.classList.remove('bg-[#10b981]/5'); }, 1500);
+        while (tbody.children.length > 30) tbody.removeChild(tbody.lastElementChild);
+
+        // Update threats counter
+        var countElem = document.getElementById('metric-threats-count');
+        if (countElem) countElem.innerText = parseInt(countElem.innerText || '0', 10) + 1;
+      }
+
+      // Main Firebase polling function — called every 30s
+      async function pollFirebaseData() {
+        var userEmail = _currentUser && _currentUser.email ? _currentUser.email : null;
+        if (!userEmail) return;
+        var uid = emailToUserId(userEmail);
+
+        try {
+          // Fetch all devices for this user
+          var devRes = await fetch(FIREBASE_DB + '/users/' + uid + '/devices.json');
+          if (devRes.ok) {
+            var devices = await devRes.json();
+            if (devices && typeof devices === 'object') {
+              var tbody = document.getElementById('systemsTableBody');
+              if (tbody) {
+                tbody.innerHTML = '';
+                Object.entries(devices).forEach(function(entry) {
+                  var devName = entry[0], devData = entry[1];
+                  var health = devData.health || {};
+                  tbody.innerHTML += buildSystemRow(devName, health);
+                });
+
+                // Update "monitored fleet" count
+                var fleetEl = document.querySelector('[data-metric="fleet"]');
+                if (!fleetEl) fleetEl = document.querySelector('#metric-fleet-count');
+                // Pulse the live-sync badge
+                var badge = document.getElementById('live-sync-badge');
+                if (badge) {
+                  badge.classList.add('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]');
+                  setTimeout(function() { badge.classList.remove('border-emerald-400', 'shadow-[0_0_22px_rgba(16,185,129,0.35)]'); }, 800);
+                }
+              }
+
+              // Fetch threats for each device and show new ones
+              var threatTbody = document.getElementById('liveThreatFeed');
+              if (threatTbody) {
+                for (var devName in devices) {
+                  var threatsRes = await fetch(FIREBASE_DB + '/users/' + uid + '/devices/' + devName + '/threats.json?orderBy="timestamp"&limitToLast=20');
+                  if (threatsRes.ok) {
+                    var threats = await threatsRes.json();
+                    if (threats && typeof threats === 'object') {
+                      // Sort by newest first
+                      var sorted = Object.entries(threats).sort(function(a,b) {
+                        return (b[1].timestamp||'').localeCompare(a[1].timestamp||'');
+                      });
+                      sorted.forEach(function(entry) {
+                        insertRealThreat(entry[0], entry[1], threatTbody);
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } catch(e) {
+          // Silently fail — mock data still shows from injectMockThreat
+        }
+      }
+
+      // Start polling immediately + every 30 seconds
+      pollFirebaseData();
+      setInterval(pollFirebaseData, 30000);
+
+
 
     // Live Agent API Linking
     const AGENT_API = "http://127.0.0.1:5000";
