@@ -1,4 +1,4 @@
-/**
+﻿/**
  * main.js  |  SentinelAI — Ambient Background Canvas + Dedicated 3D Robot Viewport
  * ─────────────────────────────────────────────────────────────────────────────
  * 1. #webgl-canvas (z-index: 0): Ambient Fluid Aura & Floating Particles (No Text Overlap)
@@ -1416,48 +1416,53 @@ Guidelines:
 })();
 
 
+
 /* ─────────────────────────────────────────────────────────────────────────────
    SENTINELAI WINDOWS DOWNLOAD — Auto-fetches latest release from GitHub
 ───────────────────────────────────────────────────────────────────────────── */
 (function initWindowsDownloadButtons() {
-  const GITHUB_REPO = 'Arya032/SentinelAi-Python';
-  const RELEASES_URL = `https://github.com/${GITHUB_REPO}/releases/latest`;
+  var GITHUB_REPO = 'Arya032/SentinelAi-Python';
+  var RELEASES_URL = 'https://github.com/' + GITHUB_REPO + '/releases/latest';
+  var heroBtnLink  = document.getElementById('hero-windows-download-btn');
+  var heroBtnText  = document.getElementById('hero-win-btn-text');
+  var stepBtnLink  = document.getElementById('step-windows-download-btn');
+  var stepBtnText  = document.getElementById('step-win-btn-text');
+  var stepVerBadge = document.getElementById('step-version-badge');
 
-  const heroBtnLink   = document.getElementById('hero-windows-download-btn');
-  const heroBtnText   = document.getElementById('hero-win-btn-text');
-  const stepBtnLink   = document.getElementById('step-windows-download-btn');
-  const stepBtnText   = document.getElementById('step-win-btn-text');
-  const stepVerBadge  = document.getElementById('step-version-badge');
-
-  // Set fallback links immediately (works even without network)
   if (heroBtnLink) heroBtnLink.href = RELEASES_URL;
   if (stepBtnLink) stepBtnLink.href = RELEASES_URL;
 
-  // Try to fetch the actual latest release asset URL
-  fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
+  fetch('https://api.github.com/repos/' + GITHUB_REPO + '/releases/latest')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
       if (!data) return;
-
-      const version = data.tag_name || 'v1.0.0';
-
-      // Find the Setup.exe asset
-      const asset = (data.assets || []).find(
-        a => a.name && a.name.toLowerCase().includes('setup') && a.name.endsWith('.exe')
-      );
-      const downloadUrl = asset ? asset.browser_download_url : data.html_url;
-      const sizeMB = asset ? ` · ${(asset.size / 1048576).toFixed(0)} MB` : '';
-
-      // Update hero button
+      var version = data.tag_name || 'v1.0.0';
+      var asset = (data.assets || []).find(function(a) {
+        return a.name && a.name.toLowerCase().indexOf('files') >= 0 && a.name.endsWith('.zip');
+      });
+      var downloadUrl = asset ? asset.browser_download_url : data.html_url;
+      var sizeMB = asset ? ' - ' + (asset.size / 1048576).toFixed(0) + ' MB' : '';
       if (heroBtnLink) heroBtnLink.href = downloadUrl;
-      if (heroBtnText) heroBtnText.textContent = `Download for Windows  ${version}`;
-
-      // Update step card button
+      if (heroBtnText) heroBtnText.textContent = 'Download for Windows ' + version;
       if (stepBtnLink) stepBtnLink.href = downloadUrl;
-      if (stepBtnText) stepBtnText.textContent = `Download for Windows (.exe)${sizeMB}`;
+      if (stepBtnText) stepBtnText.textContent = 'Download for Windows (.zip)' + sizeMB;
       if (stepVerBadge) stepVerBadge.textContent = version;
     })
-    .catch(() => {
-      // Silently fall back to releases page link (already set above)
-    });
+    .catch(function() {});
+
+  function showDownloadModal() {
+    var old = document.getElementById('sentinel-dl-modal');
+    if (old) { old.remove(); return; }
+    var modal = document.createElement('div');
+    modal.id = 'sentinel-dl-modal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(7,8,10,0.88);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = '<div style="background:#0b101d;border:1px solid rgba(99,102,241,0.4);border-radius:20px;padding:32px;max-width:440px;width:100%;box-shadow:0 0 60px rgba(99,102,241,0.2);font-family:sans-serif;color:#f1f5f9;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;"><div style="width:40px;height:40px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;font-size:20px;">🛡️</div><div><div style="font-weight:700;font-size:1rem;">Downloading SentinelAI</div><div style="font-size:0.75rem;color:#94a3b8;">Follow 3 quick steps to install</div></div><button onclick="document.getElementById(\"sentinel-dl-modal\").remove()" style="margin-left:auto;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1.6rem;line-height:1;">x</button></div><div style="display:flex;flex-direction:column;gap:10px;"><div style="display:flex;gap:12px;padding:14px;background:#111827;border-radius:12px;border:1px solid #1e2235;"><div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;">1</div><div><div style="font-weight:600;margin-bottom:3px;">Open your Downloads folder</div><div style="color:#94a3b8;font-size:0.8rem;">Find <b style="color:#fff;">SentinelAI-Files.zip</b> and extract it</div></div></div><div style="display:flex;gap:12px;padding:14px;background:#111827;border-radius:12px;border:1px solid #1e2235;"><div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;">2</div><div><div style="font-weight:600;margin-bottom:3px;">Extract the ZIP</div><div style="color:#94a3b8;font-size:0.8rem;">Right-click the ZIP → <b style="color:#fff;">Extract All</b> → open folder</div></div></div><div style="display:flex;gap:12px;padding:14px;background:#111827;border-radius:12px;border:1px solid rgba(16,185,129,0.3);"><div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;">3</div><div><div style="font-weight:600;margin-bottom:3px;">Run the installer</div><div style="color:#94a3b8;font-size:0.8rem;">Right-click <b style="color:#fff;">Install-SentinelAI.ps1</b> → <b style="color:#10b981;">Run with PowerShell</b></div></div></div></div><div style="margin-top:16px;padding:12px;background:rgba(16,185,129,0.08);border-radius:10px;border:1px solid rgba(16,185,129,0.2);font-size:0.78rem;color:#6ee7b7;text-align:center;">SentinelAI will run silently in background — starting at every boot, forever.</div></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
+  }
+
+  ['hero-windows-download-btn', 'step-windows-download-btn'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function() { setTimeout(showDownloadModal, 800); });
+  });
 })();
