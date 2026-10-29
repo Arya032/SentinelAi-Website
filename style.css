@@ -570,3 +570,41 @@ html, body {
   font-family: "Phosphor", sans-serif;
   font-style: normal;
 }
+
+/* ── CSS Sentinel Robot Animations ─────────────────────────────────────────── */
+@keyframes sentinelFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+@keyframes sentinelEyePulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px #00f2fe); }
+  50%       { opacity: 0.5; filter: drop-shadow(0 0 2px #00f2fe); }
+}
+@keyframes sentinelScanline {
+  0%   { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(34px); opacity: 0.2; }
+}
+@keyframes sentinelReactorPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 20px #00f2fe, 0 0 40px rgba(0,242,254,0.5), 0 0 80px rgba(0,242,254,0.2); }
+  50%       { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 30px #00f2fe, 0 0 60px rgba(0,242,254,0.7), 0 0 100px rgba(0,242,254,0.3); }
+}
+@keyframes sentinelRingPulse {
+  0%, 100% { transform: translate(-50%,-50%) scale(1);    opacity: 0.55; }
+  50%       { transform: translate(-50%,-50%) scale(1.18); opacity: 0.2; }
+}
+@keyframes sentinelOrbitalRing {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg); }
+  to   { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(360deg); }
+}
+@keyframes sentinelFlamePulse {
+  0%   { height: 22px; opacity: 0.75; }
+  100% { height: 34px; opacity: 1; }
+}
+@keyframes sentinelArmBob {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(6deg); }
+}
+@keyframes sentinelHaloSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

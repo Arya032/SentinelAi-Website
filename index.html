@@ -350,6 +350,161 @@
         
         <!-- Three.js Canvas Strictly Covering Background / Left Side -->
         <canvas id="robot-webgl-canvas" class="w-full h-full absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-auto z-0"></canvas>
+        <!-- CSS Sentinel Robot (guaranteed render, replaces Three.js canvas) -->
+        <div id="sentinel-robot-css"
+             class="hidden md:flex absolute left-4 lg:left-10 top-1/2 z-10 flex-col items-center justify-center select-none pointer-events-none"
+             style="transform: translateY(-52%); width: 210px; height: 420px;">
+
+          <!-- Float wrapper -->
+          <div style="animation: sentinelFloat 3.6s ease-in-out infinite; position: relative; width: 210px; display: flex; flex-direction: column; align-items: center;">
+
+            <!-- Orbital defense ring (CSS 3D) -->
+            <div style="position: absolute; top: 46%; left: 50%;
+                        width: 260px; height: 90px;
+                        transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg);
+                        border: 1.5px solid rgba(0,242,254,0.35); border-radius: 50%;
+                        animation: sentinelOrbitalRing 9s linear infinite;
+                        pointer-events: none;"></div>
+
+            <!-- ── HEAD ─────────────────────────────────────────────── -->
+            <div style="position: relative; width: 120px; height: 100px;
+                        background: linear-gradient(160deg, #f8fafc 0%, #cbd5e1 100%);
+                        border-radius: 54% 54% 44% 44% / 58% 58% 42% 42%;
+                        box-shadow: 0 0 22px rgba(0,242,254,0.12), inset 0 -4px 12px rgba(0,0,0,0.2);">
+
+              <!-- Top crest fin -->
+              <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+                          width: 9px; height: 18px; background: #090d16; border-radius: 4px 4px 0 0;"></div>
+
+              <!-- Visor -->
+              <div style="position: absolute; top: 26px; left: 12px; right: 12px; height: 42px;
+                          background: #030712; border-radius: 18px; overflow: hidden;
+                          box-shadow: inset 0 2px 10px rgba(0,242,254,0.15);">
+                <!-- Eyes -->
+                <div style="display: flex; justify-content: space-around; align-items: center; padding: 11px 14px 0;">
+                  <div style="width: 26px; height: 7px; background: #00f2fe; border-radius: 3px;
+                              box-shadow: 0 0 10px #00f2fe, 0 0 22px rgba(0,242,254,0.6);
+                              animation: sentinelEyePulse 2.2s ease-in-out infinite;"></div>
+                  <div style="width: 26px; height: 7px; background: #00f2fe; border-radius: 3px;
+                              box-shadow: 0 0 10px #00f2fe, 0 0 22px rgba(0,242,254,0.6);
+                              animation: sentinelEyePulse 2.2s ease-in-out infinite 0.4s;"></div>
+                </div>
+                <!-- Scanline -->
+                <div style="position: absolute; left: 0; right: 0; top: 0; height: 2px;
+                            background: rgba(0,242,254,0.55);
+                            animation: sentinelScanline 1.8s ease-in-out infinite;"></div>
+              </div>
+
+              <!-- Left ear sensor -->
+              <div style="position: absolute; top: 18px; left: -18px; width: 20px; height: 38px;
+                          background: #090d16; border-radius: 10px 0 0 10px;">
+                <div style="width: 10px; height: 10px; background: #00f2fe; border-radius: 50%;
+                            margin: 14px auto; box-shadow: 0 0 8px #00f2fe;
+                            animation: sentinelEyePulse 2.2s ease-in-out infinite 1s;"></div>
+              </div>
+              <!-- Right ear sensor -->
+              <div style="position: absolute; top: 18px; right: -18px; width: 20px; height: 38px;
+                          background: #090d16; border-radius: 0 10px 10px 0;">
+                <div style="width: 10px; height: 10px; background: #00f2fe; border-radius: 50%;
+                            margin: 14px auto; box-shadow: 0 0 8px #00f2fe;
+                            animation: sentinelEyePulse 2.2s ease-in-out infinite 0.7s;"></div>
+              </div>
+            </div>
+
+            <!-- ── NECK ──────────────────────────────────────────────── -->
+            <div style="width: 44px; height: 18px; background: #090d16; border-radius: 0 0 6px 6px;
+                        border-top: 2px solid #00f2fe; box-shadow: 0 0 8px rgba(0,242,254,0.5);"></div>
+
+            <!-- ── TORSO ─────────────────────────────────────────────── -->
+            <div style="position: relative; width: 130px; height: 148px;
+                        background: linear-gradient(170deg, #f8fafc 0%, #cbd5e1 100%);
+                        border-radius: 18px;
+                        box-shadow: 0 0 24px rgba(0,242,254,0.1), inset 0 -6px 16px rgba(0,0,0,0.2);">
+
+              <!-- Shoulder left -->
+              <div style="position: absolute; top: -2px; left: -30px; width: 30px; height: 40px;
+                          background: #090d16; border-radius: 15px 0 0 15px;
+                          box-shadow: -4px 0 10px rgba(0,0,0,0.4);"></div>
+              <!-- Shoulder right -->
+              <div style="position: absolute; top: -2px; right: -30px; width: 30px; height: 40px;
+                          background: #090d16; border-radius: 0 15px 15px 0;
+                          box-shadow: 4px 0 10px rgba(0,0,0,0.4);"></div>
+
+              <!-- Dark chest panel -->
+              <div style="position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px;
+                          background: #090d16; border-radius: 12px; overflow: hidden;">
+
+                <!-- Sternum plate -->
+                <div style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+                            width: 28px; height: 68px; background: #0c1526; border-radius: 6px;"></div>
+
+                <!-- Hex Reactor Core -->
+                <div style="position: absolute; top: 50%; left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 34px; height: 34px; background: #00f2fe;
+                            clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+                            animation: sentinelReactorPulse 2.1s ease-in-out infinite;"></div>
+
+                <!-- Reactor halo ring -->
+                <div style="position: absolute; top: 50%; left: 50%;
+                            width: 56px; height: 56px; margin: 0;
+                            border: 1.5px solid rgba(0,242,254,0.6); border-radius: 50%;
+                            animation: sentinelRingPulse 2.1s ease-in-out infinite;"></div>
+
+                <!-- Bottom circuit lines -->
+                <div style="position: absolute; bottom: 16px; left: 10px; right: 10px; height: 1px; background: rgba(0,242,254,0.25);"></div>
+                <div style="position: absolute; bottom: 22px; left: 18px; right: 18px; height: 1px; background: rgba(0,242,254,0.15);"></div>
+              </div>
+
+              <!-- Left arm -->
+              <div style="position: absolute; top: 42px; left: -54px; width: 22px; height: 88px;
+                          background: linear-gradient(180deg, #f8fafc, #cbd5e1);
+                          border-radius: 11px; transform-origin: top center;
+                          animation: sentinelArmBob 3.6s ease-in-out infinite;
+                          box-shadow: inset 0 -4px 8px rgba(0,0,0,0.2);"></div>
+              <div style="position: absolute; top: 128px; left: -54px; width: 22px; height: 30px;
+                          background: #090d16; border-radius: 8px;"></div>
+
+              <!-- Right arm -->
+              <div style="position: absolute; top: 42px; right: -54px; width: 22px; height: 88px;
+                          background: linear-gradient(180deg, #f8fafc, #cbd5e1);
+                          border-radius: 11px;
+                          box-shadow: inset 0 -4px 8px rgba(0,0,0,0.2);"></div>
+              <div style="position: absolute; top: 128px; right: -54px; width: 22px; height: 30px;
+                          background: #090d16; border-radius: 8px;"></div>
+            </div>
+
+            <!-- ── WAIST ──────────────────────────────────────────────── -->
+            <div style="width: 96px; height: 26px; background: #090d16; border-radius: 0 0 10px 10px;
+                        box-shadow: 0 4px 10px rgba(0,0,0,0.4);"></div>
+
+            <!-- ── LEGS / THRUSTERS ──────────────────────────────────── -->
+            <div style="display: flex; gap: 14px; margin-top: 0;">
+              <div style="width: 30px; height: 44px; background: linear-gradient(180deg, #f8fafc, #cbd5e1);
+                          border-radius: 15px; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.2);"></div>
+              <div style="width: 30px; height: 44px; background: linear-gradient(180deg, #f8fafc, #cbd5e1);
+                          border-radius: 15px; box-shadow: inset 0 -4px 8px rgba(0,0,0,0.2);"></div>
+            </div>
+
+            <!-- Thruster nozzles -->
+            <div style="display: flex; gap: 14px; margin-top: 0;">
+              <div style="width: 24px; height: 12px; background: #090d16; border-radius: 0 0 12px 12px;"></div>
+              <div style="width: 24px; height: 12px; background: #090d16; border-radius: 0 0 12px 12px;"></div>
+            </div>
+
+            <!-- Thruster flame glow -->
+            <div style="display: flex; gap: 26px; margin-top: 2px;">
+              <div style="width: 18px; background: linear-gradient(to bottom, #00f2fe, rgba(0,242,254,0));
+                          border-radius: 0 0 50% 50%; box-shadow: 0 4px 18px rgba(0,242,254,0.9);
+                          animation: sentinelFlamePulse 0.55s ease-in-out infinite alternate;"></div>
+              <div style="width: 18px; background: linear-gradient(to bottom, #00f2fe, rgba(0,242,254,0));
+                          border-radius: 0 0 50% 50%; box-shadow: 0 4px 18px rgba(0,242,254,0.9);
+                          animation: sentinelFlamePulse 0.55s ease-in-out infinite alternate 0.28s;"></div>
+            </div>
+
+          </div><!-- /float wrapper -->
+        </div><!-- /sentinel-robot-css -->
+
         
         <!-- Floating Live Status Badge (Centered on mobile, left on desktop) -->
         <div class="absolute top-3 sm:top-5 left-1/2 -translate-x-1/2 sm:left-5 sm:translate-x-0 z-20 flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#07080a]/90 border border-[#1e2235] backdrop-blur-md text-xs font-heading shadow-lg max-w-[calc(100%-24px)] whitespace-nowrap">
