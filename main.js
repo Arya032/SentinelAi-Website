@@ -157,13 +157,16 @@ updateSpotlight();
   camera.position.set(0, 0, 7.0);
 
   // Lighting for Cute Robot
-  scene.add(new THREE.AmbientLight(0x0e1424, 2.2));
+  scene.add(new THREE.AmbientLight(0x1a2a4a, 3.8)); // boosted so robot is visible against dark bg
 
-  const keyLight = new THREE.DirectionalLight(0xb0d8ff, 2.8);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 4.5); // brightened
   keyLight.position.set(4, 6, 5);
   scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0x00f2fe, 1.2);
+  const fillLight = new THREE.DirectionalLight(0x00f2fe, 2.0);
+  const frontLight = new THREE.DirectionalLight(0xffffff, 3.0);
+  frontLight.position.set(0, 2, 8); // directly toward the camera = frontal lighting
+  scene.add(frontLight);
   fillLight.position.set(-5, -2, 3);
   scene.add(fillLight);
 
@@ -551,6 +554,26 @@ updateSpotlight();
   }
 
   tick();
+
+  // Fix: re-sync renderer size after Tailwind CSS + fonts finish layout.
+  // Three.js initializes before Tailwind applies min-h classes, so container
+  // height can be 0. A tiny delay lets the browser do a full layout pass.
+  function resizeRobotRenderer() {
+    var w = container.clientWidth || window.innerWidth;
+    var h = container.clientHeight || 580;
+    if (h < 100) h = 580; // fallback if still not laid out
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    updateRobotLayoutPosition();
+  }
+
+  // Try at 50ms, 200ms, and 600ms to catch all timing scenarios
+  setTimeout(resizeRobotRenderer, 50);
+  setTimeout(resizeRobotRenderer, 200);
+  setTimeout(resizeRobotRenderer, 600);
+  window.addEventListener('load', resizeRobotRenderer);
 
   window.addEventListener('resize', () => {
     const w = container.clientWidth || window.innerWidth;
