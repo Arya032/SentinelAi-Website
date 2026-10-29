@@ -1,4 +1,4 @@
-/* style.css — SentinelAI 4D Sentinel-Robot Aesthetic */
+﻿/* style.css — SentinelAI 4D Sentinel-Robot Aesthetic */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
@@ -519,3 +519,54 @@ html, body {
   text-overflow: ellipsis;
 }
 
+
+/* ── Social Proof / Trust Section Premium Styles ───────────────────────────── */
+
+/* Stat card hover glow pulse */
+#trust-section [id^="stat-"] {
+  text-shadow: 0 0 30px currentColor;
+  transition: text-shadow 0.3s ease;
+}
+
+/* Testimonial card quote line accent */
+#trust-section .group:hover p {
+  color: #cbd5e1;
+  transition: color 0.3s;
+}
+
+/* Live threat ticker pulse animation */
+#live-threat-counter {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+  letter-spacing: -0.02em;
+}
+
+/* Nav user dropdown smooth reveal */
+#nav-user-dropdown {
+  transform-origin: top right;
+  animation: none;
+}
+#nav-user-dropdown:not(.hidden) {
+  animation: dropdownFadeIn 0.15s ease-out forwards;
+}
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Nav user avatar ring on hover */
+#nav-user-btn:hover #nav-user-avatar {
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.6);
+}
+
+/* Stat section border fade-in on intersect */
+@keyframes statFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ph-fill star fix */
+.ph-fill.ph-star::before {
+  font-family: "Phosphor", sans-serif;
+  font-style: normal;
+}

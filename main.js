@@ -1533,3 +1533,124 @@ Web Audio API Sound Chime Synthesizer ──────────────
     if (btn) btn.addEventListener('click', handleDownloadClick);
   });
 })();
+/* =============================================================================
+   PREMIUM UX: NAVBAR AUTH STATE, STATS COUNTUP, LIVE THREAT TICKER
+============================================================================= */
+
+// ── 1. Navbar Auth State (show user avatar when logged in) ──────────────────
+(function initNavbarAuthState() {
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem('sentinel_user') || 'null'); } catch(e) {}
+
+  var loginBtn = document.getElementById('nav-login-btn');
+  var userMenu = document.getElementById('nav-user-menu');
+  var userAvatar = document.getElementById('nav-user-avatar');
+  var userName = document.getElementById('nav-user-name');
+  var userBtn = document.getElementById('nav-user-btn');
+  var userDropdown = document.getElementById('nav-user-dropdown');
+  var logoutBtn = document.getElementById('nav-logout-btn');
+
+  if (saved && saved.email) {
+    // Logged in: hide Login, show avatar
+    if (loginBtn) loginBtn.classList.add('hidden');
+    if (userMenu) userMenu.classList.remove('hidden');
+    if (userAvatar) userAvatar.textContent = saved.initials || (saved.name || 'U').substring(0, 2).toUpperCase();
+    if (userName) userName.textContent = (saved.name || saved.email.split('@')[0]).split(' ')[0];
+  } else {
+    if (loginBtn) loginBtn.classList.remove('hidden');
+    if (userMenu) userMenu.classList.add('hidden');
+  }
+
+  // Toggle dropdown
+  if (userBtn && userDropdown) {
+    userBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      userDropdown.classList.toggle('hidden');
+    });
+    document.addEventListener('click', function() {
+      if (userDropdown) userDropdown.classList.add('hidden');
+    });
+  }
+
+  // Logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+      localStorage.removeItem('sentinel_user');
+      localStorage.removeItem('sentinel_token');
+      window.location.reload();
+    });
+  }
+})();
+
+// ── 2. Animated CountUp for Stats ───────────────────────────────────────────
+(function initStatsCountUp() {
+  var started = false;
+
+  function easeOutQuad(t) { return t * (2 - t); }
+
+  function animateStat(el) {
+    var target = parseFloat(el.getAttribute('data-target') || '0');
+    var suffix = el.getAttribute('data-suffix') || '';
+    var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var duration = 1800;
+    var start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = easeOutQuad(progress);
+      var current = eased * target;
+      el.textContent = (decimals > 0 ? current.toFixed(decimals) : Math.round(current)) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function startCountUps() {
+    if (started) return;
+    started = true;
+    document.querySelectorAll('.stat-num').forEach(function(el) {
+      animateStat(el);
+    });
+  }
+
+  // Trigger when the section scrolls into view
+  var trustSection = document.getElementById('trust-section');
+  if (!trustSection) { return; }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { startCountUps(); observer.disconnect(); }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(trustSection);
+  } else {
+    startCountUps();
+  }
+})();
+
+// ── 3. Live Threat Ticker (simulates a real-time global threat counter) ─────
+(function initLiveThreatTicker() {
+  var el = document.getElementById('live-threat-counter');
+  if (!el) return;
+
+  // Start from a realistic base that grows over the day
+  var now = new Date();
+  var secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+  var dailyRate = 1247; // threats blocked per day
+  var perSecond = dailyRate / 86400;
+  var count = Math.floor(secondsToday * perSecond * (0.85 + Math.random() * 0.3));
+
+  el.textContent = count.toLocaleString();
+
+  // Tick up every few seconds to simulate live activity
+  setInterval(function() {
+    var increment = Math.floor(Math.random() * 3) + 1;
+    count += increment;
+    el.textContent = count.toLocaleString();
+    // Brief flash effect
+    el.style.color = '#10b981';
+    setTimeout(function() { el.style.color = '#f87171'; }, 300);
+  }, Math.floor(Math.random() * 4000) + 2000);
+})();
