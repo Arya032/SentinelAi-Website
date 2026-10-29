@@ -1107,95 +1107,125 @@ Guidelines:
     });
   });
 
-  // Form Submissions (Authentication & Server API Database Persistence)
+  // -- Firebase Account Auth (replaces broken /api/login & /api/signup) --------
+  const FIREBASE_DB_ACCOUNTS = 'https://studio-167261963-da656-default-rtdb.firebaseio.com';
+
+  function _emailToKey(email) {
+    return (email || '').toLowerCase().replace(/[^a-z0-9]/g, '_');
+  }
+  function _encode(str) {
+    try { return btoa(unescape(encodeURIComponent(str))); } catch(e) { return btoa(str); }
+  }
+  function _verify(str, encoded) {
+    try { return _encode(str) === encoded; } catch(e) { return false; }
+  }
+
+  async function dbSignup(name, email, password) {
+    const uid = _emailToKey(email);
+    const checkRes = await fetch(`${FIREBASE_DB_ACCOUNTS}/accounts/${uid}.json`);
+    const existing = await checkRes.json();
+    if (existing && existing.email) {
+      throw new Error('An account with this email already exists. Please log in instead.');
+    }
+    const initials = (name || email).split(/\s+/).filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'U';
+    const userRecord = { name, email, password: _encode(password), initials, created_at: new Date().toISOString() };
+    const res = await fetch(`${FIREBASE_DB_ACCOUNTS}/accounts/${uid}.json`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(userRecord)
+    });
+    if (!res.ok) throw new Error('Could not save account. Please check your connection and try again.');
+    const { password: _p, ...safeUser } = userRecord;
+    return { ...safeUser, uid };
+  }
+
+  async function dbLogin(email, password) {
+    const uid = _emailToKey(email);
+    const res = await fetch(`${FIREBASE_DB_ACCOUNTS}/accounts/${uid}.json`);
+    if (!res.ok) throw new Error('Login failed. Please check your connection.');
+    const userData = await res.json();
+    if (!userData || !userData.email) throw new Error('No account found with this email. Please sign up first.');
+    if (!_verify(password, userData.password)) throw new Error('Incorrect password. Please try again.');
+    const { password: _p, ...safeUser } = userData;
+    return { ...safeUser, uid };
+  }
+
+  function showAuthError(msg) {
+    if (authToast && authToastMsg) {
+      authToastMsg.innerHTML = `<span style="color:#f87171">&#9888; ${msg}</span>`;
+      authToast.classList.remove('hidden');
+    } else { alert(msg); }
+  }
+
+  function onAuthSuccess(user, welcomeMsg) {
+    localStorage.setItem('sentinel_user', JSON.stringify(user));
+    if (authToast && authToastMsg) {
+      authToastMsg.innerText = welcomeMsg;
+      authToast.classList.remove('hidden');
+    }
+    if (window.setRobotExpressionState) window.setRobotExpressionState('SAFETY_CONFIRMED', 3000);
+    setTimeout(() => {
+      if (window._pendingDownload) {
+        const dlUrl = window._pendingDownload;
+        window._pendingDownload = null;
+        closeModal();
+        const a = document.createElement('a'); a.href = dlUrl; a.download = '';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => { if (window.showDownloadModal) window.showDownloadModal(); }, 1500);
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }, 1200);
+  }
+
+  // Form: Login
   if (formLogin) {
     formLogin.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const typedName = document.getElementById('login-name-input')?.value.trim();
-      const loginEmailInput = document.getElementById('login-email-input')?.value.trim();
-      const passwordInput = document.getElementById('login-password-input')?.value || 'password123';
-
+      const submitBtn = formLogin.querySelector('button[type="submit"]');
+      const emailVal = document.getElementById('login-email-input')?.value.trim() || '';
+      const passwordVal = document.getElementById('login-password-input')?.value || '';
+      if (!emailVal || !emailVal.includes('@')) { showAuthError('Please enter a valid email address.'); return; }
+      if (!passwordVal) { showAuthError('Please enter your password.'); return; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Logging in...'; }
+      if (authToast) authToast.classList.add('hidden');
       try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: typedName, email: loginEmailInput, password: passwordInput })
-        });
-        const data = await response.json();
-
-        if (data.success && data.user) {
-          localStorage.setItem('sentinel_user', JSON.stringify(data.user));
-          if (data.user.token) localStorage.setItem('sentinel_token', data.user.token);
-
-          if (authToast && authToastMsg) {
-            authToastMsg.innerText = `Welcome back, ${data.user.name}! Redirecting to your Security Dashboard...`;
-            authToast.classList.remove('hidden');
-            if (window.setRobotExpressionState) window.setRobotExpressionState('SAFETY_CONFIRMED', 3000);
-            setTimeout(() => {
-              window.location.href = 'dashboard.html';
-            }, 1000);
-          }
-        } else {
-          alert(data.message || 'Login failed. Please check your credentials.');
-        }
+        const user = await dbLogin(emailVal, passwordVal);
+        onAuthSuccess(user, `Welcome back, ${user.name}! Loading your dashboard...`);
       } catch (err) {
-        // Fallback for standalone file opening
-        const finalName = typedName || loginEmailInput.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        const initials = finalName.split(/\s+/).filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'BO';
-        const userObj = { name: finalName, email: loginEmailInput, initials: initials, modules: { system: true, email: true, cloud: true } };
-        localStorage.setItem('sentinel_user', JSON.stringify(userObj));
-        window.location.href = 'dashboard.html';
+        showAuthError(err.message || 'Login failed. Please try again.');
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<span>Log In to CYENEX.AI</span><i class="ph ph-arrow-right-bold text-sm"></i>'; }
       }
     });
   }
 
+  // Form: Signup
   if (formSignup) {
     formSignup.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const typedName = document.getElementById('signup-name-input')?.value.trim();
-      const emailInput = document.getElementById('signup-email-input')?.value.trim();
-      const passwordInput = document.getElementById('signup-password-input')?.value || 'password123';
-
-      const sysMod = document.getElementById('signup-mod-system')?.checked ?? true;
-      const emailMod = document.getElementById('signup-mod-email')?.checked ?? true;
-      const cloudMod = document.getElementById('signup-mod-cloud')?.checked ?? true;
-      const modulesObj = { system: sysMod, email: emailMod, cloud: cloudMod };
-
+      const submitBtn = formSignup.querySelector('button[type="submit"]');
+      const nameVal = document.getElementById('signup-name-input')?.value.trim() || '';
+      const emailVal = document.getElementById('signup-email-input')?.value.trim() || '';
+      const passwordVal = document.getElementById('signup-password-input')?.value || '';
+      if (!nameVal) { showAuthError('Please enter your full name.'); return; }
+      if (!emailVal || !emailVal.includes('@')) { showAuthError('Please enter a valid email address.'); return; }
+      if (passwordVal.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Creating account...'; }
+      if (authToast) authToast.classList.add('hidden');
       try {
-        const response = await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: typedName, email: emailInput, password: passwordInput, modules: modulesObj })
-        });
-        const data = await response.json();
-
-        if (data.success && data.user) {
-          localStorage.setItem('sentinel_user', JSON.stringify(data.user));
-          if (data.user.token) localStorage.setItem('sentinel_token', data.user.token);
-
-          if (authToast && authToastMsg) {
-            authToastMsg.innerText = `Account created for ${data.user.name}! Loading your Security Dashboard...`;
-            authToast.classList.remove('hidden');
-            if (window.setRobotExpressionState) window.setRobotExpressionState('SAFETY_CONFIRMED', 3000);
-            setTimeout(() => {
-              window.location.href = 'dashboard.html';
-            }, 1000);
-          }
-        } else {
-          alert(data.message || 'Signup failed.');
-        }
+        const user = await dbSignup(nameVal, emailVal, passwordVal);
+        onAuthSuccess(user, `Welcome to CYENEX.AI, ${user.name}! Setting up your dashboard...`);
       } catch (err) {
-        // Fallback for standalone file opening
-        const finalName = typedName || emailInput.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        const initials = finalName.split(/\s+/).filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'BO';
-        const userObj = { name: finalName, email: emailInput, initials: initials, modules: modulesObj };
-        localStorage.setItem('sentinel_user', JSON.stringify(userObj));
-        window.location.href = 'dashboard.html';
+        showAuthError(err.message || 'Sign up failed. Please try again.');
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Create Account & Start Free Trial'; }
       }
     });
   }
 
-  // ─── Web Audio API Sound Chime Synthesizer ─────────────────────────────────
+  // Expose openModal globally so the download gate can use it
+  window.openAuthModal = openModal;
+
+  // Placeholder until initWindowsDownloadButtons runs
+  window.showDownloadModal = null;
+Web Audio API Sound Chime Synthesizer ─────────────────────────────────
   function playAffirmationChime() {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -1416,12 +1446,12 @@ Guidelines:
 })();
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   SENTINELAI WINDOWS DOWNLOAD
+   SENTINELAI WINDOWS DOWNLOAD (Auth-Gated)
 ───────────────────────────────────────────────────────────────────────────── */
 (function initWindowsDownloadButtons() {
   var DIRECT_URL = 'https://github.com/Arya032/SentinelAi-Python/releases/latest/download/SentinelAI-Files.zip';
 
-  // Fetch version label only (for display) - download URL is already hardcoded in HTML
+  // Fetch version label for display
   fetch('https://api.github.com/repos/Arya032/SentinelAi-Python/releases/latest')
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(data) {
@@ -1434,7 +1464,6 @@ Guidelines:
     })
     .catch(function() {});
 
-  // Modal shown 1 second after clicking download
   function showDownloadModal() {
     var existing = document.getElementById('sentinel-dl-modal');
     if (existing) { existing.remove(); return; }
@@ -1444,31 +1473,30 @@ Guidelines:
     modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(7,8,10,0.88);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:20px;';
 
     var card = document.createElement('div');
-    card.style.cssText = 'background:#0b101d;border:1px solid rgba(99,102,241,0.4);border-radius:20px;padding:32px;max-width:440px;width:100%;box-shadow:0 0 60px rgba(99,102,241,0.2);font-family:sans-serif;color:#f1f5f9;';
+    card.style.cssText = 'background:#0b101d;border:1px solid rgba(16,185,129,0.4);border-radius:20px;padding:32px;max-width:440px;width:100%;box-shadow:0 0 60px rgba(16,185,129,0.15);font-family:sans-serif;color:#f1f5f9;';
 
     var header = document.createElement('div');
     header.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:20px;';
-    header.innerHTML = '<div style="width:40px;height:40px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;font-size:20px;">🛡️</div>' +
+    header.innerHTML = '<div style="width:40px;height:40px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;font-size:20px;">\uD83D\uDEE1\uFE0F</div>' +
       '<div><div style="font-weight:700;font-size:1rem;">Downloading SentinelAI...</div>' +
-      '<div style="font-size:0.75rem;color:#94a3b8;">Check your browser download bar</div></div>';
+      '<div style="font-size:0.75rem;color:#94a3b8;">Check your browser download bar below</div></div>';
 
     var closeBtn = document.createElement('button');
-    closeBtn.textContent = '\u2715';
+    closeBtn.textContent = '\u00d7';
     closeBtn.style.cssText = 'margin-left:auto;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px;border-radius:6px;';
     closeBtn.addEventListener('click', function() { modal.remove(); });
     header.appendChild(closeBtn);
 
     var steps = document.createElement('div');
     steps.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
-
     [
-      { n:'1', color:'#6366f1', title:'ZIP is downloading now', sub:'Find <b>SentinelAI-Files.zip</b> in your Downloads folder' },
-      { n:'2', color:'#6366f1', title:'Extract the ZIP', sub:'Right-click it \u2192 <b>Extract All</b> \u2192 open the folder' },
-      { n:'3', color:'#10b981', title:'Run the installer', sub:'Right-click <b>Install-SentinelAI.ps1</b> \u2192 <b style="color:#10b981">Run with PowerShell</b>' }
+      { n:'1', color:'#10b981', title:'ZIP is downloading now', sub:'Find <b>SentinelAI-Files.zip</b> in your Downloads folder' },
+      { n:'2', color:'#10b981', title:'Extract the ZIP', sub:'Right-click it &rarr; <b>Extract All</b> &rarr; open the folder' },
+      { n:'3', color:'#00f2fe', title:'Run Start-Agent.bat', sub:'Double-click <b>Start-Agent.bat</b> and enter your CYENEX.AI email when prompted' }
     ].forEach(function(s) {
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;gap:12px;padding:14px;background:#111827;border-radius:12px;border:1px solid #1e2235;';
-      row.innerHTML = '<div style="min-width:28px;height:28px;border-radius:50%;background:' + s.color + ';display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;">' + s.n + '</div>' +
+      row.innerHTML = '<div style="min-width:28px;height:28px;border-radius:50%;background:' + s.color + ';display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;color:#050811;">' + s.n + '</div>' +
         '<div><div style="font-weight:600;font-size:0.875rem;margin-bottom:3px;">' + s.title + '</div>' +
         '<div style="color:#94a3b8;font-size:0.8rem;">' + s.sub + '</div></div>';
       steps.appendChild(row);
@@ -1476,18 +1504,32 @@ Guidelines:
 
     var note = document.createElement('div');
     note.style.cssText = 'margin-top:16px;padding:12px;background:rgba(16,185,129,0.08);border-radius:10px;border:1px solid rgba(16,185,129,0.2);font-size:0.78rem;color:#6ee7b7;text-align:center;';
-    note.textContent = 'Runs silently in background forever. No Python or coding skills needed.';
+    note.textContent = 'Runs silently in background. Your dashboard will show live PC health within 30 seconds.';
 
-    card.appendChild(header);
-    card.appendChild(steps);
-    card.appendChild(note);
+    card.appendChild(header); card.appendChild(steps); card.appendChild(note);
     modal.appendChild(card);
     document.body.appendChild(modal);
     modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
   }
 
+  // Expose for onAuthSuccess
+  window.showDownloadModal = showDownloadModal;
+
+  function handleDownloadClick(e) {
+    var loggedIn = localStorage.getItem('sentinel_user');
+    if (!loggedIn) {
+      // Not logged in -- gate behind signup, then auto-download after
+      e.preventDefault();
+      window._pendingDownload = DIRECT_URL;
+      if (window.openAuthModal) window.openAuthModal('signup');
+      return;
+    }
+    // Logged in -- let browser proceed, then show instructions
+    setTimeout(showDownloadModal, 1000);
+  }
+
   ['hero-windows-download-btn', 'step-windows-download-btn'].forEach(function(id) {
     var btn = document.getElementById(id);
-    if (btn) btn.addEventListener('click', function() { setTimeout(showDownloadModal, 1000); });
+    if (btn) btn.addEventListener('click', handleDownloadClick);
   });
 })();
